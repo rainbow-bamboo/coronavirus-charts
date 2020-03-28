@@ -2,28 +2,13 @@
   (:require
    [coronavirus-charts.layout :as layout]
    [clojure.java.io :as io]
+   [clojure.string :as string]
    [coronavirus-charts.middleware :as middleware]
    [ring.util.response]
    [ring.util.http-response :as response]
-   [ring.middleware.params :as params]
    [clara.rules :refer :all]))
 
-(defn home-page [request]
-  (layout/render request "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
-
-(defn about-page [request]
-  (println (:query-params request))
-  (layout/render request "about.html"))
-
-(defn home-routes []
-  [""
-   {:middleware [middleware/wrap-csrf
-                 params/wrap-params
-                 middleware/wrap-formats]}
-   ["/" {:get home-page}]
-   ["/t/*" {:get about-page}]
-   ["/about" {:get about-page}]])
-
+(def chart-session (mk-session))
 
 (defrecord WebRequest [url])
 (defrecord ParsedRequest [url arguments])
@@ -43,6 +28,27 @@
 (defquery get-parsed-request
   [:?url]
   [?request <- ParsedRequest (= ?url url)])
+
+
+(defn home-page [request]
+  (layout/render request "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
+
+(defn about-page [request]
+  (println  (string/split (:uri request) #"/"))
+  (layout/render request "about.html"))
+
+(defn chart-page [request]
+  (let [params  (string/split (:uri request) #"/")]
+    (insert chart-session (->ParsedRequest params))
+    (layout/render request "about.html")))
+
+(defn home-routes []
+  [""
+   {:middleware [middleware/wrap-csrf
+                 middleware/wrap-formats]}
+   ["/*" {:get chart-page}]
+   ["/about" {:get about-page}]])
+
 
 (-> (mk-session)
     (insert (->WebRequest "hh.to/tt"))
