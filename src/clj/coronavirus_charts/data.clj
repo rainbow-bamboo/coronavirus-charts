@@ -42,7 +42,7 @@
      (:country_code r)
      (:country_population r)
      (:province r)
-     (:last_updated r)
+     (t/inst (:last_updated r))
      (:coordinates r)
      (:timelines r)
      {:confirmed (:confirmed latest)
@@ -51,22 +51,32 @@
 (def af-report (create-jhu-report (first (get-all-locations))))
 (:country af-report)
 
-(get-in af-report [:timelines :confirmed :latest])
-
-
-(def jhu-reports (map create-jhu-report (get-all-locations)))
+(get-in af-report [:last-updated])
+(def jhu-reports  (map create-jhu-report (get-all-locations)))
 
 (defquery query-country
   [:?country-code]
   [?report <- Report (= ?country-code country-code)])
 
-(defn search-jhu-reports [facts country-code]
-  (let [session (-> (mk-session [query-country])
+(defn search-jhu-reports [country-code]
+  (let [facts  (map create-jhu-report (get-all-locations))
+        session (-> (mk-session [query-country])
                     (insert-all facts)
                     (fire-rules))]
     (query session query-country :?country-code country-code)))
 
-(:country (:?report (first (search-jhu-reports jhu-reports "TT"))))
+(:country (:?report (first (search-jhu-reports "TT"))))
+
+
+(def jhu-session (-> (mk-session [query-country])
+                     (insert-all  (map create-jhu-report (get-all-locations)))
+                     (fire-rules)))
+
+(defn search-reports-by-country [session country-code]
+  (query session query-country :?country-code country-code))
+
+(search-reports-by-country jhu-session "US")
+
 
 
 
