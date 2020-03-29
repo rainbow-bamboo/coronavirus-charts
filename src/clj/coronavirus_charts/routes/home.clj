@@ -8,8 +8,6 @@
    [ring.util.http-response :as response]
    [clara.rules :refer :all]))
 
-(def chart-session (mk-session))
-
 (defrecord WebRequest [url])
 (defrecord ParsedRequest [url arguments])
 
@@ -25,9 +23,13 @@
   =>
   (insert! (->ParsedRequest ?url ["Hello" 9])))
 
-(defquery get-parsed-request
-  [:?url]
-  [?request <- ParsedRequest (= ?url url)])
+(defquery get-parsed-requests
+  []
+  [?request <- ParsedRequest (not (nil? url))])
+
+(def chart-session (mk-session))
+
+(query chart-session get-parsed-requests)
 
 
 (defn home-page [request]
@@ -50,7 +52,7 @@
    ["/about" {:get about-page}]])
 
 
-(-> (mk-session)
-    (insert (->WebRequest "hh.to/tt"))
-    (fire-rules)
-    (get-parsed-request "hh.to/tt"))
+;; (-> (mk-session)
+;;     (insert (->WebRequest "hh.to/tt"))
+;;     (fire-rules)
+;;     (get-parsed-requests))
