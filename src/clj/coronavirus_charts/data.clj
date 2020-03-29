@@ -67,15 +67,31 @@
 
 (:country (:?report (first (search-jhu-reports "TT"))))
 
+(defrule update-reports
+  [Report ()])
+
 
 (def jhu-session (-> (mk-session [query-country])
                      (insert-all  (map create-jhu-report (get-all-locations)))
                      (fire-rules)))
 
 (defn search-reports-by-country [session country-code]
-  (query session query-country :?country-code country-code))
+  (query session query-country "?country-code" country-code))
 
-(search-reports-by-country jhu-session "US")
+
+;; We're making a time test in order to update our sources every 30 minutes
+;; the goal is to develop a rule which will println if time has passed
+
+;; (def sample-time (get-in (first (search-reports-by-country jhu-session "US")) [:?report :last-updated]))
+
+(defn is-old?
+  "Given an tick/inst, returns true if that time is older than a tolerance (mins) "
+  [time tolerance]
+  (> (t/minutes (t/between time (t/inst))) tolerance))
+
+;; (is-old? sample-time 46)
+
+
 
 
 
