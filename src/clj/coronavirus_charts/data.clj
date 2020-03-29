@@ -35,7 +35,7 @@
   "Given the parsed json from the api call, return a Report record"
   [r]
   (let [latest (:latest r)]
-    [Report
+    (Report.
      "Johns Hopkins University"
      "https://github.com/CSSEGISandData/COVID-19"
      (:country r)
@@ -46,12 +46,31 @@
      (:coordinates r)
      (:timelines r)
      {:confirmed (:confirmed latest)
-      :deaths (:deaths latest)}]))
+      :deaths (:deaths latest)})))
 
 (def af-report (create-jhu-report (first (get-all-locations))))
+(:country af-report)
+
+(get-in af-report [:timelines :confirmed :latest])
 
 
-(map create-jhu-report (get-all-locations))
+(def jhu-reports (map create-jhu-report (get-all-locations)))
+
+(defquery query-country
+  [:?country-code]
+  [?report <- Report (= ?country-code country-code)])
+
+(defn search-jhu-reports [facts country-code]
+  (let [session (-> (mk-session [query-country])
+                    (insert-all facts)
+                    (fire-rules))]
+    (query session query-country :?country-code country-code)))
+
+(:country (:?report (first (search-jhu-reports jhu-reports "TT"))))
+
+
+
+
 
 ;; {:id 0,
 ;;  :country "Afghanistan",
