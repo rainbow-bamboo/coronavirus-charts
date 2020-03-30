@@ -58,6 +58,13 @@
   [:?country-code]
   [?report <- Report (= ?country-code country-code)])
 
+;; Rename this
+(defn is-valid?
+  "Given an tick/inst, returns true if that time is within a tolerance (mins) "
+  [time tolerance]
+  (< (t/hours (t/between time (t/inst))) tolerance))
+
+
 (defn search-jhu-reports [country-code]
   (let [facts  (map create-jhu-report (get-all-locations))
         session (-> (mk-session [query-country])
@@ -65,29 +72,36 @@
                     (fire-rules))]
     (query session query-country :?country-code country-code)))
 
-(:country (:?report (first (search-jhu-reports "TT"))))
 
-(defrule update-reports
-  [Report ()])
+;; This does not work.
+;; rules are only fired if
+(defrule update-jhu-reports
+  [:not [Report (is-valid? last-updated 48)]]
+  =>
+  (println "doing an update")
+  (insert-all! (map create-jhu-report (get-all-locations))))
 
 
-(def jhu-session (-> (mk-session [query-country])
+(def jhu-session (-> (mk-session [query-country
+                                  update-jhu-reports])
                      (insert-all  (map create-jhu-report (get-all-locations)))
                      (fire-rules)))
 
 (defn search-reports-by-country [session country-code]
-  (query session query-country "?country-code" country-code))
+  (fire-rules session)
+  (:?report
+   (first (query session query-country  :?country-code country-code))))
+
+
+;; (:latest (search-reports-by-country jhu-session "ES"))
+
 
 
 ;; We're making a time test in order to update our sources every 30 minutes
 ;; the goal is to develop a rule which will println if time has passed
 
-;; (def sample-time (get-in (first (search-reports-by-country jhu-session "US")) [:?report :last-updated]))
+(def sample-time (get-in (first (search-reports-by-country jhu-session "US")) [:?report :last-updated]))
 
-(defn is-old?
-  "Given an tick/inst, returns true if that time is older than a tolerance (mins) "
-  [time tolerance]
-  (> (t/minutes (t/between time (t/inst))) tolerance))
 
 ;; (is-old? sample-time 46)
 
@@ -137,3 +151,5 @@
 ;;  :last_updated "2020-03-29T13:14:06.151058Z",
 ;;  :coordinates {:latitude "33.0", :longitude "65.0"},
 ;;  :latest {:confirmed 110, :deaths 4, :recovered 0}}
+
+(:country (:?report (first (search-jhu-reports "US"))))

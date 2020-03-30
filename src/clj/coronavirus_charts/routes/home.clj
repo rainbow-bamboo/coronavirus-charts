@@ -35,7 +35,11 @@
 (defn home-page [request]
   (layout/render request "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
 
-(defn about-page [request]
+(defn about-page [request](defrule update-reports
+  [:not [Report (is-valid? last-updated 48)]]
+  =>
+  (println "doing an update")
+  (insert-all! (map create-jhu-report (get-all-locations))))
   (println  (string/split (:uri request) #"/"))
   (layout/render request "about.html"))
 
@@ -48,8 +52,8 @@
   [""
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
-   ["/*" {:get chart-page}]
-   ["/about" {:get about-page}]])
+   ["/*" {:get chart-page}
+       ["/about" {:get about-page}]]])
 
 
 ;; (-> (mk-session)
