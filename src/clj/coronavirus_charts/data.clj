@@ -49,6 +49,8 @@
     (:locations data)))
 
 ;; (get-latest-global)
+
+;; Possibly implement core.spec on records
 (defrecord WebRequest [url])
 (defrecord ParsedRequest [path arguments])
 
