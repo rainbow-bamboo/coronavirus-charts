@@ -3,7 +3,8 @@
    [tick.alpha.api :as t]
    [clj-http.client :as client]
    [clara.rules :refer :all]
-   [cheshire.core :as cheshire]))
+   [cheshire.core :as cheshire]
+   [clojure.string :as string]))
 
 ;; jsonista is a faster alternative to cheshire and already in project.clj
 ;; not sure how to use it yet.
@@ -48,13 +49,13 @@
   (let [data (fetch-data "http://covid19api.xapix.io/v2/locations?timelines=true")]
     (:locations data)))
 
-;; (get-latest-global)
+(get-latest-global-jhu)
 
 ;; Possibly implement core.spec on records
 (defrecord WebRequest [url])
-(defrecord ParsedRequest [path arguments])
+(defrecord ParsedRequest [path argument])
 
-(defrecord ChartRequest [url type])
+(defrecord ChartRequest [path name body])
 (defrecord LocationRequest [url location])
 (defrecord TimeRequest [url time])
 
@@ -74,9 +75,29 @@
 
 (defrule parse-request
   "Whenever there's a WebRequest, create a corresponding ParsedRequest"
-  [WebRequest (= ?url url)]
+  [WebRequest
+   (= ?url url)
+   (= ?arguments (string/split ?url #"/"))]
   =>
-  (insert! (->ParsedRequest ?url ["Hello" 9])))
+  (insert-all! (map (fn [arg]
+                      (if (not (string/blank? arg))
+                        (ParsedRequest. ?url arg))) ?arguments)))
+
+(defrule print-args
+  [ParsedRequest (= ?arg argument)]
+  =>
+  (println ?arg))
+
+(defrule create-bars
+  [ParsedRequest
+   (= ?arg argument)
+   (= ?path path)
+   (= ?arg "bar")]
+  =>
+  (insert (->ChartRequest ?path "bar" "html here?"))
+  (println "Someone wants a bar!"))
+
+
 
 (defn create-jhu-report
   "Given the parsed json from the api call, return a Report record"
@@ -96,14 +117,17 @@
 
 (def jhu-reports  (map create-jhu-report (get-all-locations-jhu)))
 
-(second jhu-reports)
 
 (defquery query-country
   [:?country-code]
   [?report <- Report (= ?country-code country-code)])
 
-;; Rename this
-(defn is-valid?
+(defquery query-chart-request
+  [:?path]
+  [ChartRequest (= ?path path)])
+
+
+(defn is-within-time?
   "Given an tick/inst, returns true if that time is within a tolerance (mins) "
   [time tolerance]
   (< (t/hours (t/between time (t/inst))) tolerance))
@@ -117,26 +141,64 @@
     (query session query-country :?country-code country-code)))
 
 
-;; This does not work.
-;; rules are only fired if
+;; The intention is that if there is a single Report that's within a tolerance
+;; of 48 hours, then we can assume that the dataset has been updated within
+;; 48 hours and then do nothing.
+;; else, in the case that we there are no valid reports, we query xapix and
+;; insert an entire list of Records.
+;; I'm not sure if this implementation is correct.
 (defrule update-jhu-reports
-  [:not [Report (is-valid? last-updated 48)]]
+  [:not [Report (is-within-time? last-updated 48)]]
   =>
   (println "doing an update")
   (insert-all! (map create-jhu-report (get-all-locations))))
 
+(insert-web-request "/bar/tt")
 
 (defquery query-parsed-request
-  [:?path]
-  [ParsedRequest (= ?path path)])
+  []
+  [ParsedRequest (= ?path path) (= ?argument argument)])
+
+(defquery all-parsed [] [ParsedRequest (= ?path path)])
 
 
-(def jhu-session (atom (-> (mk-session [query-country
+(def jhu-session (atom (-> (mk-session [parse-request
+                                        query-country
                                         update-jhu-reports
-                                        query-parsed-request])
+                                        print-args
+                                        create-bars
+                                        query-parsed-request
+                                        query-chart-request])
                            (insert-all  (map create-jhu-report (get-all-locations)))
-                           (insert (->ParsedRequest "/c/er" ["c" "er"]))
                            (fire-rules))))
+
+
+;; Look how we dereference the atom to get access to the current state of the session
+;; then we insert a new fact into that state (call it new fact)
+;; and then we fire the rules
+(-> @jhu-session
+    (insert (->WebRequest "/hello/world"))
+    (fire-rules)
+    (query query-parsed-request))
+
+;; ({:?path "/hello/world", :?argument "world"}
+;;  {:?path "/hello/world", :?argument "hello"}
+;;  {:?path "/c/e/12/n", :?argument "c"}
+;;  {:?path "/c/e/12/n", :?argument "e"}
+;;  {:?path "/c/e/12/n", :?argument "12"}
+;;  {:?path "/c/e/12/n", :?argument "n"})
+
+
+(defn insert-web-request [url]
+  (-> @jhu-session
+    (insert (->WebRequest url))
+    (fire-rules)
+    (query query-parsed-request)))
+
+
+;; the function to get charts will just insert a new request
+;; let it generate everything it needs to gen
+;; and then reset
 
 (defn search-reports-by-country [session country-code]
   (fire-rules session)
