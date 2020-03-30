@@ -55,11 +55,11 @@
 (defrecord WebRequest [url])
 (defrecord ParsedRequest [path argument])
 
-(defrecord ChartRequest [path name body])
-(defrecord LocationRequest [url location])
-(defrecord TimeRequest [url time])
+(defrecord ChartRequest [path chart-name body])
+(defrecord LocationRequest [path location-name country-code jhu-report])
+(defrecord TimeRequest [path time])
 
-(defrecord BarChart [url code valid-time])
+(defrecord BarChart [path body])
 
 (defrecord Report [source-name
                    source-url
@@ -88,14 +88,42 @@
   =>
   (println ?arg))
 
+(defn create-table
+  "Given a Report, create a table from the :latest key"
+  [r]
+  (let [latest (:latest r)]
+    latest))
+
+    ;; [:table
+    ;;  [:thead
+    ;;   [:tr
+    ;;    [:th "Confirmed"]
+    ;;    [:th "Deaths"]]]
+    ;;  [:tbody
+    ;;   [:tr
+    ;;    [:td confirmed]
+    ;;    [:td deaths]]]]
+
 (defrule create-bars
   [ParsedRequest
-   (= ?arg argument)
+   (= ?arg (string/lower-case argument))
    (= ?path path)
    (= ?arg "bar")]
+  [LocationRequest
+   (= ?arg country-code)
+   (= ?country-code country-code)]
+  [?report <- Report (= ?country-code country-code)]
   =>
-  (insert (->ChartRequest ?path "bar" "html here?"))
-  (println "Someone wants a bar!"))
+  ;;  (insert! (->BarChart ?path (create-table ?report)))
+  (println "in cbars")
+  (println  ?report))
+
+(defrule parse-locations
+  [ParsedRequest (= ?arg (string/upper-case argument)) (= ?path path)]
+  [?report <- Report (= ?arg country-code)]
+  =>
+  (insert! (->LocationRequest ?path (:country ?report) (:country-code ?report) ?report))
+  (println (:country ?report)))
 
 
 
@@ -117,14 +145,13 @@
 
 (def jhu-reports  (map create-jhu-report (get-all-locations-jhu)))
 
-
 (defquery query-country
   [:?country-code]
   [?report <- Report (= ?country-code country-code)])
 
 (defquery query-chart-request
   [:?path]
-  [ChartRequest (= ?path path)])
+  [ChartRequest (= ?path path) (= ?chart-name chart-name) (= ?body body)])
 
 
 (defn is-within-time?
@@ -167,11 +194,12 @@
                                         update-jhu-reports
                                         print-args
                                         create-bars
+                                        parse-locations
                                         query-parsed-request
-                                        query-chart-request])
+                                        query-chart-request
+                                        ])
                            (insert-all  (map create-jhu-report (get-all-locations)))
                            (fire-rules))))
-
 
 ;; Look how we dereference the atom to get access to the current state of the session
 ;; then we insert a new fact into that state (call it new fact)
@@ -193,9 +221,10 @@
   (-> @jhu-session
     (insert (->WebRequest url))
     (fire-rules)
-    (query query-parsed-request)))
+    (query query-chart-request :?path url)))
 
-
+(insert-web-request "/bar/es")
+({:?path "/bar/loe", :?chart-name "bar", :?body [:h1 "Hello Heading"]})
 ;; the function to get charts will just insert a new request
 ;; let it generate everything it needs to gen
 ;; and then reset
