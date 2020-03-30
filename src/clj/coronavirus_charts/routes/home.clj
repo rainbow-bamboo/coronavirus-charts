@@ -4,56 +4,32 @@
    [clojure.java.io :as io]
    [clojure.string :as string]
    [coronavirus-charts.middleware :as middleware]
+   [coronavirus-charts.data :refer :all]
    [ring.util.response]
    [ring.util.http-response :as response]
    [clara.rules :refer :all]))
 
-(defrecord WebRequest [url])
-(defrecord ParsedRequest [url arguments])
-
-(defrecord ChartRequest [url type])
-(defrecord LocationRequest [url location])
-(defrecord TimeRequest [url time])
-
-(defrecord BarChart [url code valid-time])
-
-(defrule parse-request
-  "Whenever there's a WebRequest, create a corresponding ParsedRequest"
-  [WebRequest (= ?url url)]
-  =>
-  (insert! (->ParsedRequest ?url ["Hello" 9])))
-
-(defquery get-parsed-requests
-  []
-  [?request <- ParsedRequest (not (nil? url))])
-
-(def chart-session (mk-session))
-
-(query chart-session get-parsed-requests)
-
-
 (defn home-page [request]
   (layout/render request "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
 
-(defn about-page [request](defrule update-reports
-  [:not [Report (is-valid? last-updated 48)]]
-  =>
-  (println "doing an update")
-  (insert-all! (map create-jhu-report (get-all-locations))))
-  (println  (string/split (:uri request) #"/"))
+(defn about-page [request]
+  (println  (string/split (:path-info request) #"/"))
   (layout/render request "about.html"))
 
 (defn chart-page [request]
-  (let [params  (string/split (:uri request) #"/")]
-    (insert chart-session (->ParsedRequest params))
-    (layout/render request "about.html")))
+  (let [path (:path-info request)
+        params  (string/split path #"/")]
+    (println params)
+    (reset! jhu-session (insert @jhu-session (->ParsedRequest "/c/er" ["c" "er"])))
+    (println  "Hello" (query @jhu-session query-parsed-request :?path "/c/er"))
+    (layout/render request "home.html")))
+
 
 (defn home-routes []
   [""
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
-   ["/*" {:get chart-page}
-       ["/about" {:get about-page}]]])
+   ["/*" {:get chart-page}]])
 
 
 ;; (-> (mk-session)

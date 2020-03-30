@@ -5,21 +5,60 @@
    [clara.rules :refer :all]
    [cheshire.core :as cheshire]))
 
-(defn fetch-data [url]
+;; jsonista is a faster alternative to cheshire and already in project.clj
+;; not sure how to use it yet.
+(defn fetch-data
+  "Base function to query a url and parse"
+  [url]
   (cheshire/parse-string (:body (client/get url {:accept :json}))
                          true))
 
-(defn get-latest-global []
+
+(defn get-latest-global-jhu
+  "Queries the xapix covid-19 api to return the latest confrimed and deaths
+  I expect to update these end points when xapix settles on a spec.
+  [source: Johns Hopkins University]"
+  []
   (let [data (:latest (fetch-data "http://covid19api.xapix.io/v2/latest"))]
     {:confirmed (:confirmed data) :deaths (:deaths data)}))
 
-(defn get-all-locations []
+
+(defn get-all-locations-jhu
+  "Queries the xapix covid-19 api to return imformation about all locations
+  [source: Johns Hopkins University]"
+  []
+  (let [data (fetch-data "http://covid19api.xapix.io/v2/locations")]
+    (:locations data)))
+
+(def sample-locations (get-all-locations-jhu))
+
+;; This will be handy when creating timelines later
+(defn extract-location
+  "Base function to extract keys from a parsed location."
+  [loc]
+  {:id (:id loc)
+   :latest (:latest loc)})
+
+(map extract-location sample-locations)
+
+(defn get-all-locations
+  "Queries the xapix covid-19 api to return imformation about all locations, including timelines
+  [source: Johns Hopkins University]"
+  []
   (let [data (fetch-data "http://covid19api.xapix.io/v2/locations?timelines=true")]
     (:locations data)))
 
 ;; (get-latest-global)
+(defrecord WebRequest [url])
+(defrecord ParsedRequest [path arguments])
 
-(defrecord Report [ source-name
+(defrecord ChartRequest [url type])
+(defrecord LocationRequest [url location])
+(defrecord TimeRequest [url time])
+
+(defrecord BarChart [url code valid-time])
+
+(defrecord Report [source-name
                    source-url
                    country
                    country-code
@@ -27,9 +66,15 @@
                    province
                    last-updated
                    coordinates
-                   timelines
                    latest])
 
+
+
+(defrule parse-request
+  "Whenever there's a WebRequest, create a corresponding ParsedRequest"
+  [WebRequest (= ?url url)]
+  =>
+  (insert! (->ParsedRequest ?url ["Hello" 9])))
 
 (defn create-jhu-report
   "Given the parsed json from the api call, return a Report record"
@@ -44,15 +89,12 @@
      (:province r)
      (t/inst (:last_updated r))
      (:coordinates r)
-     (:timelines r)
      {:confirmed (:confirmed latest)
       :deaths (:deaths latest)})))
 
-(def af-report (create-jhu-report (first (get-all-locations))))
-(:country af-report)
+(def jhu-reports  (map create-jhu-report (get-all-locations-jhu)))
 
-(get-in af-report [:last-updated])
-(def jhu-reports  (map create-jhu-report (get-all-locations)))
+(second jhu-reports)
 
 (defquery query-country
   [:?country-code]
@@ -82,10 +124,17 @@
   (insert-all! (map create-jhu-report (get-all-locations))))
 
 
-(def jhu-session (-> (mk-session [query-country
-                                  update-jhu-reports])
-                     (insert-all  (map create-jhu-report (get-all-locations)))
-                     (fire-rules)))
+(defquery query-parsed-request
+  [:?path]
+  [ParsedRequest (= ?path path)])
+
+
+(def jhu-session (atom (-> (mk-session [query-country
+                                        update-jhu-reports
+                                        query-parsed-request])
+                           (insert-all  (map create-jhu-report (get-all-locations)))
+                           (insert (->ParsedRequest "/c/er" ["c" "er"]))
+                           (fire-rules))))
 
 (defn search-reports-by-country [session country-code]
   (fire-rules session)
@@ -93,14 +142,14 @@
    (first (query session query-country  :?country-code country-code))))
 
 
-;; (:latest (search-reports-by-country jhu-session "ES"))
+(:latest (search-reports-by-country @jhu-session "ES"))
 
 
 
 ;; We're making a time test in order to update our sources every 30 minutes
 ;; the goal is to develop a rule which will println if time has passed
 
-(def sample-time (get-in (first (search-reports-by-country jhu-session "US")) [:?report :last-updated]))
+;; (def sample-time (get-in (first (search-reports-by-country @jhu-session "US")) [:?report :last-updated]))
 
 
 ;; (is-old? sample-time 46)
@@ -152,4 +201,4 @@
 ;;  :coordinates {:latitude "33.0", :longitude "65.0"},
 ;;  :latest {:confirmed 110, :deaths 4, :recovered 0}}
 
-(:country (:?report (first (search-jhu-reports "US"))))
+(:country (:?report (first (search-jhu-reports "ES"))))
