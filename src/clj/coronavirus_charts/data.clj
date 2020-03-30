@@ -61,7 +61,7 @@
 
 (defrecord BarChart [path body])
 
-(defrecord Report [source-name
+(defrecord C19Report [source-name
                    source-url
                    country
                    country-code
@@ -89,7 +89,7 @@
   (println ?arg))
 
 (defn create-table
-  "Given a Report, create a table from the :latest key"
+  "Given a C19Report, create a table from the :latest key"
   [r]
   (let [latest (:latest r)]
     latest))
@@ -105,33 +105,20 @@
     ;;    [:td deaths]]]]
 
 (defrule create-bars
-  [ParsedRequest
-   (= ?arg (string/lower-case argument))
-   (= ?path path)
-   (= ?arg "bar")]
   [LocationRequest
-   (= ?arg country-code)
-   (= ?country-code country-code)]
-  [?report <- Report (= ?country-code country-code)]
+   (= ?path path)
+   (= ?location-name location-name)]
   =>
-  ;;  (insert! (->BarChart ?path (create-table ?report)))
-  (println "in cbars")
-  (println  ?report))
-
-(defrule parse-locations
-  [ParsedRequest (= ?arg (string/upper-case argument)) (= ?path path)]
-  [?report <- Report (= ?arg country-code)]
-  =>
-  (insert! (->LocationRequest ?path (:country ?report) (:country-code ?report) ?report))
-  (println (:country ?report)))
+  ;; (insert! (->BarChart ?path (create-table ?report)))
+  (println "in cbars" ?location-name))
 
 
 
 (defn create-jhu-report
-  "Given the parsed json from the api call, return a Report record"
+  "Given the parsed json from the api call, return a C19Report record"
   [r]
   (let [latest (:latest r)]
-    (Report.
+    (C19Report.
      "Johns Hopkins University"
      "https://github.com/CSSEGISandData/COVID-19"
      (:country r)
@@ -147,7 +134,7 @@
 
 (defquery query-country
   [:?country-code]
-  [?report <- Report (= ?country-code country-code)])
+  [?report <- C19Report (= ?country-code country-code)])
 
 (defquery query-chart-request
   [:?path]
@@ -168,31 +155,40 @@
     (query session query-country :?country-code country-code)))
 
 
-;; The intention is that if there is a single Report that's within a tolerance
+;; The intention is that if there is a single C19Report that's within a tolerance
 ;; of 48 hours, then we can assume that the dataset has been updated within
 ;; 48 hours and then do nothing.
 ;; else, in the case that we there are no valid reports, we query xapix and
 ;; insert an entire list of Records.
 ;; I'm not sure if this implementation is correct.
 (defrule update-jhu-reports
-  [:not [Report (is-within-time? last-updated 48)]]
+  [:not [C19Report (is-within-time? last-updated 48)]]
   =>
   (println "doing an update")
   (insert-all! (map create-jhu-report (get-all-locations))))
 
-(insert-web-request "/bar/tt")
 
 (defquery query-parsed-request
   []
   [ParsedRequest (= ?path path) (= ?argument argument)])
 
 (defquery all-parsed [] [ParsedRequest (= ?path path)])
+(defquery all-locations [] [LocationRequest (= ?path path) (= ?location-name location-name)])
+
+
+(defrule parse-locations
+   [C19Report (= ?country-code country-code)]
+  =>
+  ;;  (insert! (LocationRequest. ?path (:country ?report) (:country-code ?report) ?report))
+  ;;  (insert! (LocationRequest. ?path (:country ?report) (:country-code ?report) ?report))
+  (println "loc" ?country-code))
 
 
 (def jhu-session (atom (-> (mk-session [parse-request
                                         query-country
-                                        update-jhu-reports
-                                        print-args
+;;                                        update-jhu-reports
+                                        ;;                                        print-args
+                                        all-locations
                                         create-bars
                                         parse-locations
                                         query-parsed-request
@@ -200,6 +196,8 @@
                                         ])
                            (insert-all  (map create-jhu-report (get-all-locations)))
                            (fire-rules))))
+
+
 
 ;; Look how we dereference the atom to get access to the current state of the session
 ;; then we insert a new fact into that state (call it new fact)
@@ -219,12 +217,13 @@
 
 (defn insert-web-request [url]
   (-> @jhu-session
-    (insert (->WebRequest url))
-    (fire-rules)
-    (query query-chart-request :?path url)))
+      (insert (->WebRequest url))
+      (fire-rules)
+      (query all-locations)))
 
-(insert-web-request "/bar/es")
-({:?path "/bar/loe", :?chart-name "bar", :?body [:h1 "Hello Heading"]})
+;; (insert-web-request "/bar/ES")
+
+;; ({:?path "/bar/loe", :?chart-name "bar", :?body [:h1 "Hello Heading"]})
 ;; the function to get charts will just insert a new request
 ;; let it generate everything it needs to gen
 ;; and then reset
@@ -235,7 +234,8 @@
    (first (query session query-country  :?country-code country-code))))
 
 
-(:latest (search-reports-by-country @jhu-session "ES"))
+;; (:latest (search-reports-by-country @jhu-session "ES"))
+
 
 
 
@@ -293,5 +293,3 @@
 ;;  :last_updated "2020-03-29T13:14:06.151058Z",
 ;;  :coordinates {:latitude "33.0", :longitude "65.0"},
 ;;  :latest {:confirmed 110, :deaths 4, :recovered 0}}
-
-(:country (:?report (first (search-jhu-reports "ES"))))
