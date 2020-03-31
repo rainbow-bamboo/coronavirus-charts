@@ -116,7 +116,9 @@
 (defrule create-chart-page
   [?fragments <- (acc/all) :from [ChartRequest (= ?path path)]]
   =>
-  (insert! (RenderedPage. ?path (charts/base-chart "Heading" (map :body ?fragments)))))
+  (insert! (RenderedPage. ?path
+                          (charts/base-chart "Recorded Coronavirus (COVID-19) Cases"
+                                             (map :body ?fragments)))))
 
 
 (defn create-jhu-report

@@ -121,7 +121,9 @@
   (let [latest (:latest r)
         c (:confirmed latest)
         d (:deaths latest)]
-    (vertical-bars [c d] ["#dab101" "#110809"] "d" "latest-bar")))
+    [:div.bar-chart
+     [:h2 (:country r)]
+     (vertical-bars [c d] ["#dab101" "#110809"] "d" "latest-bar")]))
 
 (defn latest-table
   "Given a C19Report, create a table from the :latest key"
@@ -129,7 +131,7 @@
   (let [latest (:latest r)
         c (:confirmed latest)
         d (:deaths latest)]
-    [:table
+    [:table.blocky-table
      [:thead
       [:tr
        [:th "Confirmed"]
