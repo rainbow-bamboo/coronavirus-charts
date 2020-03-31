@@ -104,7 +104,7 @@
     (= ?arg argument)
     (= ?arg "bar")]]
   =>
-  (insert! (ChartRequest. ?path "bar" (cw/create-table ?report)))
+  (insert! (ChartRequest. ?path "bar" (cw/latest-table ?report)))
   (println "in cbars"  ?arg))
 
 (defrule create-latest-chart-by-country-code
@@ -114,7 +114,7 @@
   =>
   (insert-all! (list
                 (ChartRequest. ?path "bar" (cw/latest-bar ?report))
-                (ChartRequest. ?path "table" (cw/create-table ?report))
+                (ChartRequest. ?path "table" (cw/latest-table ?report))
                 (ChartRequest. ?path "source" (cw/source-box ?report)))))
 
 (defrule create-chart-page
@@ -262,7 +262,7 @@
       (query query-rendered-page :?path url)
       ))
 
-(:?html (first (insert-web-request "/bar/tt/es/us/2020-03-28")))
+;; (:?html (first (insert-web-request "/bar/tt/es/us/2020-03-28")))
 
 
 ;; the function to get charts will just insert a new request
@@ -275,54 +275,8 @@
    (first (query session query-country  "?country-code" country-code))))
 
 
-(cw/latest-bar (search-reports-by-country @jhu-session "ES"))
+;; (cw/latest-bar (search-reports-by-country @jhu-session "ES"))
 
-
-
-
-;; We're making a time test in order to update our sources every 30 minutes
-;; the goal is to develop a rule which will println if time has passed
-
-;; (def sample-time (get-in (first (search-reports-by-country @jhu-session "US")) [:?report :last-updated]))
-
-
-;; (is-old? sample-time 46)
-
-
-
-
-
-
-
-
-;; {:id 0,
-;;  :country "Afghanistan",
-;;  :country_code "AF",
-;;  :country_population 29121286,
-;;  :province "",
-;;  :last_updated "2020-03-29T13:14:06.151058Z",
-;;  :coordinates {:latitude "33.0", :longitude "65.0"},
-;;  :latest {:confirmed 110, :deaths 4, :recovered 0}}
-
-
-;; (defrecord DataSet [sourcename sourceurl title valid-time data])
-;; (defrule init-global-data
-;;   [:not [DataSet (= title "latest-global-jhu")]]
-;;   =>
-;;   (insert!  (->DataSet "Johns Hopkins University"
-;;                       "https://github.com/CSSEGISandData/COVID-19"
-;;                       "latest-global-jhu"
-;;                       "Data data bb"
-;;                       (t/now))))
-
-
-;; (defrule init-locations-data
-;;   [:not [DataSet (= title "locations-jhu")]]
-;;   =>
-;;   (insert! (->DataSet "Johns Hopkins University"
-;;                       "https://github.com/CSSEGISandData/COVID-19"
-;;                       :locations-jhu
-;;                       "Data")))
 
 
 ;; (first (:locations ))
