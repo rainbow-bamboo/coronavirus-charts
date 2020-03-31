@@ -20,8 +20,6 @@
   (let [path (:path-info request)
         params  (string/split path #"/")]
     (println params)
-    (reset! jhu-session (insert @jhu-session (->ParsedRequest "/c/er" ["c" "er"])))
-    (println  "Hello" (query @jhu-session query-parsed-request :?path "/c/er"))
     (layout/render request "home.html")))
 
 
@@ -29,7 +27,9 @@
   [""
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
-   ["/*" {:get chart-page}]])
+   ["/*" {:get (fn [resp]
+                 (-> (response/ok (render-web-request (:path-info resp)))
+                     (response/header "content-type" "text/html")))}]])
 
 
 ;; (-> (mk-session)

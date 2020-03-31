@@ -9,6 +9,8 @@
    [cheshire.core :as cheshire]
    [clojure.string :as string]))
 
+
+;; External Data
 ;; jsonista is a faster alternative to cheshire and already in project.clj
 ;; not sure how to use it yet.
 (defn fetch-data
@@ -17,6 +19,12 @@
   (cheshire/parse-string (:body (client/get url {:accept :json}))
                          true))
 
+;; This will be handy when creating timelines later
+(defn extract-location
+  "Base function to extract keys from a parsed location."
+  [loc]
+  {:id (:id loc)
+   :latest (:latest loc)})
 
 (defn get-latest-global-jhu
   "Queries the xapix covid-19 api to return the latest confrimed and deaths
@@ -26,7 +34,6 @@
   (let [data (:latest (fetch-data "http://covid19api.xapix.io/v2/latest"))]
     {:confirmed (:confirmed data) :deaths (:deaths data)}))
 
-
 (defn get-all-locations-jhu
   "Queries the xapix covid-19 api to return imformation about all locations
   [source: Johns Hopkins University]"
@@ -34,18 +41,7 @@
   (let [data (fetch-data "http://covid19api.xapix.io/v2/locations")]
     (:locations data)))
 
-(def sample-locations (get-all-locations-jhu))
-
-;; This will be handy when creating timelines later
-(defn extract-location
-  "Base function to extract keys from a parsed location."
-  [loc]
-  {:id (:id loc)
-   :latest (:latest loc)})
-
-;; (map extract-location sample-locations)
-
-(defn get-all-locations
+(defn get-all-timelines-jhu
   "Queries the xapix covid-19 api to return imformation about all locations, including timelines
   [source: Johns Hopkins University]"
   []
@@ -175,7 +171,7 @@
 
 
 (defn search-jhu-reports [country-code]
-  (let [facts  (map create-jhu-report (get-all-locations))
+  (let [facts  (map create-jhu-report (get-all-timelines-jhu))
         session (-> (mk-session [query-country])
                     (insert-all facts)
                     (fire-rules))]
@@ -192,7 +188,7 @@
   [:not [C19Report (is-within-time? last-updated 48)]]
   =>
   (println "doing an update")
-  (insert-all! (map create-jhu-report (get-all-locations))))
+  (insert-all! (map create-jhu-report (get-all-timelines-jhu))))
 
 
 (defquery query-parsed-request
@@ -233,11 +229,8 @@
                                         query-rendered-page
                                         parse-dates
                                         ])
-                           (insert-all (map create-jhu-report (get-all-locations)))
+                           (insert-all (map create-jhu-report (get-all-timelines-jhu)))
                            (fire-rules))))
-
-(query @jhu-session query-location-request)
-
 
 ;; Look how we dereference the atom to get access to the current state of the session
 ;; then we insert a new fact into that state (call it new fact)
@@ -247,22 +240,17 @@
     (fire-rules)
     (query query-parsed-request))
 
-;; ({:?path "/hello/world", :?argument "world"}
-;;  {:?path "/hello/world", :?argument "hello"}
-;;  {:?path "/c/e/12/n", :?argument "c"}
-;;  {:?path "/c/e/12/n", :?argument "e"}
-;;  {:?path "/c/e/12/n", :?argument "12"}
-;;  {:?path "/c/e/12/n", :?argument "n"})
-
-
-(defn insert-web-request [url]
+;; I'm not sure if 'render' is the right name
+;; will revisit soon.
+(defn render-web-request [url]
   (-> @jhu-session
       (insert (->WebRequest url))
       (fire-rules)
       (query query-rendered-page :?path url)
-      ))
+      (first)
+      (:?html)))
 
-;; (:?html (first (insert-web-request "/bar/tt/es/us/2020-03-28")))
+(render-web-request "/tt/es/us/2020-03-28")
 
 
 ;; the function to get charts will just insert a new request
