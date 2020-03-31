@@ -55,7 +55,7 @@
 (defrecord WebRequest [url])
 (defrecord ParsedRequest [path argument])
 
-(defrecord ChartRequest [path chart-name body])
+(defrecord ChartRequest [path chart-type body])
 (defrecord LocationRequest [path location-name country-code jhu-report])
 (defrecord TimeRequest [path time])
 
@@ -106,13 +106,17 @@
 
 
 (defrule create-bars
-  [LocationRequest
-   (= ?path path)
-   (= ?location-name location-name)
-   (= ?report jhu-report)]
+  [:and
+   [LocationRequest
+    (= ?path path)
+    (= ?location-name location-name)
+    (= ?report jhu-report)]
+   [ParsedRequest
+    (= ?arg argument)
+    (= ?arg "bar")]]
   =>
-  (insert! (->ChartRequest ?path "bar" (create-table ?report)))
-  (println "in cbars" (create-table ?report) ))
+  (insert! (ChartRequest. ?path "bar" (create-table ?report)))
+  (println "in cbars"  ?arg))
 
 
 
@@ -145,10 +149,6 @@
 (defquery query-location-request
   [:?path]
   [LocationRequest (= ?path path) (= ?location-name location-name)])
-
-(defquery query-charts
-  [:?path]
-  [ChartRequest (= ?path path) (= ?chart-name chart-name) (= ?body body)])
 
 (defn is-within-time?
   "Given an tick/inst, returns true if that time is within a tolerance (mins) "
@@ -197,7 +197,6 @@
 (def jhu-session (atom (-> (mk-session [parse-request
                                         query-country
 ;;                                        update-jhu-reports
-                                        query-charts
                                         all-locations
                                         create-bars
                                         parse-locations
@@ -231,9 +230,9 @@
   (-> @jhu-session
       (insert (->WebRequest url))
       (fire-rules)
-      (query all-locations)))
+      (query query-chart-request :?path url)))
 
-(insert-web-request "/bar/tt")
+(map :?body (insert-web-request "/bar/tt/us/es"))
 
 ;; ({:?path "/bar/loe", :?chart-name "bar", :?body [:h1 "Hello Heading"]})
 ;; the function to get charts will just insert a new request
