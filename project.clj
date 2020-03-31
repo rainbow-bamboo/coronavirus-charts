@@ -34,6 +34,12 @@
                  [com.cerner/clara-rules "0.20.0"]
                  [org.clojars.pallix/analemma "1.0.0"]
                  [clj-http "3.10.0"]
+
+                 ;; Possibly a method of matching user ip to charts but the build
+                 ;; seems to be failing on gh and some dependency error with fasterxml jackson-bom
+                 ;; [com.fasterxml.jackson.core/jackson-core "2.9.0"]
+                 ;; [com.fasterxml.jackson/jackson-bom "2.9.10.20200223"]
+                 ;; [com.brunobonacci/ip-geoloc "0.3.0-SNAPSHOT"]
                  [selmer "1.12.18"]]
 
   :min-lein-version "2.0.0"
@@ -75,3 +81,8 @@
                   :resource-paths ["env/test/resources"] }
    :profiles/dev {}
    :profiles/test {}})
+
+
+;; DISCLAIMER
+;; This product includes GeoLite2 data created by MaxMind, available from http://www.maxmind.com.
+;; (move to acknowledgements whenever I make it)

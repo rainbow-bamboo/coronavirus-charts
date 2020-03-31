@@ -40,7 +40,7 @@
   {:id (:id loc)
    :latest (:latest loc)})
 
-(map extract-location sample-locations)
+;; (map extract-location sample-locations)
 
 (defn get-all-locations
   "Queries the xapix covid-19 api to return imformation about all locations, including timelines
@@ -49,7 +49,7 @@
   (let [data (fetch-data "http://covid19api.xapix.io/v2/locations?timelines=true")]
     (:locations data)))
 
-(get-latest-global-jhu)
+;; (get-latest-global-jhu)
 
 ;; Possibly implement core.spec on records
 (defrecord WebRequest [url])
@@ -62,14 +62,14 @@
 (defrecord BarChart [path body])
 
 (defrecord C19Report [source-name
-                   source-url
-                   country
-                   country-code
-                   country-population
-                   province
-                   last-updated
-                   coordinates
-                   latest])
+                      source-url
+                      country
+                      country-code
+                      country-population
+                      province
+                      last-updated
+                      coordinates
+                      latest])
 
 
 
@@ -91,27 +91,28 @@
 (defn create-table
   "Given a C19Report, create a table from the :latest key"
   [r]
-  (let [latest (:latest r)]
-    latest))
+  (let [latest (:latest r)
+        c (:confirmed latest)
+        d (:deaths latest)]
+    [:table
+     [:thead
+      [:tr
+       [:th "Confirmed"]
+       [:th "Deaths"]]]
+     [:tbody
+      [:tr
+       [:td c]
+       [:td d]]]]))
 
-    ;; [:table
-    ;;  [:thead
-    ;;   [:tr
-    ;;    [:th "Confirmed"]
-    ;;    [:th "Deaths"]]]
-    ;;  [:tbody
-    ;;   [:tr
-    ;;    [:td confirmed]
-    ;;    [:td deaths]]]]
 
 (defrule create-bars
   [LocationRequest
    (= ?path path)
-   (= ?location-name location-name)]
-
+   (= ?location-name location-name)
+   (= ?report jhu-report)]
   =>
-  ;; (insert! (->BarChart ?path (create-table ?report)))
-  (println "in cbars" ?location-name))
+  (insert! (->ChartRequest ?path "bar" (create-table ?report)))
+  (println "in cbars" (create-table ?report) ))
 
 
 
@@ -144,6 +145,10 @@
 (defquery query-location-request
   [:?path]
   [LocationRequest (= ?path path) (= ?location-name location-name)])
+
+(defquery query-charts
+  [:?path]
+  [ChartRequest (= ?path path) (= ?chart-name chart-name) (= ?body body)])
 
 (defn is-within-time?
   "Given an tick/inst, returns true if that time is within a tolerance (mins) "
@@ -192,7 +197,7 @@
 (def jhu-session (atom (-> (mk-session [parse-request
                                         query-country
 ;;                                        update-jhu-reports
-                                        ;;                                        print-args
+                                        query-charts
                                         all-locations
                                         create-bars
                                         parse-locations
