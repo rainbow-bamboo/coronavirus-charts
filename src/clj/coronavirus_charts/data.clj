@@ -138,19 +138,6 @@
   (println ?arg))
 
 
-(defrule create-bars
-  [:and
-   [LocationRequest
-    (= ?path path)
-    (= ?location-name location-name)
-    (= ?report jhu-report)]
-   [ParsedRequest
-    (= ?arg argument)
-    (= ?arg "bar")]]
-  =>
-  (insert! (ChartRequest. ?path "bar" (cw/latest-table ?report)))
-  (println "in cbars"  ?arg))
-
 (defrule create-latest-chart-by-country-code
   [LocationRequest
    (= ?path path)
@@ -160,6 +147,7 @@
                 (ChartRequest. ?path "bar" (cw/latest-bar ?report))
                 (ChartRequest. ?path "table" (cw/latest-table ?report))
                 (ChartRequest. ?path "source" (cw/source-box ?report)))))
+
 
 (defrule create-chart-page
   [?fragments <- (acc/all) :from [ChartRequest (= ?path path)]]
@@ -186,8 +174,10 @@
 (defrule parse-locations
   "Checks if the argument parsed matches any country-codes"
   [ParsedRequest (= ?arg argument) (= ?path path)]
-  [?report <- C19Report (= ?country-code country-code)]
-  [:test (= ?country-code (string/upper-case ?arg))]
+  [?report <- C19Report (= ?country-code country-code) (= ?country country)]
+  [:test (or
+          (= ?country-code (string/upper-case ?arg))
+          (= (string/lower-case ?country) (string/lower-case ?arg)))]
   =>
   (insert! (LocationRequest. ?path (:country ?report) (:country-code ?report) ?report)))
 
