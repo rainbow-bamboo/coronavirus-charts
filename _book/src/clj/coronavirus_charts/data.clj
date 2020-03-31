@@ -144,7 +144,7 @@
 
 (defquery query-chart-request
   [:?path]
-  [ChartRequest (= ?path path) (= ?chart-type chart-type) (= ?body body)])
+  [ChartRequest (= ?path path) (= ?chart-name chart-name) (= ?body body)])
 
 (defquery query-location-request
   [:?path]
@@ -232,8 +232,9 @@
       (fire-rules)
       (query query-chart-request :?path url)))
 
-;; (map :?body (insert-web-request "/bar/tt/us/es"))
+(map :?body (insert-web-request "/bar/tt/us/es"))
 
+;; ({:?path "/bar/loe", :?chart-name "bar", :?body [:h1 "Hello Heading"]})
 ;; the function to get charts will just insert a new request
 ;; let it generate everything it needs to gen
 ;; and then reset
