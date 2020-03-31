@@ -3,6 +3,7 @@
    [tick.alpha.api :as t]
    [clj-http.client :as client]
    [clara.rules :refer :all]
+   [clara.rules.accumulators :as acc]
    [coronavirus-charts.chartwell :as cw]
    [coronavirus-charts.charts :as charts]
    [cheshire.core :as cheshire]
@@ -59,7 +60,9 @@
 
 (defrecord ChartRequest [path chart-type body])
 (defrecord LocationRequest [path location-name country-code jhu-report])
-(defrecord TimeRequest [path time])
+(defrecord DateRequest [path date])
+
+(defrecord RenderedPage [path html])
 
 (defrecord BarChart [path body])
 
@@ -114,6 +117,10 @@
                 (ChartRequest. ?path "table" (cw/create-table ?report))
                 (ChartRequest. ?path "source" (cw/source-box ?report)))))
 
+(defrule create-chart-page
+  [?fragments <- (acc/all) :from [ChartRequest (= ?path path)]]
+  =>
+  (insert! (RenderedPage. ?path (charts/base-chart "Heading" (map :body ?fragments)))))
 
 
 (defn create-jhu-report
@@ -146,10 +153,25 @@
   [:?path]
   [LocationRequest (= ?path path) (= ?location-name location-name)])
 
+(defquery query-rendered-page
+  [:?path]
+  [RenderedPage (= ?path path) (= ?html html)])
+
 (defn is-within-time?
   "Given an tick/inst, returns true if that time is within a tolerance (mins) "
   [time tolerance]
   (< (t/hours (t/between time (t/inst))) tolerance))
+
+(defn is-same-day?
+  "Given two tick/inst, returns true if they are on the same day"
+  [t1 t2]
+  (= (t/date t1) (t/date t2)))
+
+(defn test-date [date-string]
+  (let [date (try (t/date date-string) (catch Exception e false))]
+  (if date
+    true
+    false)))
 
 
 (defn search-jhu-reports [country-code]
@@ -189,16 +211,27 @@
   =>
   (insert! (LocationRequest. ?path (:country ?report) (:country-code ?report) ?report)))
 
+(defrule parse-dates
+  "Checks if the argument parsed matches a date int he form YYYY-MM-DD"
+  [ParsedRequest (= ?arg argument) (= ?path path)]
+  [:test (test-date ?arg)]
+  =>
+  (println "parsing dates")
+  (insert! (DateRequest. ?path (t/date ?arg))))
+
 
 (def jhu-session (atom (-> (mk-session [parse-request
                                         query-country
                                         ;;                                        update-jhu-reports
                                         create-latest-chart-by-country-code
+                                        create-chart-page
                                         all-locations
                                         parse-locations
                                         query-parsed-request
                                         query-chart-request
                                         query-location-request
+                                        query-rendered-page
+                                        parse-dates
                                         ])
                            (insert-all (map create-jhu-report (get-all-locations)))
                            (fire-rules))))
@@ -226,9 +259,10 @@
   (-> @jhu-session
       (insert (->WebRequest url))
       (fire-rules)
-      (query query-chart-request :?path url)))
+      (query query-rendered-page :?path url)
+      ))
 
-(map :?body (insert-web-request "/bar/tt/"))
+(:?html (first (insert-web-request "/bar/tt/es/us/2020-03-28")))
 
 
 ;; the function to get charts will just insert a new request

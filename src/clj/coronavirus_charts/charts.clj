@@ -32,12 +32,12 @@
 ;; CHARTS
 ;; These functions all take a Report record, and then return a full html page
 
-(defn base-chart [heading [& content]]
+(defn base-chart [heading content]
   (html5 [:head
           [:title "coronavirus-charts.org"]
-          (include-css "/css/screen.css")
-          [:body
-           [:h1 heading]
-           [:div.center
-            content]
-           (reel-script)]]))
+          (include-css "/css/screen.css")]
+         [:body
+          [:h1 heading]
+          [:div.center
+           content]
+          (reel-script)]))
