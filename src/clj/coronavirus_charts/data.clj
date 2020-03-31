@@ -48,8 +48,53 @@
   (let [data (fetch-data "http://covid19api.xapix.io/v2/locations?timelines=true")]
     (:locations data)))
 
-;; (get-latest-global-jhu)
+;; END EXTERNAL DATA
 
+;; Helpers
+
+(defn is-within-time?
+  "Given an tick/inst, returns true if that time is within a tolerance (mins) "
+  [time tolerance]
+  (< (t/hours (t/between time (t/inst))) tolerance))
+
+(defn is-same-day?
+  "Given two tick/inst, returns true if they are on the same day"
+  [t1 t2]
+  (= (t/date t1) (t/date t2)))
+
+(defn test-date [date-string]
+  (let [date (try (t/date date-string) (catch Exception e false))]
+  (if date
+    true
+    false)))
+
+;; END Helpers
+
+;; Report Manipulation
+
+(defn create-jhu-report
+  "Given the parsed json from the api call, return a C19Report record"
+  [r]
+  (let [latest (:latest r)]
+    (C19Report.
+     "Johns Hopkins University"
+     "https://github.com/CSSEGISandData/COVID-19"
+     (:country r)
+     (:country_code r)
+     (:country_population r)
+     (:province r)
+     (t/inst (:last_updated r))
+     (:coordinates r)
+     {:confirmed (:confirmed latest)
+      :deaths (:deaths latest)})))
+
+(def jhu-reports  (map create-jhu-report (get-all-locations-jhu)))
+
+;; END Report Manipulation
+
+
+
+;; FactTypes
 ;; Possibly implement core.spec on records
 (defrecord WebRequest [url])
 (defrecord ParsedRequest [path argument])
@@ -72,7 +117,10 @@
                       coordinates
                       latest])
 
+;; END FactTypes
 
+
+;; RULES
 
 (defrule parse-request
   "Whenever there's a WebRequest, create a corresponding ParsedRequest"
@@ -121,65 +169,6 @@
                                              (map :body ?fragments)))))
 
 
-(defn create-jhu-report
-  "Given the parsed json from the api call, return a C19Report record"
-  [r]
-  (let [latest (:latest r)]
-    (C19Report.
-     "Johns Hopkins University"
-     "https://github.com/CSSEGISandData/COVID-19"
-     (:country r)
-     (:country_code r)
-     (:country_population r)
-     (:province r)
-     (t/inst (:last_updated r))
-     (:coordinates r)
-     {:confirmed (:confirmed latest)
-      :deaths (:deaths latest)})))
-
-(def jhu-reports  (map create-jhu-report (get-all-locations-jhu)))
-
-(defquery query-country
-  [:?country-code]
-  [?report <- C19Report (= ?country-code country-code)])
-
-(defquery query-chart-request
-  [:?path]
-  [ChartRequest (= ?path path) (= ?chart-type chart-type) (= ?body body)])
-
-(defquery query-location-request
-  [:?path]
-  [LocationRequest (= ?path path) (= ?location-name location-name)])
-
-(defquery query-rendered-page
-  [:?path]
-  [RenderedPage (= ?path path) (= ?html html)])
-
-(defn is-within-time?
-  "Given an tick/inst, returns true if that time is within a tolerance (mins) "
-  [time tolerance]
-  (< (t/hours (t/between time (t/inst))) tolerance))
-
-(defn is-same-day?
-  "Given two tick/inst, returns true if they are on the same day"
-  [t1 t2]
-  (= (t/date t1) (t/date t2)))
-
-(defn test-date [date-string]
-  (let [date (try (t/date date-string) (catch Exception e false))]
-  (if date
-    true
-    false)))
-
-
-(defn search-jhu-reports [country-code]
-  (let [facts  (map create-jhu-report (get-all-timelines-jhu))
-        session (-> (mk-session [query-country])
-                    (insert-all facts)
-                    (fire-rules))]
-    (query session query-country :?country-code country-code)))
-
-
 ;; The intention is that if there is a single C19Report that's within a tolerance
 ;; of 48 hours, then we can assume that the dataset has been updated within
 ;; 48 hours and then do nothing.
@@ -192,13 +181,6 @@
   (println "doing an update")
   (insert-all! (map create-jhu-report (get-all-timelines-jhu))))
 
-
-(defquery query-parsed-request
-  []
-  [ParsedRequest (= ?path path) (= ?argument argument)])
-
-(defquery all-parsed [] [ParsedRequest (= ?path path)])
-(defquery all-locations [] [LocationRequest (= ?path path) (= ?location-name location-name)])
 
 
 (defrule parse-locations
@@ -216,6 +198,48 @@
   =>
   (println "parsing dates")
   (insert! (DateRequest. ?path (t/date ?arg))))
+
+
+
+;; END RULES
+
+;; Queries
+(defquery query-country
+  [:?country-code]
+  [?report <- C19Report (= ?country-code country-code)])
+
+(defquery query-chart-request
+  [:?path]
+  [ChartRequest (= ?path path) (= ?chart-type chart-type) (= ?body body)])
+
+(defquery query-location-request
+  [:?path]
+  [LocationRequest (= ?path path) (= ?location-name location-name)])
+
+(defquery query-rendered-page
+  [:?path]
+  [RenderedPage (= ?path path) (= ?html html)])
+
+(defquery query-parsed-request
+  []
+  [ParsedRequest (= ?path path) (= ?argument argument)])
+
+(defquery all-parsed [] [ParsedRequest (= ?path path)])
+
+(defquery all-locations [] [LocationRequest (= ?path path) (= ?location-name location-name)])
+
+
+;; END QUERIES
+
+
+;; Exploratory Functions
+
+(defn search-jhu-reports [country-code]
+  (let [facts  (map create-jhu-report (get-all-timelines-jhu))
+        session (-> (mk-session [query-country])
+                    (insert-all facts)
+                    (fire-rules))]
+    (query session query-country :?country-code country-code)))
 
 
 (def jhu-session (atom (-> (mk-session [parse-request
@@ -237,10 +261,10 @@
 ;; Look how we dereference the atom to get access to the current state of the session
 ;; then we insert a new fact into that state (call it new fact)
 ;; and then we fire the rules
-(-> @jhu-session
-    (insert (->WebRequest "/hello/world"))
-    (fire-rules)
-    (query query-parsed-request))
+;; (-> @jhu-session
+;;     (insert (->WebRequest "/hello/world"))
+;;     (fire-rules)
+;;     (query query-parsed-request))
 
 ;; I'm not sure if 'render' is the right name
 ;; will revisit soon.
@@ -252,12 +276,8 @@
       (first)
       (:?html)))
 
-(render-web-request "/tt/es/us/2020-03-28")
+;; (render-web-request "/tt/es/us/2020-03-28")
 
-
-;; the function to get charts will just insert a new request
-;; let it generate everything it needs to gen
-;; and then reset
 
 (defn search-reports-by-country [session country-code]
   (fire-rules session)
@@ -268,8 +288,7 @@
 ;; (cw/latest-bar (search-reports-by-country @jhu-session "ES"))
 
 
-
-;; (first (:locations ))
+;; Example location result (without timelines)
 ;; {:id 0,
 ;;  :country "Afghanistan",
 ;;  :country_code "AF",
@@ -278,3 +297,6 @@
 ;;  :last_updated "2020-03-29T13:14:06.151058Z",
 ;;  :coordinates {:latitude "33.0", :longitude "65.0"},
 ;;  :latest {:confirmed 110, :deaths 4, :recovered 0}}
+
+
+;; END Exploratory
