@@ -108,6 +108,7 @@
   [LocationRequest
    (= ?path path)
    (= ?location-name location-name)]
+
   =>
   ;; (insert! (->BarChart ?path (create-table ?report)))
   (println "in cbars" ?location-name))
@@ -140,6 +141,9 @@
   [:?path]
   [ChartRequest (= ?path path) (= ?chart-name chart-name) (= ?body body)])
 
+(defquery query-location-request
+  [:?path]
+  [LocationRequest (= ?path path) (= ?location-name location-name)])
 
 (defn is-within-time?
   "Given an tick/inst, returns true if that time is within a tolerance (mins) "
@@ -177,11 +181,12 @@
 
 
 (defrule parse-locations
-   [C19Report (= ?country-code country-code)]
+  "Checks if the argument parsed matches any country-codes"
+  [ParsedRequest (= ?arg argument) (= ?path path)]
+  [?report <- C19Report (= ?country-code country-code)]
+  [:test (= ?country-code (string/upper-case ?arg))]
   =>
-  ;;  (insert! (LocationRequest. ?path (:country ?report) (:country-code ?report) ?report))
-  ;;  (insert! (LocationRequest. ?path (:country ?report) (:country-code ?report) ?report))
-  (println "loc" ?country-code))
+  (insert! (LocationRequest. ?path (:country ?report) (:country-code ?report) ?report)))
 
 
 (def jhu-session (atom (-> (mk-session [parse-request
@@ -193,10 +198,12 @@
                                         parse-locations
                                         query-parsed-request
                                         query-chart-request
+                                        query-location-request
                                         ])
-                           (insert-all  (map create-jhu-report (get-all-locations)))
+                           (insert-all (map create-jhu-report (get-all-locations)))
                            (fire-rules))))
 
+(query @jhu-session query-location-request)
 
 
 ;; Look how we dereference the atom to get access to the current state of the session
@@ -221,7 +228,7 @@
       (fire-rules)
       (query all-locations)))
 
-;; (insert-web-request "/bar/ES")
+(insert-web-request "/bar/tt")
 
 ;; ({:?path "/bar/loe", :?chart-name "bar", :?body [:h1 "Hello Heading"]})
 ;; the function to get charts will just insert a new request
