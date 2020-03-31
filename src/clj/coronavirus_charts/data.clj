@@ -3,6 +3,8 @@
    [tick.alpha.api :as t]
    [clj-http.client :as client]
    [clara.rules :refer :all]
+   [coronavirus-charts.chartwell :as cw]
+   [coronavirus-charts.charts :as charts]
    [cheshire.core :as cheshire]
    [clojure.string :as string]))
 
@@ -88,22 +90,6 @@
   =>
   (println ?arg))
 
-(defn create-table
-  "Given a C19Report, create a table from the :latest key"
-  [r]
-  (let [latest (:latest r)
-        c (:confirmed latest)
-        d (:deaths latest)]
-    [:table
-     [:thead
-      [:tr
-       [:th "Confirmed"]
-       [:th "Deaths"]]]
-     [:tbody
-      [:tr
-       [:td c]
-       [:td d]]]]))
-
 
 (defrule create-bars
   [:and
@@ -115,8 +101,18 @@
     (= ?arg argument)
     (= ?arg "bar")]]
   =>
-  (insert! (ChartRequest. ?path "bar" (create-table ?report)))
+  (insert! (ChartRequest. ?path "bar" (cw/create-table ?report)))
   (println "in cbars"  ?arg))
+
+(defrule create-latest-chart-by-country-code
+  [LocationRequest
+   (= ?path path)
+   (= ?report jhu-report)]
+  =>
+  (insert-all! (list
+                (ChartRequest. ?path "bar" (cw/latest-bar ?report))
+                (ChartRequest. ?path "table" (cw/create-table ?report))
+                (ChartRequest. ?path "source" (cw/source-box ?report)))))
 
 
 
@@ -196,9 +192,9 @@
 
 (def jhu-session (atom (-> (mk-session [parse-request
                                         query-country
-;;                                        update-jhu-reports
+                                        ;;                                        update-jhu-reports
+                                        create-latest-chart-by-country-code
                                         all-locations
-                                        create-bars
                                         parse-locations
                                         query-parsed-request
                                         query-chart-request
@@ -232,7 +228,8 @@
       (fire-rules)
       (query query-chart-request :?path url)))
 
-;; (map :?body (insert-web-request "/bar/tt/us/es"))
+(map :?body (insert-web-request "/bar/tt/"))
+
 
 ;; the function to get charts will just insert a new request
 ;; let it generate everything it needs to gen
@@ -241,10 +238,10 @@
 (defn search-reports-by-country [session country-code]
   (fire-rules session)
   (:?report
-   (first (query session query-country  :?country-code country-code))))
+   (first (query session query-country  "?country-code" country-code))))
 
 
-;; (:latest (search-reports-by-country @jhu-session "ES"))
+(cw/latest-bar (search-reports-by-country @jhu-session "ES"))
 
 
 
