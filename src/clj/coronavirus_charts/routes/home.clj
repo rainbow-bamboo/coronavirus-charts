@@ -4,7 +4,7 @@
    [clojure.java.io :as io]
    [clojure.string :as string]
    [coronavirus-charts.middleware :as middleware]
-   [coronavirus-charts.data :refer :all]
+   [coronavirus-charts.sessions :refer :all]
    [ring.util.response]
    [ring.util.http-response :as response]
    [clara.rules :refer :all]))

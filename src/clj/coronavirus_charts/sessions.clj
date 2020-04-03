@@ -1,6 +1,7 @@
-(ns coronavirus-charts.data
+(ns coronavirus-charts.sessions
   (:require
    [tick.alpha.api :as t]
+   [clojure.pprint :refer [pprint]]
    [clj-http.client :as client]
    [clara.rules :refer :all]
    [clara.rules.accumulators :as acc]
@@ -34,6 +35,7 @@
   (let [data (:latest (fetch-data "http://covid19api.xapix.io/v2/latest"))]
     {:confirmed (:confirmed data) :deaths (:deaths data)}))
 
+
 (defn get-all-locations-jhu
   "Queries the xapix covid-19 api to return imformation about all locations
   [source: Johns Hopkins University]"
@@ -51,7 +53,6 @@
 ;; END EXTERNAL DATA
 
 ;; Helpers
-
 (defn is-within-time?
   "Given an tick/inst, returns true if that time is within a tolerance (mins) "
   [time tolerance]
@@ -62,52 +63,48 @@
   [t1 t2]
   (= (t/date t1) (t/date t2)))
 
-(defn test-date [date-string]
+(defn is-date? [date-string]
   (let [date (try (t/date date-string) (catch Exception e false))]
   (if date
     true
     false)))
 
+
+;; This is an important function that needs work.
+;; The intention is that it reads the path, and then splits it
+;; into each discrete parameter to be inserted as individual facts
+;; in the session.
+;; Commas are valid seperators because it takes two actions to get to a
+;; slash when you're typing in Whatsapp, but commas
+;; are usually one press away. `📊📊.to/cn,us,es,tt` would be a valid url
+(defn parse-path
+  "Given a url path, eg, /tt/us or /bar/en,us,tt/2020-03-28
+   return a flattened list of all arguments eg. ['tt' 'us']"
+  [path]
+  (flatten
+   (map (fn [v] (string/split v #","))
+        (string/split path #"/"))))
+
 ;; END Helpers
 
-;; Report Manipulation
-
-(defn create-jhu-report
-  "Given the parsed json from the api call, return a C19Report record"
-  [r]
-  (let [latest (:latest r)]
-    (C19Report.
-     "Johns Hopkins University"
-     "https://github.com/CSSEGISandData/COVID-19"
-     (:country r)
-     (:country_code r)
-     (:country_population r)
-     (:province r)
-     (t/inst (:last_updated r))
-     (:coordinates r)
-     {:confirmed (:confirmed latest)
-      :deaths (:deaths latest)})))
-
-(def jhu-reports  (map create-jhu-report (get-all-locations-jhu)))
-
-;; END Report Manipulation
-
-
-
 ;; FactTypes
-;; Possibly implement core.spec on records
+;; TODO: Implement core.spec or schema on records.
 (defrecord WebRequest [url])
 (defrecord ParsedRequest [path argument])
 
-(defrecord ChartRequest [path chart-type body])
+(defrecord ChartFragment [path chart-type body])
 (defrecord LocationRequest [path location-name country-code jhu-report])
 (defrecord DateRequest [path date])
 
 (defrecord RenderedPage [path html])
 
-(defrecord BarChart [path body])
 
-(defrecord C19Report [source-name
+(defrecord GlobalReport [source-name
+                         source-url
+                         last-queried
+                         latest])
+
+(defrecord LocationReport [source-name
                       source-url
                       country
                       country-code
@@ -120,17 +117,55 @@
 ;; END FactTypes
 
 
+;; Report Manipulation
+
+(defn create-jhu-report
+  "Given the parsed json from the api call, return a LocationReport record"
+  [r]
+  (let [latest (:latest r)]
+    (LocationReport.
+     "Johns Hopkins University"
+     "https://github.com/CSSEGISandData/COVID-19"
+     (:country r)
+     (:country_code r)
+     (:country_population r)
+     (:province r)
+     (t/inst (:last_updated r))
+     (:coordinates r)
+     {:confirmed (:confirmed latest)
+      :deaths (:deaths latest)})))
+
+;; (def jhu-reports  (map create-jhu-report (get-all-locations-jhu)))
+
+(defn create-jhu-global-report
+  ""
+  [stats]
+  (GlobalReport.
+   "Johns Hopkins University"
+   "https://github.com/CSSEGISandData/COVID-19"
+   (t/inst)
+   stats))
+
+
+
+;; END Report Manipulation
+
+
+
 ;; RULES
 
+;; This only has to check for blanks because my parse function is bad.
 (defrule parse-request
   "Whenever there's a WebRequest, create a corresponding ParsedRequest"
   [WebRequest
    (= ?url url)
-   (= ?arguments (string/split ?url #"/"))]
+   (= ?arguments (parse-path ?url))]
   =>
   (insert-all! (map (fn [arg]
                       (if (not (string/blank? arg))
                         (ParsedRequest. ?url arg))) ?arguments)))
+
+
 
 (defrule print-args
   [ParsedRequest (= ?arg argument)]
@@ -144,27 +179,40 @@
    (= ?report jhu-report)]
   =>
   (insert-all! (list
-                (ChartRequest. ?path "bar" (cw/latest-bar ?report))
-                (ChartRequest. ?path "table" (cw/latest-table ?report))
-                (ChartRequest. ?path "source" (cw/source-box ?report)))))
+                (ChartFragment. ?path "bar" (cw/latest-bar ?report))
+                (ChartFragment. ?path "table" (cw/latest-table ?report))
+                (ChartFragment. ?path "source" (cw/source-box ?report)))))
+
+(defrule create-home-page-charts
+  [WebRequest
+   (= ?url url)
+   (or
+    (= "/" ?url)
+    (string/blank? ?url))]
+  [?global-report <- (acc/max :last-queried :returns-fact true) :from [GlobalReport (= ?latest latest)]]
+  =>
+  (insert-all! (list
+                (ChartFragment. ?url "global" (cw/global-bar ?global-report))
+                (ChartFragment. ?url "table" (cw/latest-table ?global-report)))))
+
 
 
 (defrule create-chart-page
-  [?fragments <- (acc/all) :from [ChartRequest (= ?path path)]]
+  [?fragments <- (acc/all) :from [ChartFragment (= ?path path)]]
   =>
   (insert! (RenderedPage. ?path
                           (charts/base-chart "Recorded Coronavirus (COVID-19) Cases"
                                              (map :body ?fragments)))))
 
 
-;; The intention is that if there is a single C19Report that's within a tolerance
+;; The intention is that if there is a single LocationReport that's within a tolerance
 ;; of 48 hours, then we can assume that the dataset has been updated within
 ;; 48 hours and then do nothing.
 ;; else, in the case that we there are no valid reports, we query xapix and
-;; insert an entire list of Records.
+;; insert an entire list of records.
 ;; I'm not sure if this implementation is correct.
 (defrule update-jhu-reports
-  [:not [C19Report (is-within-time? last-updated 48)]]
+  [:not [LocationReport (is-within-time? last-updated 48)]]
   =>
   (println "doing an update")
   (insert-all! (map create-jhu-report (get-all-timelines-jhu))))
@@ -174,7 +222,7 @@
 (defrule parse-locations
   "Checks if the argument parsed matches any country-codes"
   [ParsedRequest (= ?arg argument) (= ?path path)]
-  [?report <- C19Report (= ?country-code country-code) (= ?country country)]
+  [?report <- LocationReport (= ?country-code country-code) (= ?country country)]
   [:test (or
           (= ?country-code (string/upper-case ?arg))
           (= (string/lower-case ?country) (string/lower-case ?arg)))]
@@ -184,7 +232,7 @@
 (defrule parse-dates
   "Checks if the argument parsed matches a date int he form YYYY-MM-DD"
   [ParsedRequest (= ?arg argument) (= ?path path)]
-  [:test (test-date ?arg)]
+  [:test (is-date? ?arg)]
   =>
   (println "parsing dates")
   (insert! (DateRequest. ?path (t/date ?arg))))
@@ -196,22 +244,26 @@
 ;; Queries
 (defquery query-country
   [:?country-code]
-  [?report <- C19Report (= ?country-code country-code)])
+  [?report <- LocationReport (= ?country-code country-code)])
 
 (defquery query-chart-request
   [:?path]
-  [ChartRequest (= ?path path) (= ?chart-type chart-type) (= ?body body)])
+  [ChartFragment (= ?path path) (= ?chart-type chart-type) (= ?body body)])
 
 (defquery query-location-request
   [:?path]
   [LocationRequest (= ?path path) (= ?location-name location-name)])
 
+;; Right now there's only ever one WebRequest in a session, and therefore
+;; only one RenderedPage, but it's easy to imagine caching where we keep
+;; every RenderedPage, and only fire rules if the most recent RenderedPage fact
+;; is beyond some time/freshness tolerance.
 (defquery query-rendered-page
   [:?path]
   [RenderedPage (= ?path path) (= ?html html)])
 
 (defquery query-parsed-request
-  []
+  [:?path]
   [ParsedRequest (= ?path path) (= ?argument argument)])
 
 (defquery all-parsed [] [ParsedRequest (= ?path path)])
@@ -234,7 +286,8 @@
 
 (def jhu-session (atom (-> (mk-session [parse-request
                                         query-country
-                                        ;;                                        update-jhu-reports
+                                        update-jhu-reports
+                                        create-home-page-charts
                                         create-latest-chart-by-country-code
                                         create-chart-page
                                         all-locations
@@ -246,27 +299,33 @@
                                         parse-dates
                                         ])
                            (insert-all (map create-jhu-report (get-all-timelines-jhu)))
+                           (insert (create-jhu-global-report (get-latest-global-jhu)))
                            (fire-rules))))
 
 ;; Look how we dereference the atom to get access to the current state of the session
-;; then we insert a new fact into that state (call it new fact)
+;; then we insert a new fact into that state
 ;; and then we fire the rules
 ;; (-> @jhu-session
 ;;     (insert (->WebRequest "/hello/world"))
 ;;     (fire-rules)
 ;;     (query query-parsed-request))
 
+
 ;; I'm not sure if 'render' is the right name
-;; will revisit soon.
-(defn render-web-request [url]
+;; will revisit soon. The intention is that a web request comes in
+(defn render-web-request
+  "Given a url path, eg. '/us/2020-03-28/tt' insert a new WebReqest fact into a rules
+   engine session, fire all the rules, and then query for any RenderedPage facts.
+   Finally, we return the raw html content of that fact"
+  [path]
   (-> @jhu-session
-      (insert (->WebRequest url))
+      (insert (->WebRequest path))
       (fire-rules)
-      (query query-rendered-page :?path url)
+      (query query-rendered-page :?path path)
       (first)
       (:?html)))
 
-;; (render-web-request "/tt/es/us/2020-03-28")
+(render-web-request "tt/us")
 
 
 (defn search-reports-by-country [session country-code]

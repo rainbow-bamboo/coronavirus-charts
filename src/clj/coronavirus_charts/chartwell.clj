@@ -125,6 +125,15 @@
      [:h2 (:country r)]
      (vertical-bars [c d] ["#dab101" "#110809"] "d" "latest-bar")]))
 
+
+(defn global-bar [g]
+  (let [latest (:latest g)
+        c (:confirmed latest)
+        d (:deaths latest)]
+    [:div.bar-chart
+     [:h2 "Global Cases"]
+     (vertical-bars [c d] ["#dab101" "#110809"] "d" "latest-bar")]))
+
 (defn latest-table
   "Given a C19Report, create a table from the :latest key"
   [r]
