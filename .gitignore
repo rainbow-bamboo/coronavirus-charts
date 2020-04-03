@@ -11,8 +11,5 @@ test-config.edn
 profiles.clj
 /.env
 .nrepl-port
-/resources/public/css/webFonts
 /node_modules
 /log
-
-/resources/public/css/webFonts
