@@ -2866,7 +2866,7 @@ net.brehaut.ClojureTools = (function (SH) {
   };
 })(SyntaxHighlighter);
 </script><title>coronavirus-charts -- Marginalia</title></head><body><table><tr><td class="docs"><div class="header"><h1 class="project-name"><a href="http://coronavirus-charts.org">coronavirus-charts</a></h1><h2 class="project-version">0.1.0-SNAPSHOT</h2><br /><p>Cite data associated with the novel coronavirus (covid-19)</p>
-</div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">cheshire</td><td class="dotted"><hr /></td><td class="dep-version">5.10.0</td></tr><tr><td class="dep-name">metosin/jsonista</td><td class="dotted"><hr /></td><td class="dep-version">0.2.5</td></tr><tr><td class="dep-name">clojure.java-time</td><td class="dotted"><hr /></td><td class="dep-version">0.3.2</td></tr><tr><td class="dep-name">cprop</td><td class="dotted"><hr /></td><td class="dep-version">0.1.16</td></tr><tr><td class="dep-name">expound</td><td class="dotted"><hr /></td><td class="dep-version">0.8.4</td></tr><tr><td class="dep-name">funcool/struct</td><td class="dotted"><hr /></td><td class="dep-version">1.4.0</td></tr><tr><td class="dep-name">luminus-immutant</td><td class="dotted"><hr /></td><td class="dep-version">0.2.5</td></tr><tr><td class="dep-name">luminus-transit</td><td class="dotted"><hr /></td><td class="dep-version">0.1.2</td></tr><tr><td class="dep-name">markdown-clj</td><td class="dotted"><hr /></td><td class="dep-version">1.10.2</td></tr><tr><td class="dep-name">metosin/muuntaja</td><td class="dotted"><hr /></td><td class="dep-version">0.6.6</td></tr><tr><td class="dep-name">metosin/reitit</td><td class="dotted"><hr /></td><td class="dep-version">0.4.2</td></tr><tr><td class="dep-name">metosin/ring-http-response</td><td class="dotted"><hr /></td><td class="dep-version">0.9.1</td></tr><tr><td class="dep-name">mount</td><td class="dotted"><hr /></td><td class="dep-version">0.1.16</td></tr><tr><td class="dep-name">nrepl</td><td class="dotted"><hr /></td><td class="dep-version">0.6.0</td></tr><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.10.1</td></tr><tr><td class="dep-name">org.clojure/tools.cli</td><td class="dotted"><hr /></td><td class="dep-version">1.0.194</td></tr><tr><td class="dep-name">org.clojure/tools.logging</td><td class="dotted"><hr /></td><td class="dep-version">1.0.0</td></tr><tr><td class="dep-name">org.webjars.npm/bulma</td><td class="dotted"><hr /></td><td class="dep-version">0.8.0</td></tr><tr><td class="dep-name">org.webjars.npm/material-icons</td><td class="dotted"><hr /></td><td class="dep-version">0.3.1</td></tr><tr><td class="dep-name">org.webjars/webjars-locator</td><td class="dotted"><hr /></td><td class="dep-version">0.39</td></tr><tr><td class="dep-name">org.webjars/webjars-locator-jboss-vfs</td><td class="dotted"><hr /></td><td class="dep-version">0.1.0</td></tr><tr><td class="dep-name">ring-webjars</td><td class="dotted"><hr /></td><td class="dep-version">0.2.0</td></tr><tr><td class="dep-name">ring/ring-core</td><td class="dotted"><hr /></td><td class="dep-version">1.8.0</td></tr><tr><td class="dep-name">ring/ring-defaults</td><td class="dotted"><hr /></td><td class="dep-version">0.3.2</td></tr><tr><td class="dep-name">tick</td><td class="dotted"><hr /></td><td class="dep-version">0.4.23-alpha</td></tr><tr><td class="dep-name">org.clojure/math.numeric-tower</td><td class="dotted"><hr /></td><td class="dep-version">0.0.4</td></tr><tr><td class="dep-name">hiccup</td><td class="dotted"><hr /></td><td class="dep-version">1.0.5</td></tr><tr><td class="dep-name">herb</td><td class="dotted"><hr /></td><td class="dep-version">0.10.0</td></tr><tr><td class="dep-name">com.cerner/clara-rules</td><td class="dotted"><hr /></td><td class="dep-version">0.20.0</td></tr><tr><td class="dep-name">org.clojars.pallix/analemma</td><td class="dotted"><hr /></td><td class="dep-version">1.0.0</td></tr><tr><td class="dep-name">clj-http</td><td class="dotted"><hr /></td><td class="dep-version">3.10.0</td></tr><tr><td class="dep-name">selmer</td><td class="dotted"><hr /></td><td class="dep-version">1.12.18</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#coronavirus-charts.handler">coronavirus-charts.handler</a></li><li><a href="#coronavirus-charts.nrepl">coronavirus-charts.nrepl</a></li><li><a href="#coronavirus-charts.core">coronavirus-charts.core</a></li><li><a href="#coronavirus-charts.data">coronavirus-charts.data</a></li><li><a href="#coronavirus-charts.layout">coronavirus-charts.layout</a></li><li><a href="#coronavirus-charts.middleware.formats">coronavirus-charts.middleware.formats</a></li><li><a href="#coronavirus-charts.config">coronavirus-charts.config</a></li><li><a href="#coronavirus-charts.middleware">coronavirus-charts.middleware</a></li><li><a href="#coronavirus-charts.routes.home">coronavirus-charts.routes.home</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.handler" name="coronavirus-charts.handler"><h1 class="project-name">coronavirus-charts.handler</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+</div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">cheshire</td><td class="dotted"><hr /></td><td class="dep-version">5.10.0</td></tr><tr><td class="dep-name">metosin/jsonista</td><td class="dotted"><hr /></td><td class="dep-version">0.2.5</td></tr><tr><td class="dep-name">clojure.java-time</td><td class="dotted"><hr /></td><td class="dep-version">0.3.2</td></tr><tr><td class="dep-name">cprop</td><td class="dotted"><hr /></td><td class="dep-version">0.1.16</td></tr><tr><td class="dep-name">expound</td><td class="dotted"><hr /></td><td class="dep-version">0.8.4</td></tr><tr><td class="dep-name">funcool/struct</td><td class="dotted"><hr /></td><td class="dep-version">1.4.0</td></tr><tr><td class="dep-name">luminus-immutant</td><td class="dotted"><hr /></td><td class="dep-version">0.2.5</td></tr><tr><td class="dep-name">luminus-transit</td><td class="dotted"><hr /></td><td class="dep-version">0.1.2</td></tr><tr><td class="dep-name">markdown-clj</td><td class="dotted"><hr /></td><td class="dep-version">1.10.2</td></tr><tr><td class="dep-name">metosin/muuntaja</td><td class="dotted"><hr /></td><td class="dep-version">0.6.6</td></tr><tr><td class="dep-name">metosin/reitit</td><td class="dotted"><hr /></td><td class="dep-version">0.4.2</td></tr><tr><td class="dep-name">metosin/ring-http-response</td><td class="dotted"><hr /></td><td class="dep-version">0.9.1</td></tr><tr><td class="dep-name">mount</td><td class="dotted"><hr /></td><td class="dep-version">0.1.16</td></tr><tr><td class="dep-name">nrepl</td><td class="dotted"><hr /></td><td class="dep-version">0.6.0</td></tr><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.10.1</td></tr><tr><td class="dep-name">org.clojure/tools.cli</td><td class="dotted"><hr /></td><td class="dep-version">1.0.194</td></tr><tr><td class="dep-name">org.clojure/tools.logging</td><td class="dotted"><hr /></td><td class="dep-version">1.0.0</td></tr><tr><td class="dep-name">org.webjars.npm/bulma</td><td class="dotted"><hr /></td><td class="dep-version">0.8.0</td></tr><tr><td class="dep-name">org.webjars.npm/material-icons</td><td class="dotted"><hr /></td><td class="dep-version">0.3.1</td></tr><tr><td class="dep-name">org.webjars/webjars-locator</td><td class="dotted"><hr /></td><td class="dep-version">0.39</td></tr><tr><td class="dep-name">org.webjars/webjars-locator-jboss-vfs</td><td class="dotted"><hr /></td><td class="dep-version">0.1.0</td></tr><tr><td class="dep-name">ring-webjars</td><td class="dotted"><hr /></td><td class="dep-version">0.2.0</td></tr><tr><td class="dep-name">ring/ring-core</td><td class="dotted"><hr /></td><td class="dep-version">1.8.0</td></tr><tr><td class="dep-name">ring/ring-defaults</td><td class="dotted"><hr /></td><td class="dep-version">0.3.2</td></tr><tr><td class="dep-name">tick</td><td class="dotted"><hr /></td><td class="dep-version">0.4.23-alpha</td></tr><tr><td class="dep-name">org.clojure/math.numeric-tower</td><td class="dotted"><hr /></td><td class="dep-version">0.0.4</td></tr><tr><td class="dep-name">hiccup</td><td class="dotted"><hr /></td><td class="dep-version">1.0.5</td></tr><tr><td class="dep-name">herb</td><td class="dotted"><hr /></td><td class="dep-version">0.10.0</td></tr><tr><td class="dep-name">com.cerner/clara-rules</td><td class="dotted"><hr /></td><td class="dep-version">0.20.0</td></tr><tr><td class="dep-name">org.clojars.pallix/analemma</td><td class="dotted"><hr /></td><td class="dep-version">1.0.0</td></tr><tr><td class="dep-name">clj-http</td><td class="dotted"><hr /></td><td class="dep-version">3.10.0</td></tr><tr><td class="dep-name">selmer</td><td class="dotted"><hr /></td><td class="dep-version">1.12.18</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#coronavirus-charts.handler">coronavirus-charts.handler</a></li><li><a href="#coronavirus-charts.sessions">coronavirus-charts.sessions</a></li><li><a href="#coronavirus-charts.nrepl">coronavirus-charts.nrepl</a></li><li><a href="#coronavirus-charts.core">coronavirus-charts.core</a></li><li><a href="#coronavirus-charts.layout">coronavirus-charts.layout</a></li><li><a href="#coronavirus-charts.middleware.formats">coronavirus-charts.middleware.formats</a></li><li><a href="#coronavirus-charts.charts">coronavirus-charts.charts</a></li><li><a href="#coronavirus-charts.config">coronavirus-charts.config</a></li><li><a href="#coronavirus-charts.middleware">coronavirus-charts.middleware</a></li><li><a href="#coronavirus-charts.routes.home">coronavirus-charts.routes.home</a></li><li><a href="#coronavirus-charts.chartwell">coronavirus-charts.chartwell</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.handler" name="coronavirus-charts.handler"><h1 class="project-name">coronavirus-charts.handler</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns coronavirus-charts.handler
   (:require
     [coronavirus-charts.middleware :as middleware]
@@ -2898,7 +2898,269 @@ net.brehaut.ClojureTools = (function (SH) {
          :not-acceptable
          (constantly (error-page {:status 406, :title &quot;406 - Not acceptable&quot;}))}))))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn app []
-  (middleware/wrap-base #'app-routes))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.nrepl" name="coronavirus-charts.nrepl"><h1 class="project-name">coronavirus-charts.nrepl</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+  (middleware/wrap-base #'app-routes))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.sessions" name="coronavirus-charts.sessions"><h1 class="project-name">coronavirus-charts.sessions</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns coronavirus-charts.sessions
+  (:require
+   [tick.alpha.api :as t]
+   [clojure.pprint :refer [pprint]]
+   [clj-http.client :as client]
+   [clara.rules :refer :all]
+   [clara.rules.accumulators :as acc]
+   [coronavirus-charts.chartwell :as cw]
+   [coronavirus-charts.charts :as charts]
+   [cheshire.core :as cheshire]
+   [clojure.string :as string]))</pre></td></tr><tr><td class="docs"><p>Base function to query a url and parse</p>
+
+<p>External Data
+jsonista is a faster alternative to cheshire and already in project.clj
+not sure how to use it yet.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn fetch-data
+  [url]
+  (cheshire/parse-string (:body (client/get url {:accept :json}))
+                         true))</pre></td></tr><tr><td class="docs"><p>Base function to extract keys from a parsed location.</p>
+
+<p>This will be handy when creating timelines later</p>
+</td><td class="codes"><pre class="brush: clojure">(defn extract-location
+  [loc]
+  {:id (:id loc)
+   :latest (:latest loc)})</pre></td></tr><tr><td class="docs"><p>Queries the xapix covid-19 api to return the latest confrimed and deaths
+  I expect to update these end points when xapix settles on a spec.
+  [source: Johns Hopkins University]</p>
+</td><td class="codes"><pre class="brush: clojure">(defn get-latest-global-jhu
+  []
+  (let [data (:latest (fetch-data &quot;http://covid19api.xapix.io/v2/latest&quot;))]
+    {:confirmed (:confirmed data) :deaths (:deaths data)}))</pre></td></tr><tr><td class="docs"><p>Queries the xapix covid-19 api to return imformation about all locations
+  [source: Johns Hopkins University]</p>
+</td><td class="codes"><pre class="brush: clojure">(defn get-all-locations-jhu
+  []
+  (let [data (fetch-data &quot;http://covid19api.xapix.io/v2/locations&quot;)]
+    (:locations data)))</pre></td></tr><tr><td class="docs"><p>Queries the xapix covid-19 api to return imformation about all locations, including timelines
+  [source: Johns Hopkins University]</p>
+</td><td class="codes"><pre class="brush: clojure">(defn get-all-timelines-jhu
+  []
+  (let [data (fetch-data &quot;http://covid19api.xapix.io/v2/locations?timelines=true&quot;)]
+    (:locations data)))</pre></td></tr><tr><td class="docs"><p>END EXTERNAL DATA</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Given an tick/inst, returns true if that time is within a tolerance (mins) </p>
+
+<p>Helpers</p>
+</td><td class="codes"><pre class="brush: clojure">(defn is-within-time?
+  [time tolerance]
+  (&lt; (t/hours (t/between time (t/inst))) tolerance))</pre></td></tr><tr><td class="docs"><p>Given two tick/inst, returns true if they are on the same day</p>
+</td><td class="codes"><pre class="brush: clojure">(defn is-same-day?
+  [t1 t2]
+  (= (t/date t1) (t/date t2)))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn is-date? [date-string]
+  (let [date (try (t/date date-string) (catch Exception e false))]
+  (if date
+    true
+    false)))</pre></td></tr><tr><td class="docs"><p>Given a url path, eg, /tt/us or /bar/en,us,tt/2020-03-28
+   return a flattened list of all arguments eg. ['tt' 'us']</p>
+
+<p>This is an important function that needs work.
+The intention is that it reads the path, and then splits it
+into each discrete parameter to be inserted as individual facts
+in the session.
+Commas are valid seperators because it takes two actions to get to a
+slash when you're typing in Whatsapp, but commas
+are usually one press away. <code>📊📊.to/cn,us,es,tt</code> would be a valid url</p>
+</td><td class="codes"><pre class="brush: clojure">(defn parse-path
+  [path]
+  (flatten
+   (map (fn [v] (string/split v #&quot;,&quot;))
+        (string/split path #&quot;/&quot;))))</pre></td></tr><tr><td class="docs"><p>END Helpers</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>FactTypes
+TODO: Implement core.spec or schema on records.</p>
+</td><td class="codes"><pre class="brush: clojure">(defrecord WebRequest [url])
+(defrecord ParsedRequest [path argument])</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defrecord ChartFragment [path chart-type body])
+(defrecord LocationRequest [path location-name country-code jhu-report])
+(defrecord DateRequest [path date])</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defrecord RenderedPage [path html])</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defrecord GlobalReport [source-name
+                         source-url
+                         last-queried
+                         latest])</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defrecord LocationReport [source-name
+                      source-url
+                      country
+                      country-code
+                      country-population
+                      province
+                      last-updated
+                      coordinates
+                      latest])</pre></td></tr><tr><td class="docs"><p>END FactTypes</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Report Manipulation</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Given the parsed json from the api call, return a LocationReport record</p>
+</td><td class="codes"><pre class="brush: clojure">(defn create-jhu-report
+  [r]
+  (let [latest (:latest r)]
+    (LocationReport.
+     &quot;Johns Hopkins University&quot;
+     &quot;https://github.com/CSSEGISandData/COVID-19&quot;
+     (:country r)
+     (:country_code r)
+     (:country_population r)
+     (:province r)
+     (t/inst (:last_updated r))
+     (:coordinates r)
+     {:confirmed (:confirmed latest)
+      :deaths (:deaths latest)})))</pre></td></tr><tr><td class="docs"><p>(def jhu-reports  (map create-jhu-report (get-all-locations-jhu)))</p>
+</td><td class="codes"></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn create-jhu-global-report
+  [stats]
+  (GlobalReport.
+   &quot;Johns Hopkins University&quot;
+   &quot;https://github.com/CSSEGISandData/COVID-19&quot;
+   (t/inst)
+   stats))</pre></td></tr><tr><td class="docs"><p>END Report Manipulation</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>RULES</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Whenever there's a WebRequest, create a corresponding ParsedRequest</p>
+
+<p>This only has to check for blanks because my parse function is bad.</p>
+</td><td class="codes"><pre class="brush: clojure">(defrule parse-request
+  [WebRequest
+   (= ?url url)
+   (= ?arguments (parse-path ?url))]
+  =&gt;
+  (insert-all! (map (fn [arg]
+                      (if (not (string/blank? arg))
+                        (ParsedRequest. ?url arg))) ?arguments)))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defrule print-args
+  [ParsedRequest (= ?arg argument)]
+  =&gt;
+  (println ?arg))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defrule create-latest-chart-by-country-code
+  [LocationRequest
+   (= ?path path)
+   (= ?report jhu-report)]
+  =&gt;
+  (insert-all! (list
+                (ChartFragment. ?path &quot;bar&quot; (cw/latest-bar ?report))
+                (ChartFragment. ?path &quot;table&quot; (cw/latest-table ?report))
+                (ChartFragment. ?path &quot;source&quot; (cw/source-box ?report)))))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defrule create-home-page-charts
+  [WebRequest
+   (= ?url url)
+   (or
+    (= &quot;/&quot; ?url)
+    (string/blank? ?url))]
+  [?global-report &lt;- (acc/max :last-queried :returns-fact true) :from [GlobalReport (= ?latest latest)]]
+  =&gt;
+  (insert-all! (list
+                (ChartFragment. ?url &quot;global&quot; (cw/global-bar ?global-report))
+                (ChartFragment. ?url &quot;table&quot; (cw/latest-table ?global-report)))))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defrule create-chart-page
+  [?fragments &lt;- (acc/all) :from [ChartFragment (= ?path path)]]
+  =&gt;
+  (insert! (RenderedPage. ?path
+                          (charts/base-chart &quot;Recorded Coronavirus (COVID-19) Cases&quot;
+                                             (map :body ?fragments)))))</pre></td></tr><tr><td class="docs"><p>The intention is that if there is a single LocationReport that's within a tolerance
+of 48 hours, then we can assume that the dataset has been updated within
+48 hours and then do nothing.
+else, in the case that we there are no valid reports, we query xapix and
+insert an entire list of records.
+I'm not sure if this implementation is correct.</p>
+</td><td class="codes"><pre class="brush: clojure">(defrule update-jhu-reports
+  [:not [LocationReport (is-within-time? last-updated 48)]]
+  =&gt;
+  (println &quot;doing an update&quot;)
+  (insert-all! (map create-jhu-report (get-all-timelines-jhu))))</pre></td></tr><tr><td class="docs"><p>Checks if the argument parsed matches any country-codes</p>
+</td><td class="codes"><pre class="brush: clojure">(defrule parse-locations
+  [ParsedRequest (= ?arg argument) (= ?path path)]
+  [?report &lt;- LocationReport (= ?country-code country-code) (= ?country country)]
+  [:test (or
+          (= ?country-code (string/upper-case ?arg))
+          (= (string/lower-case ?country) (string/lower-case ?arg)))]
+  =&gt;
+  (insert! (LocationRequest. ?path (:country ?report) (:country-code ?report) ?report)))</pre></td></tr><tr><td class="docs"><p>Checks if the argument parsed matches a date int he form YYYY-MM-DD</p>
+</td><td class="codes"><pre class="brush: clojure">(defrule parse-dates
+  [ParsedRequest (= ?arg argument) (= ?path path)]
+  [:test (is-date? ?arg)]
+  =&gt;
+  (println &quot;parsing dates&quot;)
+  (insert! (DateRequest. ?path (t/date ?arg))))</pre></td></tr><tr><td class="docs"><p>END RULES</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Queries</p>
+</td><td class="codes"><pre class="brush: clojure">(defquery query-country
+  [:?country-code]
+  [?report &lt;- LocationReport (= ?country-code country-code)])</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defquery query-chart-request
+  [:?path]
+  [ChartFragment (= ?path path) (= ?chart-type chart-type) (= ?body body)])</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defquery query-location-request
+  [:?path]
+  [LocationRequest (= ?path path) (= ?location-name location-name)])</pre></td></tr><tr><td class="docs"><p>Right now there's only ever one WebRequest in a session, and therefore
+only one RenderedPage, but it's easy to imagine caching where we keep
+every RenderedPage, and only fire rules if the most recent RenderedPage fact
+is beyond some time/freshness tolerance.</p>
+</td><td class="codes"><pre class="brush: clojure">(defquery query-rendered-page
+  [:?path]
+  [RenderedPage (= ?path path) (= ?html html)])</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defquery query-parsed-request
+  [:?path]
+  [ParsedRequest (= ?path path) (= ?argument argument)])</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defquery all-parsed [] [ParsedRequest (= ?path path)])</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defquery all-locations [] [LocationRequest (= ?path path) (= ?location-name location-name)])</pre></td></tr><tr><td class="docs"><p>END QUERIES</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Exploratory Functions</p>
+</td><td class="codes"></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn search-jhu-reports [country-code]
+  (let [facts  (map create-jhu-report (get-all-timelines-jhu))
+        session (-&gt; (mk-session [query-country])
+                    (insert-all facts)
+                    (fire-rules))]
+    (query session query-country :?country-code country-code)))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(def jhu-session (atom (-&gt; (mk-session [parse-request
+                                        query-country
+                                        update-jhu-reports
+                                        create-home-page-charts
+                                        create-latest-chart-by-country-code
+                                        create-chart-page
+                                        all-locations
+                                        parse-locations
+                                        query-parsed-request
+                                        query-chart-request
+                                        query-location-request
+                                        query-rendered-page
+                                        parse-dates
+                                        ])
+                           (insert-all (map create-jhu-report (get-all-timelines-jhu)))
+                           (insert (create-jhu-global-report (get-latest-global-jhu)))
+                           (fire-rules))))</pre></td></tr><tr><td class="docs"><p>Look how we dereference the atom to get access to the current state of the session
+then we insert a new fact into that state
+and then we fire the rules
+(-> @jhu-session
+    (insert (->WebRequest "/hello/world"))
+    (fire-rules)
+    (query query-parsed-request))</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Given a url path, eg. '/us/2020-03-28/tt' insert a new WebReqest fact into a rules
+   engine session, fire all the rules, and then query for any RenderedPage facts.
+   Finally, we return the raw html content of that fact</p>
+
+<p>I'm not sure if 'render' is the right name
+will revisit soon. The intention is that a web request comes in</p>
+</td><td class="codes"><pre class="brush: clojure">(defn render-web-request
+  [path]
+  (-&gt; @jhu-session
+      (insert (-&gt;WebRequest path))
+      (fire-rules)
+      (query query-rendered-page :?path path)
+      (first)
+      (:?html)))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(render-web-request &quot;tt/us&quot;)</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn search-reports-by-country [session country-code]
+  (fire-rules session)
+  (:?report
+   (first (query session query-country  &quot;?country-code&quot; country-code))))</pre></td></tr><tr><td class="docs"><p>(cw/latest-bar (search-reports-by-country @jhu-session "ES"))</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Example location result (without timelines)
+{:id 0,
+ :country "Afghanistan",
+ :country_code "AF",
+ :country_population 29121286,
+ :province "",
+ :last_updated "2020-03-29T13:14:06.151058Z",
+ :coordinates {:latitude "33.0", :longitude "65.0"},
+ :latest {:confirmed 110, :deaths 4, :recovered 0}}</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>END Exploratory</p>
+</td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.nrepl" name="coronavirus-charts.nrepl"><h1 class="project-name">coronavirus-charts.nrepl</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns coronavirus-charts.nrepl
   (:require
     [nrepl.server :as nrepl]
@@ -2969,229 +3231,7 @@ net.brehaut.ClojureTools = (function (SH) {
     (log/info component &quot;started&quot;))
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn -main [&amp; args]
-  (start-app args))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.data" name="coronavirus-charts.data"><h1 class="project-name">coronavirus-charts.data</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns coronavirus-charts.data
-  (:require
-   [tick.alpha.api :as t]
-   [clj-http.client :as client]
-   [clara.rules :refer :all]
-   [cheshire.core :as cheshire]
-   [clojure.string :as string]))</pre></td></tr><tr><td class="docs"><p>Base function to query a url and parse</p>
-
-<p>jsonista is a faster alternative to cheshire and already in project.clj
-not sure how to use it yet.</p>
-</td><td class="codes"><pre class="brush: clojure">(defn fetch-data
-  [url]
-  (cheshire/parse-string (:body (client/get url {:accept :json}))
-                         true))</pre></td></tr><tr><td class="docs"><p>Queries the xapix covid-19 api to return the latest confrimed and deaths
-  I expect to update these end points when xapix settles on a spec.
-  [source: Johns Hopkins University]</p>
-</td><td class="codes"><pre class="brush: clojure">(defn get-latest-global-jhu
-  []
-  (let [data (:latest (fetch-data &quot;http://covid19api.xapix.io/v2/latest&quot;))]
-    {:confirmed (:confirmed data) :deaths (:deaths data)}))</pre></td></tr><tr><td class="docs"><p>Queries the xapix covid-19 api to return imformation about all locations
-  [source: Johns Hopkins University]</p>
-</td><td class="codes"><pre class="brush: clojure">(defn get-all-locations-jhu
-  []
-  (let [data (fetch-data &quot;http://covid19api.xapix.io/v2/locations&quot;)]
-    (:locations data)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(def sample-locations (get-all-locations-jhu))</pre></td></tr><tr><td class="docs"><p>Base function to extract keys from a parsed location.</p>
-
-<p>This will be handy when creating timelines later</p>
-</td><td class="codes"><pre class="brush: clojure">(defn extract-location
-  [loc]
-  {:id (:id loc)
-   :latest (:latest loc)})</pre></td></tr><tr><td class="docs"><p>(map extract-location sample-locations)</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>Queries the xapix covid-19 api to return imformation about all locations, including timelines
-  [source: Johns Hopkins University]</p>
-</td><td class="codes"><pre class="brush: clojure">(defn get-all-locations
-  []
-  (let [data (fetch-data &quot;http://covid19api.xapix.io/v2/locations?timelines=true&quot;)]
-    (:locations data)))</pre></td></tr><tr><td class="docs"><p>(get-latest-global-jhu)</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>Possibly implement core.spec on records</p>
-</td><td class="codes"><pre class="brush: clojure">(defrecord WebRequest [url])
-(defrecord ParsedRequest [path argument])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defrecord ChartRequest [path chart-type body])
-(defrecord LocationRequest [path location-name country-code jhu-report])
-(defrecord TimeRequest [path time])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defrecord BarChart [path body])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defrecord C19Report [source-name
-                      source-url
-                      country
-                      country-code
-                      country-population
-                      province
-                      last-updated
-                      coordinates
-                      latest])</pre></td></tr><tr><td class="docs"><p>Whenever there's a WebRequest, create a corresponding ParsedRequest</p>
-</td><td class="codes"><pre class="brush: clojure">(defrule parse-request
-  [WebRequest
-   (= ?url url)
-   (= ?arguments (string/split ?url #&quot;/&quot;))]
-  =&gt;
-  (insert-all! (map (fn [arg]
-                      (if (not (string/blank? arg))
-                        (ParsedRequest. ?url arg))) ?arguments)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defrule print-args
-  [ParsedRequest (= ?arg argument)]
-  =&gt;
-  (println ?arg))</pre></td></tr><tr><td class="docs"><p>Given a C19Report, create a table from the :latest key</p>
-</td><td class="codes"><pre class="brush: clojure">(defn create-table
-  [r]
-  (let [latest (:latest r)
-        c (:confirmed latest)
-        d (:deaths latest)]
-    [:table
-     [:thead
-      [:tr
-       [:th &quot;Confirmed&quot;]
-       [:th &quot;Deaths&quot;]]]
-     [:tbody
-      [:tr
-       [:td c]
-       [:td d]]]]))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defrule create-bars
-  [:and
-   [LocationRequest
-    (= ?path path)
-    (= ?location-name location-name)
-    (= ?report jhu-report)]
-   [ParsedRequest
-    (= ?arg argument)
-    (= ?arg &quot;bar&quot;)]]
-  =&gt;
-  (insert! (ChartRequest. ?path &quot;bar&quot; (create-table ?report)))
-  (println &quot;in cbars&quot;  ?arg))</pre></td></tr><tr><td class="docs"><p>Given the parsed json from the api call, return a C19Report record</p>
-</td><td class="codes"><pre class="brush: clojure">(defn create-jhu-report
-  [r]
-  (let [latest (:latest r)]
-    (C19Report.
-     &quot;Johns Hopkins University&quot;
-     &quot;https://github.com/CSSEGISandData/COVID-19&quot;
-     (:country r)
-     (:country_code r)
-     (:country_population r)
-     (:province r)
-     (t/inst (:last_updated r))
-     (:coordinates r)
-     {:confirmed (:confirmed latest)
-      :deaths (:deaths latest)})))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(def jhu-reports  (map create-jhu-report (get-all-locations-jhu)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defquery query-country
-  [:?country-code]
-  [?report &lt;- C19Report (= ?country-code country-code)])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defquery query-chart-request
-  [:?path]
-  [ChartRequest (= ?path path) (= ?chart-type chart-type) (= ?body body)])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defquery query-location-request
-  [:?path]
-  [LocationRequest (= ?path path) (= ?location-name location-name)])</pre></td></tr><tr><td class="docs"><p>Given an tick/inst, returns true if that time is within a tolerance (mins) </p>
-</td><td class="codes"><pre class="brush: clojure">(defn is-within-time?
-  [time tolerance]
-  (&lt; (t/hours (t/between time (t/inst))) tolerance))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn search-jhu-reports [country-code]
-  (let [facts  (map create-jhu-report (get-all-locations))
-        session (-&gt; (mk-session [query-country])
-                    (insert-all facts)
-                    (fire-rules))]
-    (query session query-country :?country-code country-code)))</pre></td></tr><tr><td class="docs"><p>The intention is that if there is a single C19Report that's within a tolerance
-of 48 hours, then we can assume that the dataset has been updated within
-48 hours and then do nothing.
-else, in the case that we there are no valid reports, we query xapix and
-insert an entire list of Records.
-I'm not sure if this implementation is correct.</p>
-</td><td class="codes"><pre class="brush: clojure">(defrule update-jhu-reports
-  [:not [C19Report (is-within-time? last-updated 48)]]
-  =&gt;
-  (println &quot;doing an update&quot;)
-  (insert-all! (map create-jhu-report (get-all-locations))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defquery query-parsed-request
-  []
-  [ParsedRequest (= ?path path) (= ?argument argument)])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defquery all-parsed [] [ParsedRequest (= ?path path)])
-(defquery all-locations [] [LocationRequest (= ?path path) (= ?location-name location-name)])</pre></td></tr><tr><td class="docs"><p>Checks if the argument parsed matches any country-codes</p>
-</td><td class="codes"><pre class="brush: clojure">(defrule parse-locations
-  [ParsedRequest (= ?arg argument) (= ?path path)]
-  [?report &lt;- C19Report (= ?country-code country-code)]
-  [:test (= ?country-code (string/upper-case ?arg))]
-  =&gt;
-  (insert! (LocationRequest. ?path (:country ?report) (:country-code ?report) ?report)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(def jhu-session (atom (-&gt; (mk-session [parse-request
-                                        query-country
-;;                                        update-jhu-reports
-                                        all-locations
-                                        create-bars
-                                        parse-locations
-                                        query-parsed-request
-                                        query-chart-request
-                                        query-location-request
-                                        ])
-                           (insert-all (map create-jhu-report (get-all-locations)))
-                           (fire-rules))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(query @jhu-session query-location-request)</pre></td></tr><tr><td class="docs"><p>Look how we dereference the atom to get access to the current state of the session
-then we insert a new fact into that state (call it new fact)
-and then we fire the rules</p>
-</td><td class="codes"><pre class="brush: clojure">(-&gt; @jhu-session
-    (insert (-&gt;WebRequest &quot;/hello/world&quot;))
-    (fire-rules)
-    (query query-parsed-request))</pre></td></tr><tr><td class="docs"><p>({:?path "/hello/world", :?argument "world"}
- {:?path "/hello/world", :?argument "hello"}
- {:?path "/c/e/12/n", :?argument "c"}
- {:?path "/c/e/12/n", :?argument "e"}
- {:?path "/c/e/12/n", :?argument "12"}
- {:?path "/c/e/12/n", :?argument "n"})</p>
-</td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn insert-web-request [url]
-  (-&gt; @jhu-session
-      (insert (-&gt;WebRequest url))
-      (fire-rules)
-      (query query-chart-request :?path url)))</pre></td></tr><tr><td class="docs"><p>(map :?body (insert-web-request "/bar/tt/us/es"))</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>the function to get charts will just insert a new request
-let it generate everything it needs to gen
-and then reset</p>
-</td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn search-reports-by-country [session country-code]
-  (fire-rules session)
-  (:?report
-   (first (query session query-country  :?country-code country-code))))</pre></td></tr><tr><td class="docs"><p>(:latest (search-reports-by-country @jhu-session "ES"))</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>We're making a time test in order to update our sources every 30 minutes
-the goal is to develop a rule which will println if time has passed</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>(def sample-time (get-in (first (search-reports-by-country @jhu-session "US")) [:?report :last-updated]))</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>(is-old? sample-time 46)</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>{:id 0,
- :country "Afghanistan",
- :country_code "AF",
- :country_population 29121286,
- :province "",
- :last_updated "2020-03-29T13:14:06.151058Z",
- :coordinates {:latitude "33.0", :longitude "65.0"},
- :latest {:confirmed 110, :deaths 4, :recovered 0}}</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>(defrecord DataSet [sourcename sourceurl title valid-time data])
-(defrule init-global-data
-  [:not [DataSet (= title "latest-global-jhu")]]
-  =>
-  (insert!  (->DataSet "Johns Hopkins University"
-                      "https://github.com/CSSEGISandData/COVID-19"
-                      "latest-global-jhu"
-                      "Data data bb"
-                      (t/now))))</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>(defrule init-locations-data
-  [:not [DataSet (= title "locations-jhu")]]
-  =>
-  (insert! (->DataSet "Johns Hopkins University"
-                      "https://github.com/CSSEGISandData/COVID-19"
-                      :locations-jhu
-                      "Data")))</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>(first (:locations ))
-{:id 0,
- :country "Afghanistan",
- :country_code "AF",
- :country_population 29121286,
- :province "",
- :last_updated "2020-03-29T13:14:06.151058Z",
- :coordinates {:latitude "33.0", :longitude "65.0"},
- :latest {:confirmed 110, :deaths 4, :recovered 0}}</p>
-</td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.layout" name="coronavirus-charts.layout"><h1 class="project-name">coronavirus-charts.layout</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+  (start-app args))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.layout" name="coronavirus-charts.layout"><h1 class="project-name">coronavirus-charts.layout</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns coronavirus-charts.layout
   (:require
     [clojure.java.io]
@@ -3239,7 +3279,44 @@ the goal is to develop a rule which will println if time has passed</p>
           (partial merge time/time-deserialization-handlers))
         (update-in
           [:formats &quot;application/transit+json&quot; :encoder-opts]
-          (partial merge time/time-serialization-handlers)))))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.config" name="coronavirus-charts.config"><h1 class="project-name">coronavirus-charts.config</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+          (partial merge time/time-serialization-handlers)))))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.charts" name="coronavirus-charts.charts"><h1 class="project-name">coronavirus-charts.charts</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns coronavirus-charts.charts
+    (:require [cheshire.core :as cheshire]
+            [hiccup.core :refer [h]]
+            [coronavirus-charts.chartwell :as cw])
+    (:use [hiccup.page :only (html5 include-css include-js)]))</pre></td></tr><tr><td class="docs"><p>PARTIALS</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>This is required for our reel layout to prevent odd sizing of components</p>
+</td><td class="codes"><pre class="brush: clojure">(defn reel-script []
+  [:script &quot;(function() {
+  const className = 'chart-boards';
+  const reels = Array.from(document.querySelectorAll(`.${className}`));
+  const toggleOverflowClass = elem =&gt; {
+    elem.classList.toggle('overflowing', elem.scrollWidth &gt; elem.clientWidth);
+  };
+  for (let reel of reels) {
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(entries =&gt; {
+        toggleOverflowClass(entries[0].target);
+      }).observe(reel);
+    }
+    if ('MutationObserver' in window) {
+      new MutationObserver(entries =&gt; {
+        toggleOverflowClass(entries[0].target);
+      }).observe(reel, {childList: true});
+    }
+  }
+})();&quot;])</pre></td></tr><tr><td class="docs"><p>CHARTS
+These functions all take a Report record, and then return a full html page</p>
+</td><td class="codes"></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn base-chart [heading content]
+  (html5 [:head
+          [:title &quot;coronavirus-charts.org&quot;]
+          (include-css &quot;/css/screen.css&quot;)]
+         [:body
+          [:h1 heading]
+          [:div.center
+           content]
+          (reel-script)]))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.config" name="coronavirus-charts.config"><h1 class="project-name">coronavirus-charts.config</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns coronavirus-charts.config
   (:require
     [cprop.core :refer [load-config]]
@@ -3303,7 +3380,7 @@ the goal is to develop a rule which will println if time has passed</p>
    [clojure.java.io :as io]
    [clojure.string :as string]
    [coronavirus-charts.middleware :as middleware]
-   [coronavirus-charts.data :refer :all]
+   [coronavirus-charts.sessions :refer :all]
    [ring.util.response]
    [ring.util.http-response :as response]
    [clara.rules :refer :all]))</pre></td></tr><tr><td class="docs">
@@ -3316,18 +3393,142 @@ the goal is to develop a rule which will println if time has passed</p>
   (let [path (:path-info request)
         params  (string/split path #&quot;/&quot;)]
     (println params)
-    (reset! jhu-session (insert @jhu-session (-&gt;ParsedRequest &quot;/c/er&quot; [&quot;c&quot; &quot;er&quot;])))
-    (println  &quot;Hello&quot; (query @jhu-session query-parsed-request :?path &quot;/c/er&quot;))
     (layout/render request &quot;home.html&quot;)))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn home-routes []
   [
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
-   [&quot;/*&quot; {:get chart-page}]])</pre></td></tr><tr><td class="docs"><p>(-> (mk-session)
+   [&quot;/*&quot; {:get (fn [resp]
+                 (-&gt; (response/ok (render-web-request (:path-info resp)))
+                     (response/header &quot;content-type&quot; &quot;text/html&quot;)))}]])</pre></td></tr><tr><td class="docs"><p>(-> (mk-session)
     (insert (->WebRequest "hh.to/tt"))
     (fire-rules)
     (get-parsed-requests))</p>
-</td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr></table><div class="footer">Generated by <a href="https://github.com/gdeer81/marginalia">Marginalia</a>.&nbsp;&nbsp;Syntax highlighting provided by Alex Gorbatchev's <a href="http://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighlighter</a><div id="floating-toc"><ul><li class="floating-toc-li" id="floating-toc_coronavirus-charts.handler">coronavirus-charts.handler</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.nrepl">coronavirus-charts.nrepl</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.core">coronavirus-charts.core</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.data">coronavirus-charts.data</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.layout">coronavirus-charts.layout</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.middleware.formats">coronavirus-charts.middleware.formats</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.config">coronavirus-charts.config</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.middleware">coronavirus-charts.middleware</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.routes.home">coronavirus-charts.routes.home</li></ul></div></div><script type="text/javascript">SyntaxHighlighter.defaults['gutter'] = false;
+</td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.chartwell" name="coronavirus-charts.chartwell"><h1 class="project-name">coronavirus-charts.chartwell</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns coronavirus-charts.chartwell
+  (:require [clojure.math.numeric-tower :as math]))</pre></td></tr><tr><td class="docs"><p>FF-Chartwell is a webfont that creates simple charts out of integers.</p>
+
+<p>For example, this span:
+<span class="vertical-bars">10+50+100</span></p>
+
+<p>with this css:
+.vertical-bars{
+  font-family: "FFChartwellBarsVerticalRegular";
+  font-variant-ligatures: discretionary-ligatures;
+  }</p>
+
+<p>will return a bar-graph with 3 bars:
+1: 10% of font-height
+2: 50%
+3: 100%</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>It also has support for horizontal-bars, pies,
+radars, rings, areas, roses, bubbles, scatters and lines...
+as well as a couple "floating" variants.</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>The font technology used (discretionary liglatures) is
+supported in everything except IE, and I assume that most of
+the bugs in FF Chartwell have been ironed out because it's
+been active since 2012.</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Here is a sample reagent component
+(defn simple-component []
+  [:div
+    [:span {:style {:color "blue"}} "I am blue text"]
+    [:span {:style {:color "red"}} "I am red text"]]])</p>
+
+<p>I'm imagining that the api will look like:
+(<chart-type> <values> <default-colors> <class-name>)</p>
+
+<p>With the function for vertical-bars resembling:
+(vertical-bars [10 20] ["#bee" "#fab] "v-bar")</p>
+
+<p> => [:div.vertical-bar [:span "10" {:style {:color "#bee"} :class "chart-segment"}]
+ =>                    [:span "20" {:style {:color "#fab"} :class "chart-segment"}]]</p>
+
+<p>We can abstract the "span" structure into a <code>chart-segment</code> component
+since it'll represent the smallest building block of a chart.</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Since each chart segment is a part of a whole chart,
+react/reagent requires us to provide a unique key for the virtual dom</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Given the integer size, a hexcode color, and a class string,
+   return a reagent span component.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn chart-segment
+  [content color class]
+;;  ^{:key (random-uuid)} Don't think that this is necessary in clj
+  [:span {:style (str &quot;color:&quot; color)
+          :class (str &quot;chart-segment &quot; class)}
+   (reduce str content)])</pre></td></tr><tr><td class="docs"><p>It's meant to work with the (herb)[http://herb.roosta.sh/] library for more complex
+styling like: (chart-segment 10 "#bee" (<class sample-class-func))</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Note how the key prop is stored as meta
+(meta (chart-segment "lol" "red" (sample-id-func "101010")))
+=> {:key "1010101584214541804"}</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Our dream is to return
+[:div.vertical-bar [chart-segment _ _ _ ] [chart-segment _ _ _ ] ]</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>We're handing the anonymous fn, [size color] pairs
+and then we're destructuring it through the [[x y]] syntax
+in order to generate list of <code>chart-segment</code></p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>I'm sure that there's a more elegant way of doing this in one
+function.
+Note that the <code>class-func</code> must be a function that accepts [size color]
+[ Is this something we can express in clojure.spec? ]</p>
+</td><td class="codes"><pre class="brush: clojure">(defn herb-vertical-bars [sizes colors grid class-func]
+  [:div.vertical-bars
+   (cons [:span {:class &quot;vertical-bars-grid&quot;} (str grid &quot;+&quot;)]
+         (map
+          (fn [[size color]] (chart-segment (str size &quot;+&quot;)
+                                               color
+                                               (class-func size color)))
+          (map vector sizes colors)))])</pre></td></tr><tr><td class="docs"><p>(def sample-sizes [10 50 100])
+(def sample-colors ["#bee" "#fab" "#ada"])</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>This is effectively a convert to percentage function
+except that it rounds up</p>
+</td><td class="codes"><pre class="brush: clojure">(defn v-bar-scale [v target]
+  (int (math/ceil (* 100 (/ v target)))))</pre></td></tr><tr><td class="docs"><p>the target scale is calculated through finding the largest value
+in the dataset. I'd like to make it round up to the nearest hundred.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn target-scale [dataset]
+  (apply max dataset))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn vertical-bars [sizes colors grid class]
+  (let [target (target-scale sizes)]
+    [:div.vertical-bars
+     (cons
+      [:span {:class &quot;vertical-bars-grid&quot;} (str grid &quot;+&quot;)]
+      (map
+       (fn [[size color]] (chart-segment (str (v-bar-scale size target) &quot;+&quot;)
+                                            color
+                                            class))
+       (map vector sizes colors)))]))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn source-box [r]
+  (let [source-name (:source-name r)
+        source-url (:source-url r)]
+    [:p.sources &quot;Source: &quot;
+     [:a {:href source-url} source-name]
+     &quot; via &quot;
+     [:a {:href &quot;https://xapix-io.github.io/covid-data/&quot;} &quot;xapix&quot; ]]))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn latest-bar [r]
+  (let [latest (:latest r)
+        c (:confirmed latest)
+        d (:deaths latest)]
+    [:div.bar-chart
+     [:h2 (:country r)]
+     (vertical-bars [c d] [&quot;#dab101&quot; &quot;#110809&quot;] &quot;d&quot; &quot;latest-bar&quot;)]))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn global-bar [g]
+  (let [latest (:latest g)
+        c (:confirmed latest)
+        d (:deaths latest)]
+    [:div.bar-chart
+     [:h2 &quot;Global Cases&quot;]
+     (vertical-bars [c d] [&quot;#dab101&quot; &quot;#110809&quot;] &quot;d&quot; &quot;latest-bar&quot;)]))</pre></td></tr><tr><td class="docs"><p>Given a C19Report, create a table from the :latest key</p>
+</td><td class="codes"><pre class="brush: clojure">(defn latest-table
+  [r]
+  (let [latest (:latest r)
+        c (:confirmed latest)
+        d (:deaths latest)]
+    [:table.blocky-table
+     [:thead
+      [:tr
+       [:th &quot;Confirmed&quot;]
+       [:th &quot;Deaths&quot;]]]
+     [:tbody
+      [:tr
+       [:td c]
+       [:td d]]]]))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr></table><div class="footer">Generated by <a href="https://github.com/gdeer81/marginalia">Marginalia</a>.&nbsp;&nbsp;Syntax highlighting provided by Alex Gorbatchev's <a href="http://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighlighter</a><div id="floating-toc"><ul><li class="floating-toc-li" id="floating-toc_coronavirus-charts.handler">coronavirus-charts.handler</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.sessions">coronavirus-charts.sessions</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.nrepl">coronavirus-charts.nrepl</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.core">coronavirus-charts.core</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.layout">coronavirus-charts.layout</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.middleware.formats">coronavirus-charts.middleware.formats</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.charts">coronavirus-charts.charts</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.config">coronavirus-charts.config</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.middleware">coronavirus-charts.middleware</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.routes.home">coronavirus-charts.routes.home</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.chartwell">coronavirus-charts.chartwell</li></ul></div></div><script type="text/javascript">SyntaxHighlighter.defaults['gutter'] = false;
 SyntaxHighlighter.all();
 
 // hackity hack
