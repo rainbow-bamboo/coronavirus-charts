@@ -1,35 +1,230 @@
-html,
+/* Css reset, please ignore */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
 body {
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	line-height: 1;
 }
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url(/assets/material-icons/iconfont/MaterialIcons-Regular.eot); /* For IE6-8 */
-  src: local('Material Icons'),
-       local('MaterialIcons-Regular'),
-       url(/assets/material-icons/iconfont/MaterialIcons-Regular.woff2) format('woff2'),
-       url(/assets/material-icons/iconfont/MaterialIcons-Regular.woff) format('woff'),
-       url(/assets/material-icons/iconfont/MaterialIcons-Regular.ttf) format('truetype');
+ol, ul {
+	list-style: none;
 }
-.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-  /* Support for all WebKit browsers. */
-  -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
-  text-rendering: optimizeLegibility;
-  /* Support for Firefox. */
-  -moz-osx-font-smoothing: grayscale;
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
+/**
+ * @license
+ * MyFonts Webfont Build ID 3880025, 2020-03-14T11:06:17-0400
+ *
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are
+ * explicitly restricted from using the Licensed Webfonts(s).
+ *
+ * You may obtain a valid license at the URLs below.
+ *
+ * Webfont: FF Chartwell Bars Regular by FontFont
+ * URL: https://www.myfonts.com/fonts/fontfont/chartwell/bars/
+ * Copyright: 2012 published by Monotype GmbH
+ *
+ * Webfont: FF Chartwell Bars Vertical Regular by FontFont
+ * URL: https://www.myfonts.com/fonts/fontfont/chartwell/bars-vertical/
+ * Copyright: 2012 published by Monotype GmbH
+ *
+ * Webfont: FF Chartwell Pies Regular by FontFont
+ * URL: https://www.myfonts.com/fonts/fontfont/chartwell/pies/
+ * Copyright: 2015 published by Monotype GmbH
+ *
+ * Webfont: FF Chartwell Radar Regular by FontFont
+ * URL: https://www.myfonts.com/fonts/fontfont/chartwell/radar/
+ * Copyright: 2012 published by Monotype GmbH
+ *
+ *
+ *
+ * © 2020 MyFonts Inc
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/3b3459");
+
+@font-face {
+  src: url('webFonts/FFChartwellBarsVerticalRegular/font.eot');
+  font-family: 'FFChartwellBarsVerticalRegular';
+  src: url('webFonts/FFChartwellBarsVerticalRegular/font.woff2') format('woff2'), url('webFonts/FFChartwellBarsVerticalRegular/font.woff') format('woff'), url('webFonts/FFChartwellBarsVerticalRegular/font.eot?#iefix') format('embedded-opentype'), url('webFonts/FFChartwellBarsVerticalRegular/font.ttf') format('truetype');
+}
+/* @font-face { */
+/*   src: url('webFonts/FFChartwellBarsRegular/font.eot'); */
+/*   font-family: 'FFChartwellBarsRegular'; */
+/*   src: url('webFonts/FFChartwellBarsRegular/font.woff2') format('woff2'), url('webFonts/FFChartwellBarsRegular/font.woff') format('woff'), url('webFonts/FFChartwellBarsRegular/font.eot?#iefix') format('embedded-opentype'), url('webFonts/FFChartwellBarsRegular/font.ttf') format('truetype'); */
+/* } */
+/* @font-face { */
+/*   src: url('webFonts/FFChartwellPiesRegular/font.eot'); */
+/*   font-family: 'FFChartwellPiesRegular'; */
+/*   src: url('webFonts/FFChartwellPiesRegular/font.woff2') format('woff2'), url('webFonts/FFChartwellPiesRegular/font.woff') format('woff'), url('webFonts/FFChartwellPiesRegular/font.eot?#iefix') format('embedded-opentype'), url('webFonts/FFChartwellPiesRegular/font.ttf') format('truetype'); */
+/* } */
+/* @font-face { */
+/*   src: url('webFonts/FFChartwellRadarRegular/font.eot'); */
+/*   font-family: 'FFChartwellRadarRegular'; */
+/*   src: url('webFonts/FFChartwellRadarRegular/font.woff2') format('woff2'), url('webFonts/FFChartwellRadarRegular/font.woff') format('woff'), url('webFonts/FFChartwellRadarRegular/font.eot?#iefix') format('embedded-opentype'), url('webFonts/FFChartwellRadarRegular/font.ttf') format('truetype'); */
+/* } */
+
+
+
+
+.vertical-bars, .vertical-bar{
+  font-family: 'FFChartwellBarsVerticalRegular';
+  font-variant-ligatures: discretionary-ligatures;
+  font-size: 20em;
+  text-align:center;
+  margin-bottom: -40px;
+}
+
+.vertical-bars-grid{
+  color: #b0013c;
+}
+
+body{
+/*  background-color: red; */
+}
+
+
+/* Tables
+Shout out to https://divtable.com/table-styler/
+ */
+table.brownTable {
+  border: 1px solid #948473;
+  background-color: #FFE3C6;
+  text-align: center;
+}
+table.brownTable td, table.brownTable th {
+  padding: 4px 4px;
+}
+table.brownTable tbody td {
+  font-size: 13px;
+}
+table.brownTable td:nth-child(even) {
+  background: #E6CDB2;
+}
+table.brownTable thead {
+  background: #948473;
+  background: -moz-linear-gradient(top, #afa396 0%, #9e9081 66%, #948473 100%);
+  background: -webkit-linear-gradient(top, #afa396 0%, #9e9081 66%, #948473 100%);
+  background: linear-gradient(to bottom, #afa396 0%, #9e9081 66%, #948473 100%);
+}
+table.brownTable thead th {
+  font-size: 17px;
+  font-weight: bold;
+  color: #F0F0F0;
+  text-align: left;
+  border-left: 2px solid #948473;
+}
+table.brownTable thead th:first-child {
+  border-left: none;
+}
+
+table.brownTable tfoot td {
+  font-size: 16px;
+}
+
+table.blocky-table {
+  border: 2px solid #222;
+  width: 100%;
+  text-align: center;
+  /*border-collapse: collapse;*/
+}
+table.blocky-table td, table.blocky-table th {
+  padding: 3px 0px;
+}
+table.blocky-table tbody td {
+  font-size: 1em;
+}
+table.blocky-table thead {
+  background: #FFFFFF;
+  border-bottom: 1px solid #333333;
+}
+table.blocky-table thead th {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333333;
+  text-align: center;
+}
+table.blocky-table tfoot td {
+  font-size: 1em;
+}
+
+
+/* Every CSS LAYOUT Reels*/
+.center {
+  box-sizing: content-box;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em;
+  max-width: 50em;
+}
+
+h1{
+  font-size:1.5em;
+  font-weight: bold;
+  margin-top: .5em;
+  text-align: center;
+}
+
+h2{
+  font-size:1.25em;
+  font-weight: bold;
+  margin-top: .5em;
+  text-align: center;
+}
+
+table.blocky-table{
+  margin:auto;
+  margin-top: -2.5em;
+  max-width: 20em;
+}
+
+
+body{
+  font-family:sans-serif;
+}
+
+p.sources{
+  margin-top: 1em;
+  font-family: serif;
+  text-align: center;
+}
+
+.bar-chart{
+  margin: 2em;
+  border: 3px solid;
+}

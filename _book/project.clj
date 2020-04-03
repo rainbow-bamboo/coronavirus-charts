@@ -66,11 +66,9 @@
    :project/dev  {:jvm-opts ["-Dconf=dev-config.edn" ]
                   :dependencies [[pjstadig/humane-test-output "0.10.0"]
                                  [prone "2020-01-17"]
-                                 [marginalia "0.9.1"]
                                  [ring/ring-devel "1.8.0"]
                                  [ring/ring-mock "0.4.0"]]
-                  :plugins      [[lein-marginalia "0.9.1"]
-                                 [com.jakemccrary/lein-test-refresh "0.24.1"]
+                  :plugins      [[com.jakemccrary/lein-test-refresh "0.24.1"]
                                  [jonase/eastwood "0.3.5"]]
 
                   :source-paths ["env/dev/clj" ]

@@ -4,7 +4,7 @@
    [clojure.java.io :as io]
    [clojure.string :as string]
    [coronavirus-charts.middleware :as middleware]
-   [coronavirus-charts.sessions :refer :all]
+   [coronavirus-charts.data :refer :all]
    [ring.util.response]
    [ring.util.http-response :as response]
    [clara.rules :refer :all]))
@@ -20,6 +20,8 @@
   (let [path (:path-info request)
         params  (string/split path #"/")]
     (println params)
+    (reset! jhu-session (insert @jhu-session (->ParsedRequest "/c/er" ["c" "er"])))
+    (println  "Hello" (query @jhu-session query-parsed-request :?path "/c/er"))
     (layout/render request "home.html")))
 
 
@@ -27,9 +29,7 @@
   [""
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
-   ["/*" {:get (fn [resp]
-                 (-> (response/ok (render-web-request (:path-info resp)))
-                     (response/header "content-type" "text/html")))}]])
+   ["/*" {:get chart-page}]])
 
 
 ;; (-> (mk-session)
