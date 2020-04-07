@@ -32,7 +32,8 @@
                  [hiccup "1.0.5"]
                  [herb "0.10.0"]
                  [com.cerner/clara-rules "0.20.0"]
-                 [org.clojars.pallix/analemma "1.0.0"]
+;;                 [org.clojars.pallix/analemma "1.0.0"]
+                 [metasoarous/oz "1.6.0-alpha6"]
                  [clj-http "3.10.0"]
 
                  ;; Possibly a method of matching user ip to charts but the build
