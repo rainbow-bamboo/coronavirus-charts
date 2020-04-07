@@ -28,16 +28,23 @@
   }
 })();"])
 
+(defn make-nav [values class title]
+  [:div.nav {:class class}
+   [:h2 title]
+   [:ul
+    (map (fn [val]
+           [:li val]) values)]])
+
 
 ;; CHARTS
 ;; These functions all take a Report record, and then return a full html page
 
-(defn base-chart [heading content]
+(defn base-chart [heading nav content]
   (html5 [:head
           [:title "coronavirus-charts.org"]
           (include-css "/css/screen.css")]
          [:body
-          [:h1 heading]
+          [:div.citation-strip nav [:h1 heading]]
           [:div.center
            content]
           (reel-script)]))

@@ -92,10 +92,11 @@
 (defrecord WebRequest [url])
 (defrecord ParsedRequest [path argument])
 
-(defrecord ChartFragment [path chart-type body])
-(defrecord LocationRequest [path location-name country-code jhu-report])
+(defrecord LocationRequest [path location-name country-code location-report])
 (defrecord DateRequest [path date])
 
+(defrecord NavFragment [path nav-type body])
+(defrecord ChartFragment [path chart-type body])
 (defrecord RenderedPage [path html])
 
 
@@ -119,7 +120,7 @@
 
 ;; Report Manipulation
 
-(defn create-jhu-report
+(defn create-location-report
   "Given the parsed json from the api call, return a LocationReport record"
   [r]
   (let [latest (:latest r)]
@@ -135,7 +136,7 @@
      {:confirmed (:confirmed latest)
       :deaths (:deaths latest)})))
 
-;; (def jhu-reports  (map create-jhu-report (get-all-locations-jhu)))
+;; (def location-reports  (map create-location-report (get-all-locations-jhu)))
 
 (defn create-jhu-global-report
   ""
@@ -147,6 +148,13 @@
    stats))
 
 
+
+(defn create-nav [nav-data]
+  (let [locations (get nav-data "Location")
+        dates  (get nav-data "Date")]
+    (list
+     (charts/make-nav (map :body locations) "locations" "Locations")
+     (charts/make-nav (map :body dates) "dates" "Dates"))))
 
 ;; END Report Manipulation
 
@@ -166,7 +174,6 @@
                         (ParsedRequest. ?url arg))) ?arguments)))
 
 
-
 (defrule print-args
   [ParsedRequest (= ?arg argument)]
   =>
@@ -176,7 +183,7 @@
 (defrule create-latest-chart-by-country-code
   [LocationRequest
    (= ?path path)
-   (= ?report jhu-report)]
+   (= ?report location-report)]
   =>
   (insert-all! (list
                 (ChartFragment. ?path "bar" (cw/latest-bar ?report))
@@ -198,11 +205,13 @@
 
 
 (defrule create-chart-page
-  [?fragments <- (acc/all) :from [ChartFragment (= ?path path)]]
+  [?chart-fragments <- (acc/all) :from [ChartFragment (= ?path path)]]
+  [?nav-fragments <- (acc/grouping-by :nav-type) :from [NavFragment (= ?path path)]]
   =>
   (insert! (RenderedPage. ?path
                           (charts/base-chart "Recorded Coronavirus (COVID-19) Cases"
-                                             (map :body ?fragments)))))
+                                             (create-nav ?nav-fragments)
+                                             (map :body ?chart-fragments)))))
 
 
 ;; The intention is that if there is a single LocationReport that's within a tolerance
@@ -211,23 +220,25 @@
 ;; else, in the case that we there are no valid reports, we query xapix and
 ;; insert an entire list of records.
 ;; I'm not sure if this implementation is correct.
-(defrule update-jhu-reports
+(defrule update-location-reports
   [:not [LocationReport (is-within-time? last-updated 48)]]
   =>
   (println "doing an update")
-  (insert-all! (map create-jhu-report (get-all-timelines-jhu))))
+  (insert-all! (map create-location-report (get-all-timelines-jhu))))
 
 
 
 (defrule parse-locations
   "Checks if the argument parsed matches any country-codes"
-  [ParsedRequest (= ?arg argument) (= ?path path)]
+  [?parsed <- ParsedRequest (= ?arg argument) (= ?path path)]
   [?report <- LocationReport (= ?country-code country-code) (= ?country country)]
   [:test (or
           (= ?country-code (string/upper-case ?arg))
           (= (string/lower-case ?country) (string/lower-case ?arg)))]
   =>
-  (insert! (LocationRequest. ?path (:country ?report) (:country-code ?report) ?report)))
+  (insert! (LocationRequest. ?path (:country ?report) (:country-code ?report) ?report))
+  (insert! (NavFragment. ?path "Location" (:country ?report))))
+;; How do we account for States?
 
 (defrule parse-dates
   "Checks if the argument parsed matches a date int he form YYYY-MM-DD"
@@ -235,7 +246,8 @@
   [:test (is-date? ?arg)]
   =>
   (println "parsing dates")
-  (insert! (DateRequest. ?path (t/date ?arg))))
+  (insert! (DateRequest. ?path (t/date ?arg)))
+  (insert! (NavFragment. ?path "Date" (t/date ?arg))))
 
 
 
@@ -276,8 +288,8 @@
 
 ;; Exploratory Functions
 
-(defn search-jhu-reports [country-code]
-  (let [facts  (map create-jhu-report (get-all-timelines-jhu))
+(defn search-location-reports [country-code]
+  (let [facts  (map create-location-report (get-all-timelines-jhu))
         session (-> (mk-session [query-country])
                     (insert-all facts)
                     (fire-rules))]
@@ -286,7 +298,7 @@
 
 (def jhu-session (atom (-> (mk-session [parse-request
                                         query-country
-                                        update-jhu-reports
+                                        update-location-reports
                                         create-home-page-charts
                                         create-latest-chart-by-country-code
                                         create-chart-page
@@ -298,7 +310,7 @@
                                         query-rendered-page
                                         parse-dates
                                         ])
-                           (insert-all (map create-jhu-report (get-all-timelines-jhu)))
+                           (insert-all (map create-location-report (get-all-timelines-jhu)))
                            (insert (create-jhu-global-report (get-latest-global-jhu)))
                            (fire-rules))))
 
@@ -325,7 +337,7 @@
       (first)
       (:?html)))
 
-(render-web-request "tt/us")
+;; (render-web-request "tt/us")
 
 
 (defn search-reports-by-country [session country-code]
