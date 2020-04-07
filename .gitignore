@@ -9,7 +9,6 @@ test-config.edn
 *.class
 /.lein-*
 profiles.clj
-/resources/public/css/webFonts
 /.env
 .nrepl-port
 <<<<<<< HEAD
