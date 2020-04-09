@@ -7,50 +7,12 @@
    [clara.rules.accumulators :as acc]
    [coronavirus-charts.chartwell :as cw]
    [coronavirus-charts.charts :as charts]
+   [coronavirus-charts.data :as external-data]
    [cheshire.core :as cheshire]
    [clojure.string :as string]))
 
 
-;; External Data
-;; jsonista is a faster alternative to cheshire and already in project.clj
-;; not sure how to use it yet.
-(defn fetch-data
-  "Base function to query a url and parse"
-  [url]
-  (cheshire/parse-string (:body (client/get url {:accept :json}))
-                         true))
 
-;; This will be handy when creating timelines later
-(defn extract-location
-  "Base function to extract keys from a parsed location."
-  [loc]
-  {:id (:id loc)
-   :latest (:latest loc)})
-
-(defn get-latest-global-jhu
-  "Queries the xapix covid-19 api to return the latest confrimed and deaths
-  I expect to update these end points when xapix settles on a spec.
-  [source: Johns Hopkins University]"
-  []
-  (let [data (:latest (fetch-data "http://covid19api.xapix.io/v2/latest"))]
-    {:confirmed (:confirmed data) :deaths (:deaths data)}))
-
-
-(defn get-all-locations-jhu
-  "Queries the xapix covid-19 api to return imformation about all locations
-  [source: Johns Hopkins University]"
-  []
-  (let [data (fetch-data "http://covid19api.xapix.io/v2/locations")]
-    (:locations data)))
-
-(defn get-all-timelines-jhu
-  "Queries the xapix covid-19 api to return imformation about all locations, including timelines
-  [source: Johns Hopkins University]"
-  []
-  (let [data (fetch-data "http://covid19api.xapix.io/v2/locations?timelines=true")]
-    (:locations data)))
-
-;; END EXTERNAL DATA
 
 ;; Helpers
 (defn is-within-time?
@@ -106,14 +68,15 @@
                          latest])
 
 (defrecord LocationReport [source-name
-                      source-url
-                      country
-                      country-code
-                      country-population
-                      province
-                      last-updated
-                      coordinates
-                      latest])
+                           source-url
+                           country
+                           country-code
+                           country-population
+                           province
+                           last-updated
+                           coordinates
+                           timelines
+                           latest])
 
 ;; END FactTypes
 
@@ -126,24 +89,25 @@
   (let [latest (:latest r)]
     (LocationReport.
      "Johns Hopkins University"
-     "https://github.com/CSSEGISandData/COVID-19"
+     "https://github.com/CSSEGISandExternal-Data/COVID-19"
      (:country r)
      (:country_code r)
      (:country_population r)
      (:province r)
      (t/inst (:last_updated r))
      (:coordinates r)
+     (:timelines r)
      {:confirmed (:confirmed latest)
       :deaths (:deaths latest)})))
 
-;; (def location-reports  (map create-location-report (get-all-locations-jhu)))
+;; (def location-reports  (map create-location-report (external-data/get-all-locations-jhu)))
 
 (defn create-jhu-global-report
   ""
   [stats]
   (GlobalReport.
    "Johns Hopkins University"
-   "https://github.com/CSSEGISandData/COVID-19"
+   "https://github.com/CSSEGISandExternal-Data/COVID-19"
    (t/inst)
    stats))
 
@@ -224,7 +188,7 @@
   [:not [LocationReport (is-within-time? last-updated 48)]]
   =>
   (println "doing an update")
-  (insert-all! (map create-location-report (get-all-timelines-jhu))))
+  (insert-all! (map create-location-report (external-data/get-all-timelines-jhu))))
 
 
 
@@ -237,6 +201,7 @@
           (= (string/lower-case ?country) (string/lower-case ?arg)))]
   =>
   (insert! (LocationRequest. ?path (:country ?report) (:country-code ?report) ?report))
+  (pprint (:timelines ?report))
   (insert! (NavFragment. ?path "Location" (:country ?report))))
 ;; How do we account for States?
 
@@ -289,7 +254,7 @@
 ;; Exploratory Functions
 
 (defn search-location-reports [country-code]
-  (let [facts  (map create-location-report (get-all-timelines-jhu))
+  (let [facts  (map create-location-report (external-data/get-all-timelines-jhu))
         session (-> (mk-session [query-country])
                     (insert-all facts)
                     (fire-rules))]
@@ -310,8 +275,8 @@
                                         query-rendered-page
                                         parse-dates
                                         ])
-                           (insert-all (map create-location-report (get-all-timelines-jhu)))
-                           (insert (create-jhu-global-report (get-latest-global-jhu)))
+                           (insert-all (map create-location-report (external-data/get-all-timelines-jhu)))
+                           (insert (create-jhu-global-report (external-data/get-latest-global-jhu)))
                            (fire-rules))))
 
 ;; Look how we dereference the atom to get access to the current state of the session
