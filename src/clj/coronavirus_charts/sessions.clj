@@ -54,7 +54,11 @@
 (defrecord WebRequest [url])
 (defrecord ParsedRequest [path argument])
 
-(defrecord LocationRequest [path location-name country-code location-report])
+(defrecord LocationRequest [path
+                            location-name
+                            country-code
+                            location-report])
+
 (defrecord DateRequest [path date])
 
 (defrecord NavFragment [path nav-type body])
@@ -99,6 +103,7 @@
      (:timelines r)
      {:confirmed (:confirmed latest)
       :deaths (:deaths latest)})))
+
 
 ;; (def location-reports  (map create-location-report (external-data/get-all-locations-jhu)))
 
@@ -314,6 +319,12 @@
 ;; (cw/latest-bar (search-reports-by-country @jhu-session "ES"))
 
 
+
+
+
+;; END Exploratory
+
+
 ;; Example location result (without timelines)
 ;; {:id 0,
 ;;  :country "Afghanistan",
@@ -323,6 +334,3 @@
 ;;  :last_updated "2020-03-29T13:14:06.151058Z",
 ;;  :coordinates {:latitude "33.0", :longitude "65.0"},
 ;;  :latest {:confirmed 110, :deaths 4, :recovered 0}}
-
-
-;; END Exploratory
