@@ -234,6 +234,7 @@ p.sources{
 
 .nav{
   display: flex;
+  flex-wrap: wrap;
   margin: .2em;
   line-height: 2em;
   border: 2px solid ;
@@ -244,7 +245,6 @@ p.sources{
   margin-top: 0px;
   margin-right: 1em;
   margin-left: .5em;
-  display: inline;
   font-size: 1em;
   color: #8c2425;
 }
