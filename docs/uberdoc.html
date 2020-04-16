@@ -2866,7 +2866,7 @@ net.brehaut.ClojureTools = (function (SH) {
   };
 })(SyntaxHighlighter);
 </script><title>coronavirus-charts -- Marginalia</title></head><body><table><tr><td class="docs"><div class="header"><h1 class="project-name"><a href="http://coronavirus-charts.org">coronavirus-charts</a></h1><h2 class="project-version">0.1.0-SNAPSHOT</h2><br /><p>Cite data associated with the novel coronavirus (covid-19)</p>
-</div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">cheshire</td><td class="dotted"><hr /></td><td class="dep-version">5.10.0</td></tr><tr><td class="dep-name">metosin/jsonista</td><td class="dotted"><hr /></td><td class="dep-version">0.2.5</td></tr><tr><td class="dep-name">clojure.java-time</td><td class="dotted"><hr /></td><td class="dep-version">0.3.2</td></tr><tr><td class="dep-name">cprop</td><td class="dotted"><hr /></td><td class="dep-version">0.1.16</td></tr><tr><td class="dep-name">expound</td><td class="dotted"><hr /></td><td class="dep-version">0.8.4</td></tr><tr><td class="dep-name">funcool/struct</td><td class="dotted"><hr /></td><td class="dep-version">1.4.0</td></tr><tr><td class="dep-name">luminus-immutant</td><td class="dotted"><hr /></td><td class="dep-version">0.2.5</td></tr><tr><td class="dep-name">luminus-transit</td><td class="dotted"><hr /></td><td class="dep-version">0.1.2</td></tr><tr><td class="dep-name">markdown-clj</td><td class="dotted"><hr /></td><td class="dep-version">1.10.2</td></tr><tr><td class="dep-name">metosin/muuntaja</td><td class="dotted"><hr /></td><td class="dep-version">0.6.6</td></tr><tr><td class="dep-name">metosin/reitit</td><td class="dotted"><hr /></td><td class="dep-version">0.4.2</td></tr><tr><td class="dep-name">metosin/ring-http-response</td><td class="dotted"><hr /></td><td class="dep-version">0.9.1</td></tr><tr><td class="dep-name">mount</td><td class="dotted"><hr /></td><td class="dep-version">0.1.16</td></tr><tr><td class="dep-name">nrepl</td><td class="dotted"><hr /></td><td class="dep-version">0.6.0</td></tr><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.10.1</td></tr><tr><td class="dep-name">org.clojure/tools.cli</td><td class="dotted"><hr /></td><td class="dep-version">1.0.194</td></tr><tr><td class="dep-name">org.clojure/tools.logging</td><td class="dotted"><hr /></td><td class="dep-version">1.0.0</td></tr><tr><td class="dep-name">org.webjars.npm/bulma</td><td class="dotted"><hr /></td><td class="dep-version">0.8.0</td></tr><tr><td class="dep-name">org.webjars.npm/material-icons</td><td class="dotted"><hr /></td><td class="dep-version">0.3.1</td></tr><tr><td class="dep-name">org.webjars/webjars-locator</td><td class="dotted"><hr /></td><td class="dep-version">0.39</td></tr><tr><td class="dep-name">org.webjars/webjars-locator-jboss-vfs</td><td class="dotted"><hr /></td><td class="dep-version">0.1.0</td></tr><tr><td class="dep-name">ring-webjars</td><td class="dotted"><hr /></td><td class="dep-version">0.2.0</td></tr><tr><td class="dep-name">ring/ring-core</td><td class="dotted"><hr /></td><td class="dep-version">1.8.0</td></tr><tr><td class="dep-name">ring/ring-defaults</td><td class="dotted"><hr /></td><td class="dep-version">0.3.2</td></tr><tr><td class="dep-name">tick</td><td class="dotted"><hr /></td><td class="dep-version">0.4.23-alpha</td></tr><tr><td class="dep-name">org.clojure/math.numeric-tower</td><td class="dotted"><hr /></td><td class="dep-version">0.0.4</td></tr><tr><td class="dep-name">hiccup</td><td class="dotted"><hr /></td><td class="dep-version">1.0.5</td></tr><tr><td class="dep-name">herb</td><td class="dotted"><hr /></td><td class="dep-version">0.10.0</td></tr><tr><td class="dep-name">com.cerner/clara-rules</td><td class="dotted"><hr /></td><td class="dep-version">0.20.0</td></tr><tr><td class="dep-name">org.clojars.pallix/analemma</td><td class="dotted"><hr /></td><td class="dep-version">1.0.0</td></tr><tr><td class="dep-name">clj-http</td><td class="dotted"><hr /></td><td class="dep-version">3.10.0</td></tr><tr><td class="dep-name">selmer</td><td class="dotted"><hr /></td><td class="dep-version">1.12.18</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#coronavirus-charts.handler">coronavirus-charts.handler</a></li><li><a href="#coronavirus-charts.sessions">coronavirus-charts.sessions</a></li><li><a href="#coronavirus-charts.nrepl">coronavirus-charts.nrepl</a></li><li><a href="#coronavirus-charts.core">coronavirus-charts.core</a></li><li><a href="#coronavirus-charts.layout">coronavirus-charts.layout</a></li><li><a href="#coronavirus-charts.middleware.formats">coronavirus-charts.middleware.formats</a></li><li><a href="#coronavirus-charts.charts">coronavirus-charts.charts</a></li><li><a href="#coronavirus-charts.config">coronavirus-charts.config</a></li><li><a href="#coronavirus-charts.middleware">coronavirus-charts.middleware</a></li><li><a href="#coronavirus-charts.routes.home">coronavirus-charts.routes.home</a></li><li><a href="#coronavirus-charts.chartwell">coronavirus-charts.chartwell</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.handler" name="coronavirus-charts.handler"><h1 class="project-name">coronavirus-charts.handler</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+</div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">cheshire</td><td class="dotted"><hr /></td><td class="dep-version">5.10.0</td></tr><tr><td class="dep-name">metosin/jsonista</td><td class="dotted"><hr /></td><td class="dep-version">0.2.5</td></tr><tr><td class="dep-name">clojure.java-time</td><td class="dotted"><hr /></td><td class="dep-version">0.3.2</td></tr><tr><td class="dep-name">cprop</td><td class="dotted"><hr /></td><td class="dep-version">0.1.16</td></tr><tr><td class="dep-name">expound</td><td class="dotted"><hr /></td><td class="dep-version">0.8.4</td></tr><tr><td class="dep-name">funcool/struct</td><td class="dotted"><hr /></td><td class="dep-version">1.4.0</td></tr><tr><td class="dep-name">luminus-immutant</td><td class="dotted"><hr /></td><td class="dep-version">0.2.5</td></tr><tr><td class="dep-name">luminus-transit</td><td class="dotted"><hr /></td><td class="dep-version">0.1.2</td></tr><tr><td class="dep-name">markdown-clj</td><td class="dotted"><hr /></td><td class="dep-version">1.10.2</td></tr><tr><td class="dep-name">metosin/muuntaja</td><td class="dotted"><hr /></td><td class="dep-version">0.6.6</td></tr><tr><td class="dep-name">metosin/reitit</td><td class="dotted"><hr /></td><td class="dep-version">0.4.2</td></tr><tr><td class="dep-name">metosin/ring-http-response</td><td class="dotted"><hr /></td><td class="dep-version">0.9.1</td></tr><tr><td class="dep-name">mount</td><td class="dotted"><hr /></td><td class="dep-version">0.1.16</td></tr><tr><td class="dep-name">nrepl</td><td class="dotted"><hr /></td><td class="dep-version">0.6.0</td></tr><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.10.1</td></tr><tr><td class="dep-name">org.clojure/tools.cli</td><td class="dotted"><hr /></td><td class="dep-version">1.0.194</td></tr><tr><td class="dep-name">org.clojure/tools.logging</td><td class="dotted"><hr /></td><td class="dep-version">1.0.0</td></tr><tr><td class="dep-name">org.webjars.npm/bulma</td><td class="dotted"><hr /></td><td class="dep-version">0.8.0</td></tr><tr><td class="dep-name">org.webjars.npm/material-icons</td><td class="dotted"><hr /></td><td class="dep-version">0.3.1</td></tr><tr><td class="dep-name">org.webjars/webjars-locator</td><td class="dotted"><hr /></td><td class="dep-version">0.39</td></tr><tr><td class="dep-name">org.webjars/webjars-locator-jboss-vfs</td><td class="dotted"><hr /></td><td class="dep-version">0.1.0</td></tr><tr><td class="dep-name">ring-webjars</td><td class="dotted"><hr /></td><td class="dep-version">0.2.0</td></tr><tr><td class="dep-name">ring/ring-core</td><td class="dotted"><hr /></td><td class="dep-version">1.8.0</td></tr><tr><td class="dep-name">ring/ring-defaults</td><td class="dotted"><hr /></td><td class="dep-version">0.3.2</td></tr><tr><td class="dep-name">tick</td><td class="dotted"><hr /></td><td class="dep-version">0.4.23-alpha</td></tr><tr><td class="dep-name">org.clojure/math.numeric-tower</td><td class="dotted"><hr /></td><td class="dep-version">0.0.4</td></tr><tr><td class="dep-name">hiccup</td><td class="dotted"><hr /></td><td class="dep-version">1.0.5</td></tr><tr><td class="dep-name">herb</td><td class="dotted"><hr /></td><td class="dep-version">0.10.0</td></tr><tr><td class="dep-name">com.cerner/clara-rules</td><td class="dotted"><hr /></td><td class="dep-version">0.20.0</td></tr><tr><td class="dep-name">metasoarous/oz</td><td class="dotted"><hr /></td><td class="dep-version">1.6.0-alpha6</td></tr><tr><td class="dep-name">enlive</td><td class="dotted"><hr /></td><td class="dep-version">1.1.6</td></tr><tr><td class="dep-name">com.rpl/specter</td><td class="dotted"><hr /></td><td class="dep-version">1.1.3</td></tr><tr><td class="dep-name">com.brunobonacci/where</td><td class="dotted"><hr /></td><td class="dep-version">0.5.5</td></tr><tr><td class="dep-name">clj-http</td><td class="dotted"><hr /></td><td class="dep-version">3.10.0</td></tr><tr><td class="dep-name">selmer</td><td class="dotted"><hr /></td><td class="dep-version">1.12.18</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#coronavirus-charts.handler">coronavirus-charts.handler</a></li><li><a href="#coronavirus-charts.sessions">coronavirus-charts.sessions</a></li><li><a href="#coronavirus-charts.nrepl">coronavirus-charts.nrepl</a></li><li><a href="#coronavirus-charts.core">coronavirus-charts.core</a></li><li><a href="#coronavirus-charts.data">coronavirus-charts.data</a></li><li><a href="#coronavirus-charts.layout">coronavirus-charts.layout</a></li><li><a href="#coronavirus-charts.middleware.formats">coronavirus-charts.middleware.formats</a></li><li><a href="#coronavirus-charts.charts">coronavirus-charts.charts</a></li><li><a href="#coronavirus-charts.config">coronavirus-charts.config</a></li><li><a href="#coronavirus-charts.oz">coronavirus-charts.oz</a></li><li><a href="#coronavirus-charts.facts">coronavirus-charts.facts</a></li><li><a href="#coronavirus-charts.middleware">coronavirus-charts.middleware</a></li><li><a href="#coronavirus-charts.routes.home">coronavirus-charts.routes.home</a></li><li><a href="#coronavirus-charts.chartwell">coronavirus-charts.chartwell</a></li><li><a href="#coronavirus-charts.sources.jhu">coronavirus-charts.sources.jhu</a></li><li><a href="#coronavirus-charts.sources.wikipedia">coronavirus-charts.sources.wikipedia</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.handler" name="coronavirus-charts.handler"><h1 class="project-name">coronavirus-charts.handler</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns coronavirus-charts.handler
   (:require
     [coronavirus-charts.middleware :as middleware]
@@ -2908,39 +2908,9 @@ net.brehaut.ClojureTools = (function (SH) {
    [clara.rules.accumulators :as acc]
    [coronavirus-charts.chartwell :as cw]
    [coronavirus-charts.charts :as charts]
+   [coronavirus-charts.data :as external-data]
    [cheshire.core :as cheshire]
-   [clojure.string :as string]))</pre></td></tr><tr><td class="docs"><p>Base function to query a url and parse</p>
-
-<p>External Data
-jsonista is a faster alternative to cheshire and already in project.clj
-not sure how to use it yet.</p>
-</td><td class="codes"><pre class="brush: clojure">(defn fetch-data
-  [url]
-  (cheshire/parse-string (:body (client/get url {:accept :json}))
-                         true))</pre></td></tr><tr><td class="docs"><p>Base function to extract keys from a parsed location.</p>
-
-<p>This will be handy when creating timelines later</p>
-</td><td class="codes"><pre class="brush: clojure">(defn extract-location
-  [loc]
-  {:id (:id loc)
-   :latest (:latest loc)})</pre></td></tr><tr><td class="docs"><p>Queries the xapix covid-19 api to return the latest confrimed and deaths
-  I expect to update these end points when xapix settles on a spec.
-  [source: Johns Hopkins University]</p>
-</td><td class="codes"><pre class="brush: clojure">(defn get-latest-global-jhu
-  []
-  (let [data (:latest (fetch-data &quot;http://covid19api.xapix.io/v2/latest&quot;))]
-    {:confirmed (:confirmed data) :deaths (:deaths data)}))</pre></td></tr><tr><td class="docs"><p>Queries the xapix covid-19 api to return imformation about all locations
-  [source: Johns Hopkins University]</p>
-</td><td class="codes"><pre class="brush: clojure">(defn get-all-locations-jhu
-  []
-  (let [data (fetch-data &quot;http://covid19api.xapix.io/v2/locations&quot;)]
-    (:locations data)))</pre></td></tr><tr><td class="docs"><p>Queries the xapix covid-19 api to return imformation about all locations, including timelines
-  [source: Johns Hopkins University]</p>
-</td><td class="codes"><pre class="brush: clojure">(defn get-all-timelines-jhu
-  []
-  (let [data (fetch-data &quot;http://covid19api.xapix.io/v2/locations?timelines=true&quot;)]
-    (:locations data)))</pre></td></tr><tr><td class="docs"><p>END EXTERNAL DATA</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>Given an tick/inst, returns true if that time is within a tolerance (mins) </p>
+   [clojure.string :as string]))</pre></td></tr><tr><td class="docs"><p>Given an tick/inst, returns true if that time is within a tolerance (mins) </p>
 
 <p>Helpers</p>
 </td><td class="codes"><pre class="brush: clojure">(defn is-within-time?
@@ -2972,47 +2942,59 @@ are usually one press away. <code>📊📊.to/cn,us,es,tt</code> would be a vali
 TODO: Implement core.spec or schema on records.</p>
 </td><td class="codes"><pre class="brush: clojure">(defrecord WebRequest [url])
 (defrecord ParsedRequest [path argument])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defrecord ChartFragment [path chart-type body])
-(defrecord LocationRequest [path location-name country-code jhu-report])
-(defrecord DateRequest [path date])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defrecord RenderedPage [path html])</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defrecord LocationRequest [path
+                            location-name
+                            country-code
+                            location-report])</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defrecord DateRequest [path date])</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defrecord NavFragment [path nav-type body])
+(defrecord ChartFragment [path chart-type body])
+(defrecord RenderedPage [path html])</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defrecord GlobalReport [source-name
                          source-url
                          last-queried
                          latest])</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defrecord LocationReport [source-name
-                      source-url
-                      country
-                      country-code
-                      country-population
-                      province
-                      last-updated
-                      coordinates
-                      latest])</pre></td></tr><tr><td class="docs"><p>END FactTypes</p>
+                           source-url
+                           country
+                           country-code
+                           country-population
+                           province
+                           last-updated
+                           coordinates
+                           timelines
+                           latest])</pre></td></tr><tr><td class="docs"><p>END FactTypes</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>Report Manipulation</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>Given the parsed json from the api call, return a LocationReport record</p>
-</td><td class="codes"><pre class="brush: clojure">(defn create-jhu-report
+</td><td class="codes"><pre class="brush: clojure">(defn create-location-report
   [r]
   (let [latest (:latest r)]
     (LocationReport.
      &quot;Johns Hopkins University&quot;
-     &quot;https://github.com/CSSEGISandData/COVID-19&quot;
+     &quot;https://github.com/CSSEGISandExternal-Data/COVID-19&quot;
      (:country r)
      (:country_code r)
      (:country_population r)
      (:province r)
      (t/inst (:last_updated r))
      (:coordinates r)
+     (:timelines r)
      {:confirmed (:confirmed latest)
-      :deaths (:deaths latest)})))</pre></td></tr><tr><td class="docs"><p>(def jhu-reports  (map create-jhu-report (get-all-locations-jhu)))</p>
+      :deaths (:deaths latest)})))</pre></td></tr><tr><td class="docs"><p>(def location-reports  (map create-location-report (external-data/get-all-locations-jhu)))</p>
 </td><td class="codes"></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn create-jhu-global-report
   [stats]
   (GlobalReport.
    &quot;Johns Hopkins University&quot;
-   &quot;https://github.com/CSSEGISandData/COVID-19&quot;
+   &quot;https://github.com/CSSEGISandExternal-Data/COVID-19&quot;
    (t/inst)
-   stats))</pre></td></tr><tr><td class="docs"><p>END Report Manipulation</p>
+   stats))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn create-nav [nav-data]
+  (let [locations (get nav-data &quot;Location&quot;)
+        dates  (get nav-data &quot;Date&quot;)]
+    (list
+     (charts/make-nav (map :body locations) &quot;locations&quot; &quot;Locations&quot;)
+     (charts/make-nav (map :body dates) &quot;dates&quot; &quot;Dates&quot;))))</pre></td></tr><tr><td class="docs"><p>END Report Manipulation</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>RULES</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>Whenever there's a WebRequest, create a corresponding ParsedRequest</p>
 
@@ -3032,7 +3014,7 @@ TODO: Implement core.spec or schema on records.</p>
 </td><td class="codes"><pre class="brush: clojure">(defrule create-latest-chart-by-country-code
   [LocationRequest
    (= ?path path)
-   (= ?report jhu-report)]
+   (= ?report location-report)]
   =&gt;
   (insert-all! (list
                 (ChartFragment. ?path &quot;bar&quot; (cw/latest-bar ?report))
@@ -3050,35 +3032,41 @@ TODO: Implement core.spec or schema on records.</p>
                 (ChartFragment. ?url &quot;global&quot; (cw/global-bar ?global-report))
                 (ChartFragment. ?url &quot;table&quot; (cw/latest-table ?global-report)))))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defrule create-chart-page
-  [?fragments &lt;- (acc/all) :from [ChartFragment (= ?path path)]]
+  [?chart-fragments &lt;- (acc/all) :from [ChartFragment (= ?path path)]]
+  [?nav-fragments &lt;- (acc/grouping-by :nav-type) :from [NavFragment (= ?path path)]]
   =&gt;
   (insert! (RenderedPage. ?path
                           (charts/base-chart &quot;Recorded Coronavirus (COVID-19) Cases&quot;
-                                             (map :body ?fragments)))))</pre></td></tr><tr><td class="docs"><p>The intention is that if there is a single LocationReport that's within a tolerance
+                                             (create-nav ?nav-fragments)
+                                             (map :body ?chart-fragments)))))</pre></td></tr><tr><td class="docs"><p>The intention is that if there is a single LocationReport that's within a tolerance
 of 48 hours, then we can assume that the dataset has been updated within
 48 hours and then do nothing.
 else, in the case that we there are no valid reports, we query xapix and
 insert an entire list of records.
 I'm not sure if this implementation is correct.</p>
-</td><td class="codes"><pre class="brush: clojure">(defrule update-jhu-reports
+</td><td class="codes"><pre class="brush: clojure">(defrule update-location-reports
   [:not [LocationReport (is-within-time? last-updated 48)]]
   =&gt;
   (println &quot;doing an update&quot;)
-  (insert-all! (map create-jhu-report (get-all-timelines-jhu))))</pre></td></tr><tr><td class="docs"><p>Checks if the argument parsed matches any country-codes</p>
+  (insert-all! (map create-location-report (external-data/get-all-timelines-jhu))))</pre></td></tr><tr><td class="docs"><p>Checks if the argument parsed matches any country-codes</p>
 </td><td class="codes"><pre class="brush: clojure">(defrule parse-locations
-  [ParsedRequest (= ?arg argument) (= ?path path)]
+  [?parsed &lt;- ParsedRequest (= ?arg argument) (= ?path path)]
   [?report &lt;- LocationReport (= ?country-code country-code) (= ?country country)]
   [:test (or
           (= ?country-code (string/upper-case ?arg))
           (= (string/lower-case ?country) (string/lower-case ?arg)))]
   =&gt;
-  (insert! (LocationRequest. ?path (:country ?report) (:country-code ?report) ?report)))</pre></td></tr><tr><td class="docs"><p>Checks if the argument parsed matches a date int he form YYYY-MM-DD</p>
+  (insert! (LocationRequest. ?path (:country ?report) (:country-code ?report) ?report))
+  (pprint (:timelines ?report))
+  (insert! (NavFragment. ?path &quot;Location&quot; (:country ?report))))</pre></td></tr><tr><td class="docs"><p>How do we account for States?</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Checks if the argument parsed matches a date int he form YYYY-MM-DD</p>
 </td><td class="codes"><pre class="brush: clojure">(defrule parse-dates
   [ParsedRequest (= ?arg argument) (= ?path path)]
   [:test (is-date? ?arg)]
   =&gt;
   (println &quot;parsing dates&quot;)
-  (insert! (DateRequest. ?path (t/date ?arg))))</pre></td></tr><tr><td class="docs"><p>END RULES</p>
+  (insert! (DateRequest. ?path (t/date ?arg)))
+  (insert! (NavFragment. ?path &quot;Date&quot; (t/date ?arg))))</pre></td></tr><tr><td class="docs"><p>END RULES</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>Queries</p>
 </td><td class="codes"><pre class="brush: clojure">(defquery query-country
   [:?country-code]
@@ -3102,15 +3090,15 @@ is beyond some time/freshness tolerance.</p>
 </td><td class="codes"><pre class="brush: clojure">(defquery all-locations [] [LocationRequest (= ?path path) (= ?location-name location-name)])</pre></td></tr><tr><td class="docs"><p>END QUERIES</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>Exploratory Functions</p>
 </td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn search-jhu-reports [country-code]
-  (let [facts  (map create-jhu-report (get-all-timelines-jhu))
+</td><td class="codes"><pre class="brush: clojure">(defn search-location-reports [country-code]
+  (let [facts  (map create-location-report (external-data/get-all-timelines-jhu))
         session (-&gt; (mk-session [query-country])
                     (insert-all facts)
                     (fire-rules))]
     (query session query-country :?country-code country-code)))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(def jhu-session (atom (-&gt; (mk-session [parse-request
                                         query-country
-                                        update-jhu-reports
+                                        update-location-reports
                                         create-home-page-charts
                                         create-latest-chart-by-country-code
                                         create-chart-page
@@ -3122,8 +3110,8 @@ is beyond some time/freshness tolerance.</p>
                                         query-rendered-page
                                         parse-dates
                                         ])
-                           (insert-all (map create-jhu-report (get-all-timelines-jhu)))
-                           (insert (create-jhu-global-report (get-latest-global-jhu)))
+                           (insert-all (map create-location-report (external-data/get-all-timelines-jhu)))
+                           (insert (create-jhu-global-report (external-data/get-latest-global-jhu)))
                            (fire-rules))))</pre></td></tr><tr><td class="docs"><p>Look how we dereference the atom to get access to the current state of the session
 then we insert a new fact into that state
 and then we fire the rules
@@ -3144,12 +3132,13 @@ will revisit soon. The intention is that a web request comes in</p>
       (fire-rules)
       (query query-rendered-page :?path path)
       (first)
-      (:?html)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(render-web-request &quot;tt/us&quot;)</pre></td></tr><tr><td class="docs">
+      (:?html)))</pre></td></tr><tr><td class="docs"><p>(render-web-request "tt/us")</p>
+</td><td class="codes"></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn search-reports-by-country [session country-code]
   (fire-rules session)
   (:?report
    (first (query session query-country  &quot;?country-code&quot; country-code))))</pre></td></tr><tr><td class="docs"><p>(cw/latest-bar (search-reports-by-country @jhu-session "ES"))</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>END Exploratory</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>Example location result (without timelines)
 {:id 0,
  :country "Afghanistan",
@@ -3159,7 +3148,6 @@ will revisit soon. The intention is that a web request comes in</p>
  :last_updated "2020-03-29T13:14:06.151058Z",
  :coordinates {:latitude "33.0", :longitude "65.0"},
  :latest {:confirmed 110, :deaths 4, :recovered 0}}</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>END Exploratory</p>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.nrepl" name="coronavirus-charts.nrepl"><h1 class="project-name">coronavirus-charts.nrepl</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns coronavirus-charts.nrepl
   (:require
@@ -3231,7 +3219,149 @@ will revisit soon. The intention is that a web request comes in</p>
     (log/info component &quot;started&quot;))
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn -main [&amp; args]
-  (start-app args))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.layout" name="coronavirus-charts.layout"><h1 class="project-name">coronavirus-charts.layout</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+  (start-app args))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.data" name="coronavirus-charts.data"><h1 class="project-name">coronavirus-charts.data</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns coronavirus-charts.data
+    (:require
+     [clojure.pprint :refer [pprint]]
+     [clj-http.client :as client]
+     [cheshire.core :as cheshire]
+     [clojure.string :as string]
+     [tick.alpha.api :as t]
+     [clojure.walk :refer [stringify-keys]]))</pre></td></tr><tr><td class="docs"><p>Base function to query a url and parse</p>
+
+<p>External Data
+jsonista is a faster alternative to cheshire and already in project.clj
+not sure how to use it yet.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn fetch-data
+  [url]
+  (cheshire/parse-string (:body (client/get url {:accept :json}))
+                         true))</pre></td></tr><tr><td class="docs"><p>Base function to extract keys from a parsed location.</p>
+
+<p>This will be handy when creating timelines later</p>
+</td><td class="codes"><pre class="brush: clojure">(defn extract-location
+  [loc]
+  {:id (:id loc)
+   :latest (:latest loc)})</pre></td></tr><tr><td class="docs"><p>Queries the xapix covid-19 api to return the latest confrimed and deaths
+  I expect to update these end points when xapix settles on a spec.
+  [source: Johns Hopkins University]</p>
+</td><td class="codes"><pre class="brush: clojure">(defn get-latest-global-jhu
+  []
+  (let [data (:latest (fetch-data &quot;http://covid19api.xapix.io/v2/latest&quot;))]
+    {:confirmed (:confirmed data) :deaths (:deaths data)}))</pre></td></tr><tr><td class="docs"><p>Queries the xapix covid-19 api to return imformation about all locations
+  [source: Johns Hopkins University]</p>
+</td><td class="codes"><pre class="brush: clojure">(defn get-all-locations-jhu
+  []
+  (let [data (fetch-data &quot;http://covid19api.xapix.io/v2/locations&quot;)]
+    (:locations data)))</pre></td></tr><tr><td class="docs"><p>Queries the xapix covid-19 api to return imformation about all locations, including timelines
+  [source: Johns Hopkins University]</p>
+</td><td class="codes"><pre class="brush: clojure">(defn get-all-timelines-jhu
+  []
+  (let [data (fetch-data &quot;http://covid19api.xapix.io/v2/locations?timelines=true&quot;)]
+    (:locations data)))</pre></td></tr><tr><td class="docs"><p>END EXTERNAL DATA</p>
+</td><td class="codes"></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(def jhu-timelines (get-all-timelines-jhu))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn extract-timeline-by-key [timeline key]
+  (map (fn [[d v]]
+       [(t/date (t/inst d)) v])
+       (stringify-keys (get-in timeline [key :timeline]))))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn extract-timeline-metadata [report]
+  {:coordinates (:coordinates report)
+   :country-code (:country_code report)
+   :latest {:confirmed (:confirmed (:latest report))
+            :deaths (:deaths (:latest report))}
+   :country-population (:country_population report)
+   :last-updated (t/inst (:last_updated report))
+   :province (:province report)
+   :country (:country report)})</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn extract-dated-cases [timeline]
+  (let [confirmed (extract-timeline-by-key timeline :confirmed)
+        deaths (extract-timeline-by-key timeline :deaths)]
+    (zipmap confirmed deaths)))</pre></td></tr><tr><td class="docs"><p>(second (extract-dated-cases (:timelines (first jhu-timelines))))
+           Confirmed Cases                 Deaths
+=> [[#time/date "2020-03-26" 110] [#time/date "2020-03-26" 4]]</p>
+</td><td class="codes"></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn date-readings [report]
+  &quot;Given the a parsed jhu-report, return list of maps
+   representing the # of confirmed cases for each individual day at
+   that location. ({:date X :deaths Y :confirmed Z}, ...)&quot;
+  (let [time-reports (extract-dated-cases (:timelines report))]
+    (map (fn [[deaths confirmed]]
+           {:date (first deaths)
+            :deaths (second deaths)
+            :confirmed (second confirmed)}) time-reports)))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(pprint (date-readings  (first jhu-timelines)))
+(pprint (take 2 (map date-readings jhu-timelines)))</pre></td></tr><tr><td class="docs"><p>Each of these needs to be transformed into a Fact</p>
+</td><td class="codes"><pre class="brush: clojure">(defn compose-location-time-reports [report]
+  (let [location-data (extract-timeline-metadata report)
+        case-data (date-readings report)]
+    (map (fn [c]
+           (merge c location-data))
+         case-data)))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(pprint (take 2 (compose-location-time-reports (first jhu-timelines))))</pre></td></tr><tr><td class="docs"><p>({:last-updated #inst "2020-04-10T13:49:21.642-00:00",
+  :date #time/date "2020-03-25",
+  :coordinates {:latitude "33.0", :longitude "65.0"},
+  :deaths 94,
+  :country-code "AF",
+  :confirmed 4,
+  :country-population 29121286,
+  :latest {:confirmed 484, :deaths 15},
+  :province "",
+  :country "Afghanistan"}
+ {:last-updated #inst "2020-04-10T13:49:21.642-00:00",
+  :date #time/date "2020-03-26",
+  :coordinates {:latitude "33.0", :longitude "65.0"},
+  :deaths 110,
+  :country-code "AF",
+  :confirmed 4,
+  :country-population 29121286,
+  :latest {:confirmed 484, :deaths 15},
+  :province "",
+  :country "Afghanistan"})</p>
+</td><td class="codes"></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(def location-time-reports (map compose-location-time-reports jhu-timelines))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(pprint (first location-time-reports))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defrecord LocationReport2 [source-name
+                           source-url
+                           country
+                           country-code
+                           country-population
+                           province
+                           last-updated
+                           coordinates
+                           date
+                           deaths
+                           confirmed
+                           latest])</pre></td></tr><tr><td class="docs"><p>Given a location-time-report map, return a LocationReport record</p>
+</td><td class="codes"><pre class="brush: clojure">(defn create-location-report
+  [{:keys [country
+           country-code
+           country-population
+           province
+           last-updated
+           coordinates
+           date
+           deaths
+           confirmed
+           latest]}
+   r]
+  (LocationReport2.
+   &quot;Johns Hopkins University&quot;
+   &quot;https://github.com/CSSEGISandExternal-Data/COVID-19&quot;
+   country
+   country-code
+   country-population
+   province
+   last-updated
+   coordinates
+   date
+   deaths
+   confirmed
+   latest))</pre></td></tr><tr><td class="docs"><p>=> {:date #time/date "2020-03-26", :deaths 26, :confirmed 409}</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>These vectors represent a date and a confirmed case count for a region.
+Next is to get all deaths
+Finally combine into all to create one record per time/date that include stats
+and metadata</p>
+</td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.layout" name="coronavirus-charts.layout"><h1 class="project-name">coronavirus-charts.layout</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns coronavirus-charts.layout
   (:require
     [clojure.java.io]
@@ -3305,15 +3435,21 @@ will revisit soon. The intention is that a web request comes in</p>
       }).observe(reel, {childList: true});
     }
   }
-})();&quot;])</pre></td></tr><tr><td class="docs"><p>CHARTS
+})();&quot;])</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn make-nav [values class title]
+  [:div.nav {:class class}
+   [:h2 title]
+   [:ul
+    (map (fn [val]
+           [:li val]) values)]])</pre></td></tr><tr><td class="docs"><p>CHARTS
 These functions all take a Report record, and then return a full html page</p>
 </td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn base-chart [heading content]
+</td><td class="codes"><pre class="brush: clojure">(defn base-chart [heading nav content]
   (html5 [:head
           [:title &quot;coronavirus-charts.org&quot;]
           (include-css &quot;/css/screen.css&quot;)]
          [:body
-          [:h1 heading]
+          [:div.citation-strip nav [:h1 heading]]
           [:div.center
            content]
           (reel-script)]))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.config" name="coronavirus-charts.config"><h1 class="project-name">coronavirus-charts.config</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
@@ -3328,7 +3464,46 @@ These functions all take a Report record, and then return a full html page</p>
     :merge
     [(args)
      (source/from-system-props)
-     (source/from-env)]))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.middleware" name="coronavirus-charts.middleware"><h1 class="project-name">coronavirus-charts.middleware</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+     (source/from-env)]))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.oz" name="coronavirus-charts.oz"><h1 class="project-name">coronavirus-charts.oz</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns coronavirus-charts.oz
+  (:require [oz.core :as oz]))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(oz/start-server!)
+(defn play-data [&amp; names]
+  (for [n names
+        i (range 20)]
+    {:time i :item n :quantity (+ (Math/pow (* i (count n)) 0.8) (rand-int (count n)))}))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(def line-plot
+  {:data {:values (play-data &quot;monkey&quot; &quot;slipper&quot; &quot;broom&quot;)}
+   :encoding {:x {:field &quot;time&quot; :type &quot;quantitative&quot;}
+              :y {:field &quot;quantity&quot; :type &quot;quantitative&quot;}
+              :color {:field &quot;item&quot; :type &quot;nominal&quot;}}
+   :mark &quot;line&quot;})</pre></td></tr><tr><td class="docs"><p>Render the plot</p>
+</td><td class="codes"><pre class="brush: clojure">(oz/view! line-plot)</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(def viz
+  [:div
+    [:h1 &quot;Look Up Chicken Little&quot;]
+    [:p &quot;A couple of small charts&quot;]
+    [:div {:style {:display &quot;flex&quot; :flex-direction &quot;row&quot;}}
+     [:vega-lite line-plot]]
+    [:p &quot;A wider, more expansive chart&quot;]
+    [:h2 &quot;If ever, oh ever a viz there was, the vizard of oz is one because, because, because...&quot;]
+   [:p &quot;Because of the wonderful things it does&quot;]])</pre></td></tr><tr><td class="docs"><p>The default oz css stylying really leans into the whole storybook thing
+and I kinda love it.</p>
+</td><td class="codes"><pre class="brush: clojure">(oz/export! viz &quot;export-test.html&quot;)</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(oz/build! line-plot)</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.facts" name="coronavirus-charts.facts"><h1 class="project-name">coronavirus-charts.facts</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns coronavirus-charts.facts)</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defrecord JHUReport [source-name
+                           source-url
+                           country
+                           country-code
+                           country-population
+                           province
+                           last-updated
+                           coordinates
+                           date
+                           deaths
+                           confirmed
+                      latest])</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.middleware" name="coronavirus-charts.middleware"><h1 class="project-name">coronavirus-charts.middleware</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns coronavirus-charts.middleware
   (:require
     [coronavirus-charts.env :refer [defaults]]
@@ -3528,7 +3703,195 @@ in the dataset. I'd like to make it round up to the nearest hundred.</p>
      [:tbody
       [:tr
        [:td c]
-       [:td d]]]]))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr></table><div class="footer">Generated by <a href="https://github.com/gdeer81/marginalia">Marginalia</a>.&nbsp;&nbsp;Syntax highlighting provided by Alex Gorbatchev's <a href="http://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighlighter</a><div id="floating-toc"><ul><li class="floating-toc-li" id="floating-toc_coronavirus-charts.handler">coronavirus-charts.handler</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.sessions">coronavirus-charts.sessions</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.nrepl">coronavirus-charts.nrepl</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.core">coronavirus-charts.core</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.layout">coronavirus-charts.layout</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.middleware.formats">coronavirus-charts.middleware.formats</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.charts">coronavirus-charts.charts</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.config">coronavirus-charts.config</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.middleware">coronavirus-charts.middleware</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.routes.home">coronavirus-charts.routes.home</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.chartwell">coronavirus-charts.chartwell</li></ul></div></div><script type="text/javascript">SyntaxHighlighter.defaults['gutter'] = false;
+       [:td d]]]]))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.sources.jhu" name="coronavirus-charts.sources.jhu"><h1 class="project-name">coronavirus-charts.sources.jhu</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns coronavirus-charts.sources.jhu
+  (:require
+   [coronavirus-charts.data :as d]
+   [coronavirus-charts.facts :refer [hello]]
+   [clojure.pprint :refer [pprint]]
+   [clojure.walk :refer [stringify-keys]]
+   [tick.alpha.api :as t]
+   [where.core :refer [where]]
+   [com.rpl.specter :refer :all]))</pre></td></tr><tr><td class="docs"><p>Queries the xapix covid-19 api to return the latest confrimed and deaths
+  I expect to update these end points when xapix settles on a spec.
+  [source: Johns Hopkins University]</p>
+</td><td class="codes"><pre class="brush: clojure">(defn get-latest-global-jhu
+  []
+  (let [data (:latest (d/fetch-data &quot;http://covid19api.xapix.io/v2/latest&quot;))]
+    {:confirmed (:confirmed data) :deaths (:deaths data)}))</pre></td></tr><tr><td class="docs"><p>Queries the xapix covid-19 api to return imformation about all locations
+  [source: Johns Hopkins University]</p>
+</td><td class="codes"><pre class="brush: clojure">(defn get-all-locations-jhu
+  []
+  (let [data (d/fetch-data &quot;http://covid19api.xapix.io/v2/locations&quot;)]
+    (:locations data)))</pre></td></tr><tr><td class="docs"><p>Queries the xapix covid-19 api to return imformation about all locations, including timelines
+  [source: Johns Hopkins University]</p>
+</td><td class="codes"><pre class="brush: clojure">(defn get-all-timelines-jhu
+  []
+  (let [data (d/fetch-data &quot;http://covid19api.xapix.io/v2/locations?timelines=true&quot;)]
+    (:locations data)))</pre></td></tr><tr><td class="docs"><p>END EXTERNAL DATA</p>
+</td><td class="codes"></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(def jhu-timelines (get-all-timelines-jhu))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn extract-timeline-by-key [timeline key]
+  (map (fn [[d v]]
+       [(t/date (t/inst d)) v])
+       (stringify-keys (get-in timeline [key :timeline]))))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn extract-timeline-metadata [report]
+  {:coordinates (:coordinates report)
+   :country-code (:country_code report)
+   :latest {:confirmed (:confirmed (:latest report))
+            :deaths (:deaths (:latest report))}
+   :country-population (:country_population report)
+   :last-updated (t/inst (:last_updated report))
+   :province (:province report)
+   :country (:country report)})</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn extract-dated-cases [timeline]
+  (let [confirmed (extract-timeline-by-key timeline :confirmed)
+        deaths (extract-timeline-by-key timeline :deaths)]
+    (zipmap confirmed deaths)))</pre></td></tr><tr><td class="docs"><p>(second (extract-dated-cases (:timelines (first jhu-timelines))))
+           Confirmed Cases                 Deaths
+=> [[#time/date "2020-03-26" 110] [#time/date "2020-03-26" 4]]</p>
+</td><td class="codes"></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn date-readings [report]
+  &quot;Given the a parsed jhu-report, return list of maps
+   representing the # of confirmed cases for each individual day at
+   that location. ({:date X :deaths Y :confirmed Z}, ...)&quot;
+  (let [time-reports (extract-dated-cases (:timelines report))]
+    (map (fn [[deaths confirmed]]
+           {:date (first deaths)
+            :deaths (second deaths)
+            :confirmed (second confirmed)}) time-reports)))</pre></td></tr><tr><td class="docs"><p>(pprint (date-readings  (first jhu-timelines)))
+(pprint (take 2 (map date-readings jhu-timelines)))</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Each of these needs to be transformed into a Fact</p>
+</td><td class="codes"><pre class="brush: clojure">(defn compose-location-time-reports [report]
+  (let [location-data (extract-timeline-metadata report)
+        case-data (date-readings report)]
+    (map (fn [c]
+           (merge c location-data))
+         case-data)))</pre></td></tr><tr><td class="docs"><p>(pprint (take 2 (compose-location-time-reports (first jhu-timelines))))
+({:last-updated #inst "2020-04-10T13:49:21.642-00:00",
+  :date #time/date "2020-03-25",
+  :coordinates {:latitude "33.0", :longitude "65.0"},
+  :deaths 94,
+  :country-code "AF",
+  :confirmed 4,
+  :country-population 29121286,
+  :latest {:confirmed 484, :deaths 15},
+  :province "",
+  :country "Afghanistan"}
+ {:last-updated #inst "2020-04-10T13:49:21.642-00:00",
+  :date #time/date "2020-03-26",
+  :coordinates {:latitude "33.0", :longitude "65.0"},
+  :deaths 110,
+  :country-code "AF",
+  :confirmed 4,
+  :country-population 29121286,
+  :latest {:confirmed 484, :deaths 15},
+  :province "",
+  :country "Afghanistan"})</p>
+</td><td class="codes"></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(def location-time-reports
+  (map compose-location-time-reports jhu-timelines))</pre></td></tr><tr><td class="docs"><p>(pprint (first location-time-reports))</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Given a location-time-report map, return a LocationReport record</p>
+</td><td class="codes"><pre class="brush: clojure">(defn create-location-report
+  [r]
+  (let [{:keys [country
+           country-code
+           country-population
+           province
+           last-updated
+           coordinates
+           date
+           deaths
+           confirmed
+           latest]}
+        r]
+    (JHUReport.
+     &quot;Johns Hopkins University&quot;
+     &quot;https://github.com/CSSEGISandExternal-Data/COVID-19&quot;
+     country
+     country-code
+     country-population
+     province
+     last-updated
+     coordinates
+     date
+     deaths
+     confirmed
+     latest)))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(def location-report-records
+  (transform [ALL ALL] create-location-report location-time-reports))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(count (last location-report-records))</pre></td></tr><tr><td class="docs"><p>SPECTER EXPERIMENTS ;;
+(def jhu-timelines (get-all-timelines-jhu))</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>(def stringified-timelines
+  "When we first parse the json, we end up storing time strings as
+  keywords. We first go in and turn them to strings."
+  (transform [ALL :timelines MAP-VALS :timeline]
+             stringify-keys
+             jhu-timelines))</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p> (def parsed-timelines
+   "Next, read them as tick dates."
+   (transform [ALL :timelines MAP-VALS :timeline MAP-KEYS]
+                                  #(t/date (t/inst %))
+                                  stringified-timelines))</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>(def pruned-timelines
+  "Finally, we remove the extra :recovered key which is no longer reported by jhu"
+  (setval [ALL :timelines :recovered] NONE parsed-timelines))</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p> Now that we have our timelines in a more consistent form, we can begin constructing our Facts. First let's try to extract the report metadata... basically anything that's not the core timelines.</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>(defn extract-timeline-metadata [report]
+  {:coordinates (:coordinates report)
+   :country-code (:country_code report)
+   :latest {:confirmed (:confirmed (:latest report))
+            :deaths (:deaths (:latest report))}
+   :country-population (:country_population report)
+   :last-updated (t/inst (:last_updated report))
+   :province (:province report)
+   :country (:country report)})</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>(defn extract-dated-cases [report]
+  (let [timelines (:timelines report)
+        confirmed (select [:confirmed :timeline] timelines)
+        deaths (select [:deaths :timeline] timelines)
+        dates (select [ALL MAP-KEYS]
+                      confirmed)]
+    dates))</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p> (take 6 (select [ALL :timelines MAP-KEYS] pruned-timelines))
+ => (:confirmed :deaths :confirmed :deaths :confirmed :deaths)</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p> This is going in and getting a reading on a date.
+(get
+ (first (select [ALL :timelines MAP-VALS :timeline] pruned-timelines))
+  (t/date "2020-03-21"))</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p> This gets the latest based on a country code
+(select [ALL (where :country_code :IS? "us") :latest] pruned-timelines)</p>
+</td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#coronavirus-charts.sources.wikipedia" name="coronavirus-charts.sources.wikipedia"><h1 class="project-name">coronavirus-charts.sources.wikipedia</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns coronavirus-charts.sources.wikipedia)</pre></td></tr><tr><td class="docs"><p>This file will scrape the wikipedia index in order to find entries
+that reference the coronavirus in a particular location
+https://en.wikipedia.org/wiki/Special:AllPages?from=Coronavirus+in&amp;to=&amp;namespace=0</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Then we will parse it and figure out what are the reported cases
+for that location as stated on wikipedia</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>We then enter that into our rules engine as a WikiPage (or something),
+after which we can compare what is published on wikipedia, to what
+we have in our JHU dataset. If a figure reported is smaller than
+the figure in the dataset, then we flag it as needing to be updated
+using something like</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>RULE
+IF [WikiURL ?url]
+THEN [WikiScrape ?url ?body ?type(country/province) ?location ?latest]</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>RULE
+IF [WikiScrape ?url (= ?type "country") ?location ?latest-wiki]
+   [JHUReport (= ?country-name ?location ?latest-jhu)]
+   (not ?latest-wiki ?latest-jhu)</p>
+
+<p>THEN [FlaggedWiki ?url ?latest-wiki ?latest-jhu]</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>RULE
+IF [?all-flagged-wikis &lt;- FlaggedWiki]
+THEN [(make-fragments ?all-flagged-wikis)]</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>REFERENCES
+https://www.youtube.com/watch?v=L9b8EGyiVXU (practicalli youtube)
+https://practicalli.github.io/blog/posts/web-scraping-with-clojure-hacking-hacker-news/
+<a href="https://github.com/stevemolitor/cloki">Old Clojure mediawiki library</a>;; (10 years old... might be worth it to either rewrite, or just export
+to html files and then call a python script on the folder.
+<a href="https://www.mediawiki.org/wiki/API:Main_page">MediaWiki API</a>
+<a href="https://wikipedia.readthedocs.io/en/latest/">python library</a></p>
+</td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr></table><div class="footer">Generated by <a href="https://github.com/gdeer81/marginalia">Marginalia</a>.&nbsp;&nbsp;Syntax highlighting provided by Alex Gorbatchev's <a href="http://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighlighter</a><div id="floating-toc"><ul><li class="floating-toc-li" id="floating-toc_coronavirus-charts.handler">coronavirus-charts.handler</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.sessions">coronavirus-charts.sessions</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.nrepl">coronavirus-charts.nrepl</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.core">coronavirus-charts.core</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.data">coronavirus-charts.data</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.layout">coronavirus-charts.layout</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.middleware.formats">coronavirus-charts.middleware.formats</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.charts">coronavirus-charts.charts</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.config">coronavirus-charts.config</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.oz">coronavirus-charts.oz</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.facts">coronavirus-charts.facts</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.middleware">coronavirus-charts.middleware</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.routes.home">coronavirus-charts.routes.home</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.chartwell">coronavirus-charts.chartwell</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.sources.jhu">coronavirus-charts.sources.jhu</li><li class="floating-toc-li" id="floating-toc_coronavirus-charts.sources.wikipedia">coronavirus-charts.sources.wikipedia</li></ul></div></div><script type="text/javascript">SyntaxHighlighter.defaults['gutter'] = false;
 SyntaxHighlighter.all();
 
 // hackity hack
