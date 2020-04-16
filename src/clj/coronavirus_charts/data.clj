@@ -61,6 +61,7 @@
    :latest {:confirmed (:confirmed (:latest report))
             :deaths (:deaths (:latest report))}
    :country-population (:country_population report)
+   :last-updated (t/inst (:last_updated report))
    :province (:province report)
    :country (:country report)})
 
@@ -97,28 +98,30 @@
          case-data)))
 
 (pprint (take 2 (compose-location-time-reports (first jhu-timelines))))
-;; ({:date #time/date "2020-03-25",
+;; ({:last-updated #inst "2020-04-10T13:49:21.642-00:00",
+;;   :date #time/date "2020-03-25",
 ;;   :coordinates {:latitude "33.0", :longitude "65.0"},
 ;;   :deaths 94,
 ;;   :country-code "AF",
 ;;   :confirmed 4,
 ;;   :country-population 29121286,
-;;   :latest {:deaths 15, :confirmed 484},
+;;   :latest {:confirmed 484, :deaths 15},
 ;;   :province "",
 ;;   :country "Afghanistan"}
-;;  {:date #time/date "2020-03-26",
+;;  {:last-updated #inst "2020-04-10T13:49:21.642-00:00",
+;;   :date #time/date "2020-03-26",
 ;;   :coordinates {:latitude "33.0", :longitude "65.0"},
 ;;   :deaths 110,
 ;;   :country-code "AF",
 ;;   :confirmed 4,
 ;;   :country-population 29121286,
-;;   :latest {:deaths 15, :confirmed 484},
+;;   :latest {:confirmed 484, :deaths 15},
 ;;   :province "",
 ;;   :country "Afghanistan"})
 
 (def location-time-reports (map compose-location-time-reports jhu-timelines))
 
-(first location-time-reports)
+(pprint (first location-time-reports))
 
 (defrecord LocationReport2 [source-name
                            source-url
@@ -134,22 +137,26 @@
                            latest])
 
 (defn create-location-report
-  "Given the parsed json from the api call, return a LocationReport record"
-  [{:keys [country country_code country_population province
-           last_updated
+  "Given a location-time-report map, return a LocationReport record"
+  [{:keys [country
+           country-code
+           country-population
+           province
+           last-updated
            coordinates
            date
            deaths
            confirmed
-           latest]} r]
+           latest]}
+   r]
   (LocationReport2.
    "Johns Hopkins University"
    "https://github.com/CSSEGISandExternal-Data/COVID-19"
    country
-   country_code
-   country_population
+   country-code
+   country-population
    province
-   last_updated
+   last-updated
    coordinates
    date
    deaths

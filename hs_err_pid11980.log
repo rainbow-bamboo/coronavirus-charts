@@ -1,0 +1,101 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f196f2a3d15, pid=11980, tid=23967
+#
+# JRE version: OpenJDK Runtime Environment (11.0.6+10) (build 11.0.6+10)
+# Java VM: OpenJDK 64-Bit Server VM (11.0.6+10, mixed mode, tiered, compressed oops, g1 gc, linux-amd64)
+# Problematic frame:
+# C  [libjimage.so+0x2d15]
+#
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/lib/systemd/systemd-coredump %P %u %g %s %t %c %h" (or dumping to /home/rainbow_bamboo/Code/immutant/coronavirus-charts/core.11980)
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Dfile.encoding=UTF-8 -Dconf=dev-config.edn -Dclojure.compile.path=/home/rainbow_bamboo/Code/immutant/coronavirus-charts/target/default/classes -Dcoronavirus-charts.version=0.1.0-SNAPSHOT -Dclojure.debug=false clojure.main -i /tmp/form-init11790008324454998913.clj
+
+Host: Intel(R) Core(TM) i7-4600U CPU @ 2.10GHz, 4 cores, 7G, ArcoLinuxB-i3
+Time: Wed Apr 15 08:41:24 2020 AST elapsed time: 38301 seconds (0d 10h 38m 21s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f194000e000):  JavaThread "XToolkt-Shutdown-Thread" [_thread_in_vm, id=23967, stack(0x00007f18b7f71000,0x00007f18b8072000)]
+
+Stack: [0x00007f18b7f71000,0x00007f18b8072000],  sp=0x00007f18b806efc0,  free space=1015k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libjimage.so+0x2d15]
+C  [libjimage.so+0x3a0e]
+C  [libjimage.so+0x3f04]  JIMAGE_FindResource+0x104
+V  [libjvm.so+0x5b57dd]
+V  [libjvm.so+0x5b8021]
+V  [libjvm.so+0xd2f69f]
+V  [libjvm.so+0xd2e1cb]
+V  [libjvm.so+0xd30817]
+V  [libjvm.so+0x6664bc]
+V  [libjvm.so+0xa4b7d7]
+V  [libjvm.so+0xa526d4]
+V  [libjvm.so+0x8543a5]
+V  [libjvm.so+0x854a3d]
+j  sun.awt.X11.XToolkit.lambda$init$0()V+0 java.desktop@11.0.6
+j  sun.awt.X11.XToolkit$$Lambda$143.run()V+4 java.desktop@11.0.6
+J 13539 c1 java.lang.Thread.run()V java.base@11.0.6 (17 bytes) @ 0x00007f1951398494 [0x00007f1951398360+0x0000000000000134]
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x85ae2a]
+V  [libjvm.so+0x8592a0]
+V  [libjvm.so+0x9068af]
+V  [libjvm.so+0xd68246]
+V  [libjvm.so+0xd68629]
+V  [libjvm.so+0xd63178]
+V  [libjvm.so+0xbcf701]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  sun.awt.X11.XToolkit.lambda$init$0()V+0 java.desktop@11.0.6
+j  sun.awt.X11.XToolkit$$Lambda$143.run()V+4 java.desktop@11.0.6
+J 13539 c1 java.lang.Thread.run()V java.base@11.0.6 (17 bytes) @ 0x00007f1951398494 [0x00007f1951398360+0x0000000000000134]
+v  ~StubRoutines::call_stub
+
+siginfo: si_signo: 11 (SIGSEGV), si_code: 1 (SEGV_MAPERR), si_addr: 0x00007f195f926f28
+
+Register to memory mapping:
+
+RAX=0x0000000000005bc3 is an unknown value
+RBX=0x00007f18b806f071 is pointing into the stack for thread: 0x00007f194000e000
+RCX=0x00007f18b806f094 is pointing into the stack for thread: 0x00007f194000e000
+RDX=0x0000000000005bc3 is an unknown value
+RSP=0x00007f18b806efc0 is pointing into the stack for thread: 0x00007f194000e000
+RBP=0x00007f18b806efe0 is pointing into the stack for thread: 0x00007f194000e000
+RSI=0x0 is NULL
+RDI=0x00007f196f2a9030: <offset 0x0000000000008030> in /usr/lib/jvm/java-11-openjdk/lib/libjimage.so at 0x00007f196f2a1000
+R8 =0x00007f195f91001c is an unknown value
+R9 =0x00007f18b806fe90 is pointing into the stack for thread: 0x00007f194000e000
+R10=0x00007f18b80701f8 is pointing into the stack for thread: 0x00007f194000e000
+R11=0x0 is NULL
+R12=0x00000000000083a0 is an unknown value
+R13=0x00007f18b806f070 is pointing into the stack for thread: 0x00007f194000e000
+R14=0x0 is NULL
+R15=0x00007f1940006940 points into unknown readable memory: 73 75 6e 2f 61 77 74 2f
+
+
+Registers:
+RAX=0x0000000000005bc3, RBX=0x00007f18b806f071, RCX=0x00007f18b806f094, RDX=0x0000000000005bc3
+RSP=0x00007f18b806efc0, RBP=0x00007f18b806efe0, RSI=0x0000000000000000, RDI=0x00007f196f2a9030
+R8 =0x00007f195f91001c, R9 =0x00007f18b806fe90, R10=0x00007f18b80701f8, R11=0x0000000000000000
+R12=0x00000000000083a0, R13=0x00007f18b806f070, R14=0x0000000000000000, R15=0x00007f1940006940
+RIP=0x00007f196f2a3d15, EFLAGS=0x0000000000010246, CSGSFS=0x002b000000000033, ERR=0x0000000000000004
+  TRAPNO=0x000000000000000e
+
+Top of Stack: (sp=0x00007f18b806efc0)
+0x00007f18b806efc0:   00007f191851d000 00007f18b8070118
+0x00007f18b806efd0:   00007f1968026c10 00007f18b806f070
+0x00007f18b806efe0:   00007f18b806f050 00007f196f2a4a0e
+0x00007f18b806eff0:   00007f19182c17f8 00007f191851d000 
+
+Instructions: (pc=0x00007f196f2a3d15)
+0x00007f196f2a3c15:   4c 89 5d 98 41 c6 04 16 2f 4c 89 da ff 15 c1 53
+0x00007f196f2a3c25:   00 00 4c 8b 5d 98 4d 01 df 4d 85 f6 74 09 4c 89
+0x00007f196f2a3c35:   f7 ff 15 54 53 00 00 44 03 65 90 e9 34 fe ff ff
+0x00007f196f2a3c45:   0f 1f 00 41 8b 10 41 89 55 00 41 

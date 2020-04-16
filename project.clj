@@ -34,6 +34,9 @@
                  [com.cerner/clara-rules "0.20.0"]
 ;;                 [org.clojars.pallix/analemma "1.0.0"]
                  [metasoarous/oz "1.6.0-alpha6"]
+                 [enlive "1.1.6"]
+                 [com.rpl/specter "1.1.3"]
+                 [com.brunobonacci/where "0.5.5"]
                  [clj-http "3.10.0"]
 
                  ;; Possibly a method of matching user ip to charts but the build
