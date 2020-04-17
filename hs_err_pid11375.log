@@ -1,0 +1,181 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f31da882d15, pid=11375, tid=11407
+#
+# JRE version: OpenJDK Runtime Environment (11.0.6+10) (build 11.0.6+10)
+# Java VM: OpenJDK 64-Bit Server VM (11.0.6+10, mixed mode, tiered, compressed oops, g1 gc, linux-amd64)
+# Problematic frame:
+# C  [libjimage.so+0x2d15]
+#
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/lib/systemd/systemd-coredump %P %u %g %s %t %c %h" (or dumping to /home/rainbow_bamboo/Code/immutant/coronavirus-charts/core.11375)
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Dfile.encoding=UTF-8 -Dconf=dev-config.edn -Dclojure.compile.path=/home/rainbow_bamboo/Code/immutant/coronavirus-charts/target/default/classes -Dcoronavirus-charts.version=0.1.0-SNAPSHOT -Dclojure.debug=false clojure.main -i /tmp/form-init3633361798503728597.clj
+
+Host: Intel(R) Core(TM) i7-4600U CPU @ 2.10GHz, 4 cores, 7G, ArcoLinuxB-i3
+Time: Fri Apr 17 05:51:13 2020 AST elapsed time: 48521 seconds (0d 13h 28m 41s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f31d59ed800):  JavaThread "clojure-agent-send-off-pool-1" [_thread_in_vm, id=11407, stack(0x00007f31689fe000,0x00007f3168aff000)]
+
+Stack: [0x00007f31689fe000,0x00007f3168aff000],  sp=0x00007f3168afba70,  free space=1014k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libjimage.so+0x2d15]
+C  [libjimage.so+0x3a0e]
+C  [libjimage.so+0x3f04]  JIMAGE_FindResource+0x104
+V  [libjvm.so+0x5b57dd]
+V  [libjvm.so+0x5b8021]
+V  [libjvm.so+0xd2f69f]
+V  [libjvm.so+0xd2e1cb]
+V  [libjvm.so+0xd30817]
+V  [libjvm.so+0x6664bc]
+V  [libjvm.so+0xa4b7d7]
+V  [libjvm.so+0xa526d4]
+V  [libjvm.so+0x8543a5]
+V  [libjvm.so+0x854a3d]
+j  java.net.AbstractPlainSocketImpl.close()V+21 java.base@11.0.6
+j  java.net.SocksSocketImpl.close()V+20 java.base@11.0.6
+j  java.net.Socket.close()V+28 java.base@11.0.6
+j  nrepl.transport$bencode$fn__28346.invoke()Ljava/lang/Object;+21
+j  nrepl.transport$fn_transport$fn__28296.invoke()Ljava/lang/Object;+7
+j  nrepl.transport.FnTransport.close()V+9
+j  nrepl.server$safe_close.invokeStatic(Ljava/lang/Object;)Ljava/lang/Object;+4
+j  nrepl.server$safe_close.invoke(Ljava/lang/Object;)Ljava/lang/Object;+3
+j  nrepl.server$accept_connection$fn__29079.invoke()Ljava/lang/Object;+183
+j  clojure.core$binding_conveyor_fn$fn__5754.invoke()Ljava/lang/Object;+16
+J 6498 c2 clojure.lang.AFn.call()Ljava/lang/Object; (5 bytes) @ 0x00007f31c4a4205c [0x00007f31c4a42020+0x000000000000003c]
+j  java.util.concurrent.FutureTask.run()V+39 java.base@11.0.6
+j  java.util.concurrent.ThreadPoolExecutor.runWorker(Ljava/util/concurrent/ThreadPoolExecutor$Worker;)V+92 java.base@11.0.6
+j  java.util.concurrent.ThreadPoolExecutor$Worker.run()V+5 java.base@11.0.6
+j  java.lang.Thread.run()V+11 java.base@11.0.6
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x85ae2a]
+V  [libjvm.so+0x8592a0]
+V  [libjvm.so+0x9068af]
+V  [libjvm.so+0xd68246]
+V  [libjvm.so+0xd68629]
+V  [libjvm.so+0xd63178]
+V  [libjvm.so+0xbcf701]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  java.net.AbstractPlainSocketImpl.close()V+21 java.base@11.0.6
+j  java.net.SocksSocketImpl.close()V+20 java.base@11.0.6
+j  java.net.Socket.close()V+28 java.base@11.0.6
+j  nrepl.transport$bencode$fn__28346.invoke()Ljava/lang/Object;+21
+j  nrepl.transport$fn_transport$fn__28296.invoke()Ljava/lang/Object;+7
+j  nrepl.transport.FnTransport.close()V+9
+j  nrepl.server$safe_close.invokeStatic(Ljava/lang/Object;)Ljava/lang/Object;+4
+j  nrepl.server$safe_close.invoke(Ljava/lang/Object;)Ljava/lang/Object;+3
+j  nrepl.server$accept_connection$fn__29079.invoke()Ljava/lang/Object;+183
+j  clojure.core$binding_conveyor_fn$fn__5754.invoke()Ljava/lang/Object;+16
+J 6498 c2 clojure.lang.AFn.call()Ljava/lang/Object; (5 bytes) @ 0x00007f31c4a4205c [0x00007f31c4a42020+0x000000000000003c]
+j  java.util.concurrent.FutureTask.run()V+39 java.base@11.0.6
+j  java.util.concurrent.ThreadPoolExecutor.runWorker(Ljava/util/concurrent/ThreadPoolExecutor$Worker;)V+92 java.base@11.0.6
+j  java.util.concurrent.ThreadPoolExecutor$Worker.run()V+5 java.base@11.0.6
+j  java.lang.Thread.run()V+11 java.base@11.0.6
+v  ~StubRoutines::call_stub
+
+siginfo: si_signo: 11 (SIGSEGV), si_code: 1 (SEGV_MAPERR), si_addr: 0x00007f31cb91a5f8
+
+Register to memory mapping:
+
+RAX=0x0000000000002977 is an unknown value
+RBX=0x00007f3168afbb21 is pointing into the stack for thread: 0x00007f31d59ed800
+RCX=0x00007f3168afbb40 is pointing into the stack for thread: 0x00007f31d59ed800
+RDX=0x0000000000002977 is an unknown value
+RSP=0x00007f3168afba70 is pointing into the stack for thread: 0x00007f31d59ed800
+RBP=0x00007f3168afba90 is pointing into the stack for thread: 0x00007f31d59ed800
+RSI=0x0 is NULL
+RDI=0x00007f31da888030: <offset 0x0000000000008030> in /usr/lib/jvm/java-11-openjdk/lib/libjimage.so at 0x00007f31da880000
+R8 =0x00007f31cb91001c is an unknown value
+R9 =0x00007f31d51342c0 points into unknown readable memory: 04 00 00 00 00 00 00 00
+R10=0x0000000000000031 is an unknown value
+R11=0x0 is NULL
+R12=0x00000000000083a0 is an unknown value
+R13=0x00007f3168afbb20 is pointing into the stack for thread: 0x00007f31d59ed800
+R14=0x0 is NULL
+R15=0x00007f3184223df0 points into unknown readable memory: 73 75 6e 2f 6e 65 74 2f
+
+
+Registers:
+RAX=0x0000000000002977, RBX=0x00007f3168afbb21, RCX=0x00007f3168afbb40, RDX=0x0000000000002977
+RSP=0x00007f3168afba70, RBP=0x00007f3168afba90, RSI=0x0000000000000000, RDI=0x00007f31da888030
+R8 =0x00007f31cb91001c, R9 =0x00007f31d51342c0, R10=0x0000000000000031, R11=0x0000000000000000
+R12=0x00000000000083a0, R13=0x00007f3168afbb20, R14=0x0000000000000000, R15=0x00007f3184223df0
+RIP=0x00007f31da882d15, EFLAGS=0x0000000000010246, CSGSFS=0x002b000000000033, ERR=0x0000000000000004
+  TRAPNO=0x000000000000000e
+
+Top of Stack: (sp=0x00007f3168afba70)
+0x00007f3168afba70:   00007f3168afbae0 00007f3168afcbc8
+0x00007f3168afba80:   00007f31d4026c10 00007f3168afbb20
+0x00007f3168afba90:   00007f3168afbb00 00007f31da883a0e
+0x00007f3168afbaa0:   0000000000000002 00007f31db831be4 
+
+Instructions: (pc=0x00007f31da882d15)
+0x00007f31da882c15:   4c 89 5d 98 41 c6 04 16 2f 4c 89 da ff 15 c1 53
+0x00007f31da882c25:   00 00 4c 8b 5d 98 4d 01 df 4d 85 f6 74 09 4c 89
+0x00007f31da882c35:   f7 ff 15 54 53 00 00 44 03 65 90 e9 34 fe ff ff
+0x00007f31da882c45:   0f 1f 00 41 8b 10 41 89 55 00 41 8b 54 00 fc 41
+0x00007f31da882c55:   89 54 05 fc e9 72 fc ff ff 66 90 b9 0a 00 00 00
+0x00007f31da882c65:   e9 ea fc ff ff 41 0f b7 54 00 fe 66 41 89 54 05
+0x00007f31da882c75:   fe e9 55 fc ff ff 0f 1f 44 00 00 0f b6 17 89 f0
+0x00007f31da882c85:   89 f1 4c 8d 47 01 84 d2 74 18 90 69 c9 93 01 00
+0x00007f31da882c95:   01 49 83 c0 01 31 d1 41 0f b6 50 ff 84 d2 75 eb
+0x00007f31da882ca5:   89 c8 25 ff ff ff 7f c3 90 66 90 48 85 d2 0f 84
+0x00007f31da882cb5:   e1 00 00 00 55 48 89 e5 41 55 41 54 41 89 cc 53
+0x00007f31da882cc5:   48 83 ec 08 85 c9 0f 84 c1 00 00 00 49 89 f5 48
+0x00007f31da882cd5:   8d 5e 01 0f b6 36 49 89 d0 40 84 f6 0f 84 a1 00
+0x00007f31da882ce5:   00 00 48 89 d9 b8 93 01 00 01 90 69 d0 93 01 00
+0x00007f31da882cf5:   01 48 83 c1 01 40 0f b6 c6 0f b6 71 ff 31 d0 40
+0x00007f31da882d05:   84 f6 75 e7 25 ff ff ff 7f 31 d2 41 f7 f4 89 d0
+0x00007f31da882d15:   41 8b 34 80 48 8b 07 ff 50 20 85 c0 7f 1d 74 6d
+0x00007f31da882d25:   f7 d0 41 89 c0 48 83 c4 08 44 89 c0 5b 41 5c 41
+0x00007f31da882d35:   5d 5d c3 0f 1f 84 00 00 00 00 00 41 0f b6 4d 00
+0x00007f31da882d45:   89 c6 84 c9 74 1b 0f 1f 44 00 00 69 f6 93 01 00
+0x00007f31da882d55:   01 48 83 c3 01 31 ce 0f b6 4b ff 84 c9 75 ec 89
+0x00007f31da882d65:   f0 25 ff ff ff 7f 31 d2 48 83 c4 08 41 f7 f4 5b
+0x00007f31da882d75:   41 5c 41 5d 5d 41 89 d0 44 89 c0 c3 0f 1f 80 00
+0x00007f31da882d85:   00 00 00 b8 93 01 00 01 e9 7c ff ff ff 41 b8 ff
+0x00007f31da882d95:   ff ff ff eb 90 41 83 c8 ff 44 89 c0 c3 66 66 2e
+0x00007f31da882da5:   0f 1f 84 00 00 00 00 00 0f 1f 00 eb 19 66 0f 1f
+0x00007f31da882db5:   44 00 00 0f b6 16 84 d2 74 13 38 c2 75 1d 48 83
+0x00007f31da882dc5:   c7 01 48 83 c6 01 0f b6 07 84 c0 75 e6 48 89 f8
+0x00007f31da882dd5:   c3 66 2e 0f 1f 84 00 00 00 00 00 31 c0 c3 90 66
+0x00007f31da882de5:   66 2e 0f 1f 84 00 00 00 00 00 90 48 85 f6 74 55
+0x00007f31da882df5:   0f b6 06 84 c0 74 4e 0f 1f 40 00 0f b6 d0 83 e0
+0x00007f31da882e05:   07 c1 fa 03 44 8d 50 01 0f b6 c0 41 89 d1 4c 8d 
+
+
+Stack slot to memory mapping:
+stack at sp + 0 slots: 0x00007f3168afbae0 is pointing into the stack for thread: 0x00007f31d59ed800
+stack at sp + 1 slots: 0x00007f3168afcbc8 is pointing into the stack for thread: 0x00007f31d59ed800
+stack at sp + 2 slots: 0x00007f31d4026c10 points into unknown readable memory: e0 e3 4c d7 31 7f 00 00
+stack at sp + 3 slots: 0x00007f3168afbb20 is pointing into the stack for thread: 0x00007f31d59ed800
+stack at sp + 4 slots: 0x00007f3168afbb00 is pointing into the stack for thread: 0x00007f31d59ed800
+stack at sp + 5 slots: 0x00007f31da883a0e: <offset 0x0000000000003a0e> in /usr/lib/jvm/java-11-openjdk/lib/libjimage.so at 0x00007f31da880000
+stack at sp + 6 slots: 0x0000000000000002 is an unknown value
+stack at sp + 7 slots: 0x00007f31db831be4: <offset 0x0000000000b26be4> in /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so at 0x00007f31dad0b000
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007f31a40050c0, length=69, elements={
+0x00007f31d401a000, 0x00007f31d4147800, 0x00007f31d414b800, 0x00007f31d415f000,
+0x00007f31d4161000, 0x00007f31d4163800, 0x00007f31d4165800, 0x00007f31d420c800,
+0x00007f31d4221800, 0x00007f31d5252000, 0x00007f31d5130000, 0x00007f31d59ed800,
+0x00007f3158005000, 0x00007f3144004000, 0x00007f314400c800, 0x00007f314403f000,
+0x00007f314401f000, 0x00007f313907f800, 0x00007f3139082000, 0x00007f31390fa800,
+0x00007f315c001800, 0x00007f314807a800, 0x00007f3148102000, 0x00007f31481af800,
+0x00007f31481b1000, 0x00007f3174053800, 0x00007f3198002800, 0x00007f31482ea800,
+0x00007f3148292000, 0x00007f3148269800, 0x00007f314803d800, 0x00007f3148713800,
+0x00007f3148037000, 0x00007f31a005c800, 0x00007f3148707000, 0x00007f3148704800,
+0x00007f31a012d800, 0x00007f319801d800, 0x00007f3160025000, 0x00007f3178450000,
+0x00007f3148257000

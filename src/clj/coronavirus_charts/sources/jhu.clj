@@ -1,13 +1,25 @@
 (ns coronavirus-charts.sources.jhu
   (:require
    [coronavirus-charts.data :as d]
-   [coronavirus-charts.facts :refer [hello]]
    [clojure.pprint :refer [pprint]]
    [clojure.walk :refer [stringify-keys]]
    [tick.alpha.api :as t]
    [where.core :refer [where]]
    [com.rpl.specter :refer :all]))
 
+(defrecord JHUReport
+    [source-name
+     source-url
+     country
+     country-code
+     country-population
+     province
+     last-updated
+     coordinates
+     date
+     deaths
+     confirmed
+     latest])
 
 (defn get-latest-global-jhu
   "Queries the xapix covid-19 api to return the latest confrimed and deaths
@@ -56,7 +68,7 @@
         deaths (extract-timeline-by-key timeline :deaths)]
     (zipmap confirmed deaths)))
 
-;; (second (extract-dated-cases (:timelines (first jhu-timelines))))
+
 ;;            Confirmed Cases                 Deaths
 ;; => [[#time/date "2020-03-26" 110] [#time/date "2020-03-26" 4]]
 
@@ -66,7 +78,7 @@
    representing the # of confirmed cases for each individual day at
    that location. ({:date X :deaths Y :confirmed Z}, ...)"
   (let [time-reports (extract-dated-cases (:timelines report))]
-    (map (fn [[deaths confirmed]]
+    (map (fn [[confirmed deaths]]
            {:date (first deaths)
             :deaths (second deaths)
             :confirmed (second confirmed)}) time-reports)))
@@ -106,9 +118,9 @@
 ;;   :country "Afghanistan"})
 
 (def location-time-reports
-  (map compose-location-time-reports jhu-timelines))
+  (map compose-location-time-reports (get-all-timelines-jhu)))
 
-;; (pprint (first location-time-reports))
+(first location-time-reports)
 
 
 (defn create-location-report
@@ -139,10 +151,35 @@
      confirmed
      latest)))
 
-(def location-report-records
-  (transform [ALL ALL] create-location-report location-time-reports))
 
-(count (last location-report-records))
+
+(defn jhu-report-records
+  "This function queries the xapix jhu endpoint and then transforms the timelines
+  there into a collection of JHUReport records."
+  []
+  (let [timelines (get-all-timelines-jhu)
+        location-time-reports (map compose-location-time-reports timelines)]
+    (select [ALL ALL]
+            (transform [ALL ALL]
+                       create-location-report location-time-reports))))
+
+
+;; Queries
+
+(defquery query-jhu-reports
+  [:?country]
+  [?jhu-report <- jhu/JHUReport (= ?country country)])
+
+(defn query-country-jhu
+  "Given a location name, eg 'Italy,' we query a defreferenced
+  wikipedia-session and return the appropriate JHUReport record."
+  [session country]
+  (-> @session
+      (query query-jhu-reports :?country country)))
+
+;; End Queries
+
+;; => 22440
 
 ;; SPECTER EXPERIMENTS ;;
 ;; (def jhu-timelines (get-all-timelines-jhu))
@@ -165,7 +202,9 @@
 ;;   (setval [ALL :timelines :recovered] NONE parsed-timelines))
 
 
-;; ;; Now that we have our timelines in a more consistent form, we can begin constructing our Facts. First let's try to extract the report metadata... basically anything that's not the core timelines.
+;; Now that we have our timelines in a more consistent form,
+;; we can begin constructing our Facts. First let's try to extract the
+;; report metadata... basically anything that's not the core timelines.
 
 ;; (defn extract-timeline-metadata [report]
 ;;   {:coordinates (:coordinates report)
