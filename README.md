@@ -1,8 +1,9 @@
 # coronavirus-charts
 
-generated using Luminus version "3.63"
+https://devpost.com/software/coronavirus-charts-org
 
-FIXME
+https://rainbow-bamboo.github.io/coronavirus-charts/uberdoc.html
+
 
 ## Prerequisites
 
